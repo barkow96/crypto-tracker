@@ -1,42 +1,47 @@
 import { colors } from "@/constants/colors";
-import { Box, HStack } from "@chakra-ui/react";
-import Link from "next/link";
+import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
+import NavbarLinksSmall from "./NavbarLinksSmall";
+import NavbarLinksLarge from "./NavbarLinksLarge";
 
 const Navbar: React.FC = () => {
-  const infoBoxStyles = { px: "15px", borderRight: `2px solid ${colors.dark}` };
-  const largeMenuBoxStyles = {
-    _hover: { transform: "scale(1.1)" },
-    transition: "transform 0.15s",
+  const isLargeScreen = useBreakpointValue({ base: false, lg: true });
+  const infoBoxStyles = {
+    width: "120px",
+    px: "15px",
+    borderRight: `2px solid ${colors.dark}`,
   };
+  const links = [
+    { href: "/auth", description: "login/signup" },
+    { href: "/portfolio", description: "portfolio" },
+    { href: "/watchlist", description: "watchlist" },
+    { href: "/tools", description: "tools" },
+  ];
 
   return (
-    <HStack
-      backgroundColor={colors.yellow}
+    <Flex
       justify="space-between"
       px="20px"
       py="10px"
+      fontSize="14px"
+      backgroundColor={colors.yellow}
     >
-      <HStack>
-        <Box {...infoBoxStyles}>Market Cap: $2.60T</Box>
-        <Box {...infoBoxStyles}>BTC Dominance: 51.9%</Box>
-        <Box {...infoBoxStyles}>ETH Dominance: 16.8%</Box>
-        <Box {...infoBoxStyles}>Halving: 33D</Box>
-      </HStack>
-      <HStack gap="25px" fontWeight="bold">
-        <Box {...largeMenuBoxStyles}>
-          <Link href="/auth">login/signup</Link>
+      <Flex wrap="wrap" maxWidth="75%" gap="5px">
+        <Box {...infoBoxStyles}>
+          Market Cap: <Box>$2.60T</Box>
         </Box>
-        <Box {...largeMenuBoxStyles}>
-          <Link href="/portfolio">portfolio</Link>
+        <Box {...infoBoxStyles}>
+          BTC Dominance: <Box>51.9%</Box>
         </Box>
-        <Box {...largeMenuBoxStyles}>
-          <Link href="/watchlist">watchlist</Link>
+        <Box {...infoBoxStyles}>
+          ETH Dominance: <Box>16.8%</Box>
         </Box>
-        <Box {...largeMenuBoxStyles}>
-          <Link href="/tools">tools</Link>
+        <Box {...infoBoxStyles}>
+          Halving: <Box>33D</Box>
         </Box>
-      </HStack>
-    </HStack>
+      </Flex>
+      {isLargeScreen && <NavbarLinksLarge links={links} />}
+      {!isLargeScreen && <NavbarLinksSmall links={links} />}
+    </Flex>
   );
 };
 
