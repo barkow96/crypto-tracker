@@ -1,9 +1,11 @@
-import { Text } from "@chakra-ui/react";
+import Logo from "./Logo";
+import Navbar from "./Navbar";
 
 const Header: React.FC = () => {
   return (
     <header>
-      <Text>Header</Text>
+      <Logo />
+      <Navbar />
     </header>
   );
 };
