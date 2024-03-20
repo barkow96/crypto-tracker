@@ -1,12 +1,17 @@
 import { colors } from "@/constants/colors";
 import { Box, Heading } from "@chakra-ui/react";
+import Link from "next/link";
 
 const Logo: React.FC = () => {
   return (
     <Box backgroundColor={colors.red}>
       <Heading as="h1" textAlign="center" fontSize="50px" letterSpacing="5px">
-        Crypto
-        <span style={{ fontStyle: "italic", color: colors.yellow }}>Pulse</span>
+        <Link href="/">
+          Crypto
+          <span style={{ fontStyle: "italic", color: colors.yellow }}>
+            Pulse
+          </span>
+        </Link>
       </Heading>
       <Heading
         as="h3"
