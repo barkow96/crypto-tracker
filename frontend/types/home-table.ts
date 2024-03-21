@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 export type HomeTableItemProps = {
   rank: number;
   name: string;
@@ -20,3 +22,6 @@ export type CustomTd<T> = {
   prefix?: string;
   sufix?: string;
 };
+
+export type SearchedCoin = string | null;
+export type SearchCoinHandler = (event: ChangeEvent<HTMLInputElement>) => void;

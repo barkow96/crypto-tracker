@@ -1,0 +1,1 @@
+export const DELAY_SEARCH_FOR_COIN = 1000;

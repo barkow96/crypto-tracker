@@ -76,4 +76,15 @@ export const coins: HomeTableItemProps[] = [
     change7D: 20,
     change30D: 0.5,
   },
+  {
+    rank: 6,
+    name: "Binance Coin 2",
+    ticker: "BNB2",
+    price: 550,
+    marketCap: 11250100070,
+    change1H: -1.5,
+    change24H: -11,
+    change7D: 20,
+    change30D: 0.5,
+  },
 ];

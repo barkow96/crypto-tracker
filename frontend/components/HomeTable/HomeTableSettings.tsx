@@ -1,7 +1,11 @@
+import { SearchCoinHandler } from "@/types/home-table";
 import { SettingsIcon } from "@chakra-ui/icons";
 import { Box, Flex, Icon, Input, Select } from "@chakra-ui/react";
+import { ChangeEvent } from "react";
 
-const HomeTableSettings: React.FC = () => {
+const HomeTableSettings: React.FC<{ searchCoinHandler: SearchCoinHandler }> = ({
+  searchCoinHandler,
+}) => {
   return (
     <Flex
       width="100%"
@@ -11,7 +15,7 @@ const HomeTableSettings: React.FC = () => {
       margin="auto"
     >
       <Box>
-        <Input placeholder="Search for a coin" />
+        <Input placeholder="Search for a coin" onChange={searchCoinHandler} />
       </Box>
       <Flex gap="20px">
         <Select cursor="pointer">
