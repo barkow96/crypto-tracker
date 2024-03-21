@@ -25,3 +25,9 @@ export type CustomTd<T> = {
 
 export type SearchedCoin = string | null;
 export type SearchCoinHandler = (event: ChangeEvent<HTMLInputElement>) => void;
+export type SelectRowsHandler = (event: ChangeEvent<HTMLSelectElement>) => void;
+
+export type PaginationProps = {
+  totalPages: number;
+  pageChangeHandler: (pageId: number) => void;
+};

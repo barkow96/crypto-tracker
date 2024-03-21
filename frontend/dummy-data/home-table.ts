@@ -1,6 +1,6 @@
 import { HomeTableItemProps } from "@/types/home-table";
 
-export const coins: HomeTableItemProps[] = [
+export const exampleCoins: HomeTableItemProps[] = [
   {
     rank: 1,
     name: "Bitcoin",

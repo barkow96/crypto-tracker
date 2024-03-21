@@ -1,13 +1,17 @@
 import { Box, Table, Thead, Tbody, Th, Tr } from "@chakra-ui/react";
 import HomeTableSettings from "./HomeTableSettings";
 import HomeTableItem from "./HomeTableItem";
-import { coins } from "@/dummy-data/home-table";
+import { exampleCoins } from "@/dummy-data/home-table";
 import { ChangeEvent, useEffect, useState } from "react";
-import { SearchedCoin } from "@/types/home-table";
+import { HomeTableItemProps, SearchedCoin } from "@/types/home-table";
 import { useFilteredCoins } from "@/hooks/useFilteredCoins";
+import { ROWS_NUMBER } from "@/constants/constants";
+import Pagination from "./Pagination";
 
 const HomeTable: React.FC = () => {
+  const [coins, setCoins] = useState<HomeTableItemProps[]>(exampleCoins);
   const [searchedCoin, setSearchedCoin] = useState<SearchedCoin>(null);
+  const [rowsQuantity, setRowsQuantity] = useState<number>(ROWS_NUMBER.MAX);
   const filteredCoins = useFilteredCoins(coins, searchedCoin);
 
   function searchCoinHandler(event: ChangeEvent<HTMLInputElement>) {
@@ -15,9 +19,20 @@ const HomeTable: React.FC = () => {
     else setSearchedCoin(event.target.value);
   }
 
+  function selectRowsHandler(event: ChangeEvent<HTMLSelectElement>) {
+    setRowsQuantity(parseInt(event.target.value));
+  }
+
+  function pageChangeHandler(pageId: number) {
+    console.log("Zmieniono na stronę numer: ", pageId);
+  }
+
   return (
     <Box>
-      <HomeTableSettings searchCoinHandler={searchCoinHandler} />
+      <HomeTableSettings
+        searchCoinHandler={searchCoinHandler}
+        selectRowsHandler={selectRowsHandler}
+      />
       <Table>
         <Thead>
           <Tr>
@@ -42,6 +57,10 @@ const HomeTable: React.FC = () => {
           ))}
         </Tbody>
       </Table>
+      <Pagination
+        totalPages={Math.ceil(filteredCoins.length / rowsQuantity)}
+        pageChangeHandler={pageChangeHandler}
+      />
     </Box>
   );
 };
