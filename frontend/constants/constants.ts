@@ -4,3 +4,4 @@ export const ROWS_NUMBER = {
   MEDIUM: 5,
   MIN: 2,
 };
+export const PAGINATION_INITIAL_PAGE = 1;

@@ -3,12 +3,13 @@ import { Box, Button, Flex, Icon } from "@chakra-ui/react";
 import { PaginationProps } from "@/types/home-table";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { colors } from "@/constants/colors";
+import { PAGINATION_INITIAL_PAGE } from "@/constants/constants";
 
 const Pagination: React.FC<PaginationProps> = ({
   totalPages,
   pageChangeHandler,
 }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(PAGINATION_INITIAL_PAGE);
   const paginationButtonStyles = {
     width: "120px",
     backgroundColor: colors.red,
