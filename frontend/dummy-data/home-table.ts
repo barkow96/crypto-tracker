@@ -75,6 +75,11 @@ export const exampleCoins: HomeTableItemdata[] = [
     change24H: -11,
     change7D: 20,
     change30D: 0.5,
+    change90D: 2.1,
+    changeYTD: 210,
+    volume24H: 3000,
+    volume7D: 8000,
+    volume30D: 55000,
   },
   {
     rank: 6,
@@ -86,5 +91,10 @@ export const exampleCoins: HomeTableItemdata[] = [
     change24H: -11,
     change7D: 20,
     change30D: 0.5,
+    change90D: 2.1,
+    changeYTD: 140,
+    volume24H: 2792,
+    volume7D: 7520,
+    volume30D: 52000,
   },
 ];

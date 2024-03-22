@@ -26,7 +26,7 @@ export function useFilteredCoins(
     }, DELAY_SEARCH_FOR_COIN);
 
     return () => clearTimeout(delay);
-  }, [searchedCoin]);
+  }, [coins, searchedCoin]);
 
-  return filteredCoins;
+  return { filteredCoins, setFilteredCoins };
 }

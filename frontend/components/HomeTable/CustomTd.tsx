@@ -6,7 +6,7 @@ const CustomTd: React.FC<CustomTdProps> = ({ value, prefix, sufix }) => {
   const prefixWithLogic = value && prefix ? prefix : "";
   const sufixWithLogic = value && sufix ? sufix : "";
 
-  let textColor = "black";
+  let textColor = colors.black;
   if (value && typeof value === "number" && value > 0) textColor = colors.green;
   if (value && typeof value === "number" && value < 0)
     textColor = colors.lightRed;
@@ -14,7 +14,7 @@ const CustomTd: React.FC<CustomTdProps> = ({ value, prefix, sufix }) => {
   return (
     <Td color={textColor}>
       {prefixWithLogic}
-      {value ? value : "n/a"}
+      {value && value !== "" ? value : "n/a"}
       {sufixWithLogic}
     </Td>
   );

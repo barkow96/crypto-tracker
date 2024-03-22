@@ -7,26 +7,36 @@ import {
   HomeTableItemdata,
   HomeTableMetadata,
   SearchedCoin,
+  SortOptions,
 } from "@/types/home-table";
 import { useFilteredCoins } from "@/hooks/useFilteredCoins";
 import { PAGINATION_INITIAL_PAGE, ROWS_NUMBER } from "@/constants/constants";
 import Pagination from "./Pagination";
 import { TABLE_INITIAL_CONFIG } from "@/constants/table-initial";
+import { defineSortDirection, sortByProperty } from "@/libs/utils";
 
 const HomeTable: React.FC = () => {
   const [tableMetadata, setTableMetadata] =
     useState<HomeTableMetadata>(TABLE_INITIAL_CONFIG);
-  const [coins, setCoins] = useState<HomeTableItemdata[]>(exampleCoins);
-  const [searchedCoin, setSearchedCoin] = useState<SearchedCoin>(null);
   const [rowsQuantity, setRowsQuantity] = useState<number>(ROWS_NUMBER.MAX);
   const [currentPage, setCurrentPage] = useState<number>(
     PAGINATION_INITIAL_PAGE
   );
-  const filteredCoins = useFilteredCoins(coins, searchedCoin);
+
+  const [coins, setCoins] = useState<HomeTableItemdata[]>(exampleCoins);
+  const [searchedCoin, setSearchedCoin] = useState<SearchedCoin>(null);
+  const { filteredCoins, setFilteredCoins } = useFilteredCoins(
+    coins,
+    searchedCoin
+  );
 
   const tableHeaders: ReactNode[] = Object.keys(tableMetadata).map((key) => {
     if (tableMetadata[key].isActive)
-      return <Th key={key}>{tableMetadata[key].header}</Th>;
+      return (
+        <Th key={key} cursor="pointer" onClick={sortHandler.bind(null, key)}>
+          {tableMetadata[key].header}
+        </Th>
+      );
     else return null;
   });
 
@@ -45,6 +55,31 @@ const HomeTable: React.FC = () => {
 
   function pageChangeHandler(pageId: number) {
     setCurrentPage(pageId);
+  }
+
+  function sortHandler(property: string) {
+    const sortDirection: SortOptions = defineSortDirection(
+      tableMetadata,
+      property
+    );
+
+    setTableMetadata((prevState) => ({
+      ...prevState,
+      [property]: {
+        isActive: prevState[property].isActive,
+        header: prevState[property].header,
+        custom: prevState[property].custom,
+        sorting: sortDirection,
+      },
+    }));
+
+    const sortedCoins: HomeTableItemdata[] = sortByProperty(
+      property,
+      [...filteredCoins],
+      sortDirection
+    );
+
+    setFilteredCoins(sortedCoins);
   }
 
   return (
