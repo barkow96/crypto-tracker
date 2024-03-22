@@ -18,7 +18,7 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   useEffect(() => {
-    setCurrentPage(1);
+    setCurrentPage(PAGINATION_INITIAL_PAGE);
   }, [totalPages]);
 
   function paginationButtonHandler(action: "PREVIOUS" | "NEXT") {

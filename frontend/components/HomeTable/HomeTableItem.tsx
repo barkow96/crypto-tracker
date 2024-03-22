@@ -1,41 +1,28 @@
-import { colors } from "@/constants/colors";
-import { HomeTableItemProps } from "@/types/home-table";
-import { Td, Tr } from "@chakra-ui/react";
+import { CustomTdProps, HomeTableItemProps } from "@/types/home-table";
+import { Tr } from "@chakra-ui/react";
 import CustomTd from "./CustomTd";
+import { ReactNode } from "react";
 
 const HomeTableItem: React.FC<HomeTableItemProps> = (props) => {
-  const { rank, name, ticker, price, marketCap } = props;
-  const {
-    change1H,
-    change24H,
-    change7D,
-    change30D,
-    change90D,
-    changeYTD,
-    volume24H,
-    volume7D,
-    volume30D,
-  } = props;
+  const { settings } = props;
+  const { data } = props;
 
-  return (
-    <Tr>
-      <Td>{rank}</Td>
-      <Td>
-        {name} <span style={{ color: colors.gray }}>{ticker}</span>
-      </Td>
-      <Td>${price}</Td>
-      <Td>${marketCap}</Td>
-      <CustomTd value={change1H} sufix="%" />
-      <CustomTd value={change24H} sufix="%" />
-      <CustomTd value={change7D} sufix="%" />
-      <CustomTd value={change30D} sufix="%" />
-      <CustomTd value={change90D} sufix="%" />
-      <CustomTd value={changeYTD} sufix="%" />
-      <CustomTd value={volume24H} prefix="$" />
-      <CustomTd value={volume7D} prefix="$" />
-      <CustomTd value={volume30D} prefix="$" />
-    </Tr>
+  const tableColumns: ReactNode[] = Object.entries(data).map(
+    ([dataKey, dataValue]) => {
+      if (!settings[dataKey].isActive) return null;
+
+      const key = `${dataKey}-${dataValue}`;
+      const customTdProps: CustomTdProps = { value: dataValue };
+      if (settings[dataKey].custom && settings[dataKey].custom?.prefix)
+        customTdProps.prefix = settings[dataKey].custom?.prefix;
+      if (settings[dataKey].custom && settings[dataKey].custom?.sufix)
+        customTdProps.sufix = settings[dataKey].custom?.sufix;
+
+      return <CustomTd key={key} {...customTdProps} />;
+    }
   );
+
+  return <Tr>{tableColumns}</Tr>;
 };
 
 export default HomeTableItem;

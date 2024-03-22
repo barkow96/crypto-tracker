@@ -1,6 +1,6 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, ReactNode } from "react";
 
-export type HomeTableItemProps = {
+export type HomeTableItemdata = {
   rank: number;
   name: string;
   ticker: string;
@@ -17,8 +17,20 @@ export type HomeTableItemProps = {
   volume30D?: number;
 };
 
-export type CustomTd<T> = {
-  value: T | undefined;
+export type HomeTableMetadata = {
+  [key: string]: {
+    isActive: boolean;
+    header: string;
+    custom?: { prefix?: string; sufix?: string };
+  };
+};
+
+export type HomeTableItemProps = { data: HomeTableItemdata } & {
+  settings: HomeTableMetadata;
+};
+
+export type CustomTdProps = {
+  value: number | string | ReactNode;
   prefix?: string;
   sufix?: string;
 };

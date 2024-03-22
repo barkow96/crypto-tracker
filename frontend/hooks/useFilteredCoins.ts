@@ -1,13 +1,13 @@
 import { DELAY_SEARCH_FOR_COIN } from "@/constants/constants";
-import { HomeTableItemProps, SearchedCoin } from "@/types/home-table";
+import { HomeTableItemdata, SearchedCoin } from "@/types/home-table";
 import { useEffect, useState } from "react";
 
 export function useFilteredCoins(
-  coins: HomeTableItemProps[],
+  coins: HomeTableItemdata[],
   searchedCoin: SearchedCoin
 ) {
   const [filteredCoins, setFilteredCoins] =
-    useState<HomeTableItemProps[]>(coins);
+    useState<HomeTableItemdata[]>(coins);
 
   useEffect(() => {
     const delay = setTimeout(() => {
