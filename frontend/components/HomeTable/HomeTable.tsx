@@ -2,18 +2,19 @@ import { Box, Table, Thead, Tbody, Th, Tr } from "@chakra-ui/react";
 import HomeTableSettings from "./HomeTableSettings";
 import HomeTableItem from "./HomeTableItem";
 import { exampleCoins } from "@/dummy-data/home-table";
-import { ChangeEvent, ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import {
   HomeTableItemdata,
   HomeTableMetadata,
   SearchedCoin,
-  SortOptions,
 } from "@/types/home-table";
 import { useFilteredCoins } from "@/hooks/useFilteredCoins";
 import { PAGINATION_INITIAL_PAGE, ROWS_NUMBER } from "@/constants/constants";
 import Pagination from "./Pagination";
 import { TABLE_INITIAL_CONFIG } from "@/constants/table-initial";
-import { defineSortDirection, sortByProperty } from "@/libs/utils";
+import { searchCoinHandler } from "./homeTableServices/searchCoinHandler";
+import { selectRowsHandler } from "./homeTableServices/selectRowsHandler";
+import { sortHandler } from "./homeTableServices/sortHandler";
 
 const HomeTable: React.FC = () => {
   const [tableMetadata, setTableMetadata] =
@@ -30,63 +31,41 @@ const HomeTable: React.FC = () => {
     searchedCoin
   );
 
+  function pageChangeHandler(pageId: number) {
+    setCurrentPage(pageId);
+  }
+
   const tableHeaders: ReactNode[] = Object.keys(tableMetadata).map((key) => {
     if (tableMetadata[key].isActive)
       return (
-        <Th key={key} cursor="pointer" onClick={sortHandler.bind(null, key)}>
+        <Th
+          key={key}
+          cursor="pointer"
+          onClick={() => {
+            sortHandler(
+              key,
+              tableMetadata,
+              setTableMetadata,
+              setFilteredCoins,
+              filteredCoins
+            );
+          }}
+        >
           {tableMetadata[key].header}
         </Th>
       );
     else return null;
   });
 
-  function searchCoinHandler(event: ChangeEvent<HTMLInputElement>) {
-    if (event.target.value == "") setSearchedCoin(null);
-    else {
-      setSearchedCoin(event.target.value);
-      setCurrentPage(PAGINATION_INITIAL_PAGE);
-    }
-  }
-
-  function selectRowsHandler(event: ChangeEvent<HTMLSelectElement>) {
-    setRowsQuantity(parseInt(event.target.value));
-    setCurrentPage(PAGINATION_INITIAL_PAGE);
-  }
-
-  function pageChangeHandler(pageId: number) {
-    setCurrentPage(pageId);
-  }
-
-  function sortHandler(property: string) {
-    const sortDirection: SortOptions = defineSortDirection(
-      tableMetadata,
-      property
-    );
-
-    setTableMetadata((prevState) => ({
-      ...prevState,
-      [property]: {
-        isActive: prevState[property].isActive,
-        header: prevState[property].header,
-        custom: prevState[property].custom,
-        sorting: sortDirection,
-      },
-    }));
-
-    const sortedCoins: HomeTableItemdata[] = sortByProperty(
-      property,
-      [...filteredCoins],
-      sortDirection
-    );
-
-    setFilteredCoins(sortedCoins);
-  }
-
   return (
     <Box>
       <HomeTableSettings
-        searchCoinHandler={searchCoinHandler}
-        selectRowsHandler={selectRowsHandler}
+        searchCoinHandler={(event) => {
+          searchCoinHandler(event, setSearchedCoin, setCurrentPage);
+        }}
+        selectRowsHandler={(event) => {
+          selectRowsHandler(event, setRowsQuantity, setCurrentPage);
+        }}
       />
       <Table>
         <Thead>
