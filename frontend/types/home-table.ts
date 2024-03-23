@@ -23,8 +23,18 @@ export type HomeTableMetadata = {
     isActive: boolean;
     header: string;
     sorting: SortOptions;
+    category: MetricsCategory;
     custom?: { prefix?: string; sufix?: string };
   };
+};
+
+export type Metric = {
+  name: string;
+  isActive: boolean;
+  header: string;
+  sorting: SortOptions;
+  category: MetricsCategory;
+  custom?: { prefix?: string; sufix?: string };
 };
 
 export type HomeTableItemProps = { data: HomeTableItemdata } & {
@@ -47,3 +57,15 @@ export type PaginationProps = {
 };
 
 export type SortOptions = "ASCENDING" | "DESCENDING" | "NO";
+export type MetricsCategory =
+  | "price"
+  | "price change"
+  | "market cap"
+  | "volume"
+  | null;
+
+export type CustomizeModalProps = {
+  tableMetadata: HomeTableMetadata;
+  setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>;
+  children: React.ReactNode;
+};

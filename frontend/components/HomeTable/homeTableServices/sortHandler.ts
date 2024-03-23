@@ -23,6 +23,7 @@ export function sortHandler(
       isActive: prevState[property].isActive,
       header: prevState[property].header,
       custom: prevState[property].custom,
+      category: prevState[property].category,
       sorting: sortDirection,
     },
   }));

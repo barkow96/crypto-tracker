@@ -17,14 +17,10 @@ import { selectRowsHandler } from "./homeTableServices/selectRowsHandler";
 import { sortHandler } from "./homeTableServices/sortHandler";
 
 const HomeTable: React.FC = () => {
-  const [tableMetadata, setTableMetadata] =
-    useState<HomeTableMetadata>(TABLE_INITIAL_CONFIG);
-  const [rowsQuantity, setRowsQuantity] = useState<number>(ROWS_NUMBER.MAX);
-  const [currentPage, setCurrentPage] = useState<number>(
-    PAGINATION_INITIAL_PAGE
-  );
-
-  const [coins, setCoins] = useState<HomeTableItemdata[]>(exampleCoins);
+  const [tableMetadata, setTableMetadata] = useState(TABLE_INITIAL_CONFIG);
+  const [rowsQuantity, setRowsQuantity] = useState(ROWS_NUMBER.MAX);
+  const [currentPage, setCurrentPage] = useState(PAGINATION_INITIAL_PAGE);
+  const [coins, setCoins] = useState(exampleCoins);
   const [searchedCoin, setSearchedCoin] = useState<SearchedCoin>(null);
   const { filteredCoins, setFilteredCoins } = useFilteredCoins(
     coins,
@@ -60,6 +56,8 @@ const HomeTable: React.FC = () => {
   return (
     <Box>
       <HomeTableSettings
+        tableMetadata={tableMetadata}
+        setTableMetadata={setTableMetadata}
         searchCoinHandler={(event) => {
           searchCoinHandler(event, setSearchedCoin, setCurrentPage);
         }}
