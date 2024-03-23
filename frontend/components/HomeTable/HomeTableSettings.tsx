@@ -15,8 +15,11 @@ const HomeTableSettings: React.FC<HomeTableSettingsProps> = ({
       width="100%"
       justify="space-between"
       align="center"
+      p="15px"
+      gap="15px"
       px="20px"
       margin="auto"
+      direction={{ base: "column", md: "row" }}
     >
       <Box>
         <Input placeholder="Search for a coin" onChange={searchCoinHandler} />
@@ -27,17 +30,16 @@ const HomeTableSettings: React.FC<HomeTableSettingsProps> = ({
           <option value={ROWS_NUMBER.MEDIUM}>{ROWS_NUMBER.MEDIUM}</option>
           <option value={ROWS_NUMBER.MIN}>{ROWS_NUMBER.MIN}</option>
         </Select>
-        <Flex gap="5px" align="center" cursor="pointer">
-          <Box>
-            <CustomizeModal
-              tableMetadata={tableMetadata}
-              setTableMetadata={setTableMetadata}
-            >
-              <Icon as={SettingsIcon} mx="10px" />
-              <Text>Customize</Text>
-            </CustomizeModal>
-          </Box>
-        </Flex>
+
+        <Box>
+          <CustomizeModal
+            tableMetadata={tableMetadata}
+            setTableMetadata={setTableMetadata}
+          >
+            <Icon as={SettingsIcon} mx="10px" />
+            <Text>Customize</Text>
+          </CustomizeModal>
+        </Box>
       </Flex>
     </Flex>
   );

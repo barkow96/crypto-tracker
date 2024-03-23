@@ -61,27 +61,29 @@ const HomeTable: React.FC = () => {
           selectRowsService(event, setRowsQuantity, setCurrentPage);
         }}
       />
-      <Table>
-        <Thead>
-          <Tr>{tableHeaders}</Tr>
-        </Thead>
-        <Tbody>
-          {filteredCoins.map((coin, index) => {
-            if (
-              index >= (currentPage - 1) * rowsQuantity &&
-              index < currentPage * rowsQuantity
-            )
-              return (
-                <HomeTableItem
-                  key={index}
-                  data={{ ...coin }}
-                  settings={tableMetadata}
-                />
-              );
-            else return null;
-          })}
-        </Tbody>
-      </Table>
+      <Box overflowX="auto">
+        <Table>
+          <Thead>
+            <Tr>{tableHeaders}</Tr>
+          </Thead>
+          <Tbody>
+            {filteredCoins.map((coin, index) => {
+              if (
+                index >= (currentPage - 1) * rowsQuantity &&
+                index < currentPage * rowsQuantity
+              )
+                return (
+                  <HomeTableItem
+                    key={index}
+                    data={{ ...coin }}
+                    settings={tableMetadata}
+                  />
+                );
+              else return null;
+            })}
+          </Tbody>
+        </Table>
+      </Box>
       <Pagination
         totalPages={Math.ceil(filteredCoins.length / rowsQuantity)}
         currentPage={currentPage}
