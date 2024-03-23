@@ -1,6 +1,6 @@
 import { colors } from "@/constants/colors";
 import { METRICS_CATEGORIES } from "@/constants/table-initial";
-import { CustomizeModalProps, Metric } from "@/types/home-table";
+
 import {
   Box,
   Button,
@@ -17,7 +17,8 @@ import {
 } from "@chakra-ui/react";
 
 import React, { useState } from "react";
-import { metricClickHandler } from "./customizeModalServices/metricClickHandler";
+import clickMetricService from "./customizeModalServices/clickMetricService";
+import { CustomizeModalProps, Metric } from "@/types/home-table/settings";
 
 const CustomizeModal: React.FC<CustomizeModalProps> = ({
   tableMetadata,
@@ -72,7 +73,7 @@ const CustomizeModal: React.FC<CustomizeModalProps> = ({
                           key={metric.name}
                           color={metric.isActive ? colors.green : colors.black}
                           onClick={() => {
-                            metricClickHandler(metric, setTableMetadata);
+                            clickMetricService(metric, setTableMetadata);
                           }}
                         >
                           {metric.header}

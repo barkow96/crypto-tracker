@@ -1,7 +1,7 @@
-import { CustomTdProps, HomeTableItemProps } from "@/types/home-table";
 import { Tr } from "@chakra-ui/react";
 import CustomTd from "./CustomTd";
 import { ReactNode } from "react";
+import { CustomTdProps, HomeTableItemProps } from "@/types/home-table/item";
 
 const HomeTableItem: React.FC<HomeTableItemProps> = (props) => {
   const { settings } = props;

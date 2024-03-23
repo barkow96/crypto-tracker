@@ -1,10 +1,11 @@
-export function paginationButtonHandler(
-  action: "PREVIOUS" | "NEXT",
-  currentPage: number,
-  totalPages: number,
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
-  pageChangeHandler: (pageId: number) => void
-) {
+import { PaginationButtonService } from "@/types/home-table/services";
+
+const paginationButtonService: PaginationButtonService = (
+  action,
+  currentPage,
+  totalPages,
+  setCurrentPage
+) => {
   let nextRenderPage = currentPage;
 
   switch (action) {
@@ -23,6 +24,6 @@ export function paginationButtonHandler(
     default:
       break;
   }
+};
 
-  pageChangeHandler(nextRenderPage);
-}
+export default paginationButtonService;

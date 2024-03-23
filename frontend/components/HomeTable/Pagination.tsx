@@ -1,20 +1,15 @@
 import React from "react";
 import { Box, Button, Flex, Icon } from "@chakra-ui/react";
-import { PaginationProps } from "@/types/home-table";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { colors } from "@/constants/colors";
-import { PAGINATION_INITIAL_PAGE } from "@/constants/constants";
-import { paginationButtonHandler } from "./paginationServices/paginationButtonHandler";
-import { usePages } from "@/hooks/usePages";
+import paginationButtonService from "./paginationServices/paginationButtonService";
+import { PaginationProps } from "@/types/home-table/table";
 
 const Pagination: React.FC<PaginationProps> = ({
   totalPages,
-  pageChangeHandler,
+  currentPage,
+  setCurrentPage,
 }) => {
-  const { currentPage, setCurrentPage } = usePages(
-    PAGINATION_INITIAL_PAGE,
-    totalPages
-  );
   const paginationButtonStyles = {
     width: "120px",
     backgroundColor: colors.red,
@@ -28,12 +23,11 @@ const Pagination: React.FC<PaginationProps> = ({
         <Button
           {...paginationButtonStyles}
           onClick={() => {
-            paginationButtonHandler(
+            paginationButtonService(
               "PREVIOUS",
               currentPage,
               totalPages,
-              setCurrentPage,
-              pageChangeHandler
+              setCurrentPage
             );
           }}
         >
@@ -48,12 +42,11 @@ const Pagination: React.FC<PaginationProps> = ({
         <Button
           {...paginationButtonStyles}
           onClick={() => {
-            paginationButtonHandler(
+            paginationButtonService(
               "NEXT",
               currentPage,
               totalPages,
-              setCurrentPage,
-              pageChangeHandler
+              setCurrentPage
             );
           }}
         >

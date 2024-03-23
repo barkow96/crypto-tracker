@@ -1,18 +1,10 @@
-import {
-  HomeTableMetadata,
-  SearchCoinHandler,
-  SelectRowsHandler,
-} from "@/types/home-table";
 import { SettingsIcon } from "@chakra-ui/icons";
 import { Box, Flex, Icon, Input, Select, Text } from "@chakra-ui/react";
 import CustomizeModal from "./CustomizeModal";
+import { ROWS_NUMBER } from "@/constants/constants";
+import { HomeTableSettingsProps } from "@/types/home-table/settings";
 
-const HomeTableSettings: React.FC<{
-  tableMetadata: HomeTableMetadata;
-  setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>;
-  searchCoinHandler: SearchCoinHandler;
-  selectRowsHandler: SelectRowsHandler;
-}> = ({
+const HomeTableSettings: React.FC<HomeTableSettingsProps> = ({
   tableMetadata,
   setTableMetadata,
   searchCoinHandler,
@@ -31,9 +23,9 @@ const HomeTableSettings: React.FC<{
       </Box>
       <Flex gap="20px">
         <Select cursor="pointer" onChange={selectRowsHandler}>
-          <option value={10}>10</option>
-          <option value={5}>5</option>
-          <option value={2}>2</option>
+          <option value={ROWS_NUMBER.MAX}>{ROWS_NUMBER.MAX}</option>
+          <option value={ROWS_NUMBER.MEDIUM}>{ROWS_NUMBER.MEDIUM}</option>
+          <option value={ROWS_NUMBER.MIN}>{ROWS_NUMBER.MIN}</option>
         </Select>
         <Flex gap="5px" align="center" cursor="pointer">
           <Box>

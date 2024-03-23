@@ -1,5 +1,6 @@
 import { colors } from "@/constants/colors";
-import { CustomTdProps } from "@/types/home-table";
+import { CustomTdProps } from "@/types/home-table/item";
+
 import { Td } from "@chakra-ui/react";
 
 const CustomTd: React.FC<CustomTdProps> = ({ value, prefix, sufix }) => {

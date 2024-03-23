@@ -3,33 +3,29 @@ import HomeTableSettings from "./HomeTableSettings";
 import HomeTableItem from "./HomeTableItem";
 import { exampleCoins } from "@/dummy-data/home-table";
 import { ReactNode, useState } from "react";
-import {
-  HomeTableItemdata,
-  HomeTableMetadata,
-  SearchedCoin,
-} from "@/types/home-table";
 import { useFilteredCoins } from "@/hooks/useFilteredCoins";
 import { PAGINATION_INITIAL_PAGE, ROWS_NUMBER } from "@/constants/constants";
 import Pagination from "./Pagination";
 import { TABLE_INITIAL_CONFIG } from "@/constants/table-initial";
-import { searchCoinHandler } from "./homeTableServices/searchCoinHandler";
-import { selectRowsHandler } from "./homeTableServices/selectRowsHandler";
-import { sortHandler } from "./homeTableServices/sortHandler";
+import searchCoinService from "./homeTableServices/searchCoinService";
+import selectRowsService from "./homeTableServices/selectRowsService";
+import sortService from "./homeTableServices/sortService";
+import { usePages } from "@/hooks/usePages";
+import { SearchedCoin } from "@/types/home-table/table";
 
 const HomeTable: React.FC = () => {
-  const [tableMetadata, setTableMetadata] = useState(TABLE_INITIAL_CONFIG);
-  const [rowsQuantity, setRowsQuantity] = useState(ROWS_NUMBER.MAX);
-  const [currentPage, setCurrentPage] = useState(PAGINATION_INITIAL_PAGE);
   const [coins, setCoins] = useState(exampleCoins);
   const [searchedCoin, setSearchedCoin] = useState<SearchedCoin>(null);
   const { filteredCoins, setFilteredCoins } = useFilteredCoins(
     coins,
     searchedCoin
   );
-
-  function pageChangeHandler(pageId: number) {
-    setCurrentPage(pageId);
-  }
+  const [tableMetadata, setTableMetadata] = useState(TABLE_INITIAL_CONFIG);
+  const [rowsQuantity, setRowsQuantity] = useState(ROWS_NUMBER.MAX);
+  const { currentPage, setCurrentPage } = usePages(
+    PAGINATION_INITIAL_PAGE,
+    Math.ceil(filteredCoins.length / rowsQuantity)
+  );
 
   const tableHeaders: ReactNode[] = Object.keys(tableMetadata).map((key) => {
     if (tableMetadata[key].isActive)
@@ -38,7 +34,7 @@ const HomeTable: React.FC = () => {
           key={key}
           cursor="pointer"
           onClick={() => {
-            sortHandler(
+            sortService(
               key,
               tableMetadata,
               setTableMetadata,
@@ -59,10 +55,10 @@ const HomeTable: React.FC = () => {
         tableMetadata={tableMetadata}
         setTableMetadata={setTableMetadata}
         searchCoinHandler={(event) => {
-          searchCoinHandler(event, setSearchedCoin, setCurrentPage);
+          searchCoinService(event, setSearchedCoin, setCurrentPage);
         }}
         selectRowsHandler={(event) => {
-          selectRowsHandler(event, setRowsQuantity, setCurrentPage);
+          selectRowsService(event, setRowsQuantity, setCurrentPage);
         }}
       />
       <Table>
@@ -88,7 +84,8 @@ const HomeTable: React.FC = () => {
       </Table>
       <Pagination
         totalPages={Math.ceil(filteredCoins.length / rowsQuantity)}
-        pageChangeHandler={pageChangeHandler}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </Box>
   );

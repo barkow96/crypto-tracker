@@ -1,17 +1,15 @@
 import { defineSortDirection, sortByProperty } from "@/libs/utils";
-import {
-  HomeTableItemdata,
-  HomeTableMetadata,
-  SortOptions,
-} from "@/types/home-table";
+import { HomeTableItemdata } from "@/types/home-table/item";
+import { SortService } from "@/types/home-table/services";
+import { SortOptions } from "@/types/home-table/settings";
 
-export function sortHandler(
-  property: string,
-  tableMetadata: HomeTableMetadata,
-  setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>,
-  setCoins: React.Dispatch<React.SetStateAction<HomeTableItemdata[]>>,
-  coins: HomeTableItemdata[]
-) {
+const sortService: SortService = (
+  property,
+  tableMetadata,
+  setTableMetadata,
+  setCoins,
+  coins
+) => {
   const sortDirection: SortOptions = defineSortDirection(
     tableMetadata,
     property
@@ -35,4 +33,6 @@ export function sortHandler(
   );
 
   setCoins(sortedCoins);
-}
+};
+
+export default sortService;
