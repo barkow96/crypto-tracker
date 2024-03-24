@@ -1,3 +1,4 @@
+import { HomeTableItemdata } from "./item";
 import { MetricsCategory, SortOptions } from "./settings";
 
 export type HomeTableMetadata = {
@@ -17,3 +18,10 @@ export type PaginationProps = {
 };
 
 export type SearchedCoin = string | null;
+
+export type HomeTableHeadersProps = {
+  tableMetadata: HomeTableMetadata;
+  setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>;
+  setCoins: React.Dispatch<React.SetStateAction<HomeTableItemdata[]>>;
+  coins: HomeTableItemdata[];
+};

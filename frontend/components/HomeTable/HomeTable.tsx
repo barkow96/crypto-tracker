@@ -1,17 +1,17 @@
-import { Box, Table, Thead, Tbody, Th, Tr } from "@chakra-ui/react";
+import { Box, Table, Thead, Tbody, Tr } from "@chakra-ui/react";
 import HomeTableSettings from "./HomeTableSettings";
 import HomeTableItem from "./HomeTableItem";
 import { exampleCoins } from "@/dummy-data/home-table";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { useFilteredCoins } from "@/hooks/useFilteredCoins";
 import { PAGINATION_INITIAL_PAGE, ROWS_NUMBER } from "@/constants/constants";
 import Pagination from "./Pagination";
 import { TABLE_INITIAL_CONFIG } from "@/constants/table-initial";
 import searchCoinService from "./homeTableServices/searchCoinService";
 import selectRowsService from "./homeTableServices/selectRowsService";
-import sortService from "./homeTableServices/sortService";
 import { usePages } from "@/hooks/usePages";
 import { SearchedCoin } from "@/types/home-table/table";
+import HomeTableHeaders from "./HomeTableHeaders";
 
 const HomeTable: React.FC = () => {
   const [coins, setCoins] = useState(exampleCoins);
@@ -26,28 +26,6 @@ const HomeTable: React.FC = () => {
     PAGINATION_INITIAL_PAGE,
     Math.ceil(filteredCoins.length / rowsQuantity)
   );
-
-  const tableHeaders: ReactNode[] = Object.keys(tableMetadata).map((key) => {
-    if (tableMetadata[key].isActive)
-      return (
-        <Th
-          key={key}
-          cursor="pointer"
-          onClick={() => {
-            sortService(
-              key,
-              tableMetadata,
-              setTableMetadata,
-              setFilteredCoins,
-              filteredCoins
-            );
-          }}
-        >
-          {tableMetadata[key].header}
-        </Th>
-      );
-    else return null;
-  });
 
   return (
     <Box>
@@ -64,7 +42,14 @@ const HomeTable: React.FC = () => {
       <Box overflowX="auto">
         <Table>
           <Thead>
-            <Tr>{tableHeaders}</Tr>
+            <Tr>
+              <HomeTableHeaders
+                tableMetadata={tableMetadata}
+                setTableMetadata={setTableMetadata}
+                setCoins={setFilteredCoins}
+                coins={filteredCoins}
+              />
+            </Tr>
           </Thead>
           <Tbody>
             {filteredCoins.map((coin, index) => {
