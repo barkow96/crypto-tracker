@@ -1,8 +1,6 @@
-import {
-  HomeTableItemdata,
-  HomeTableMetadata,
-  SortOptions,
-} from "./../types/home-table";
+import { HomeTableItemdata } from "@/types/home-table/item";
+import { SortOptions } from "@/types/home-table/settings";
+import { HomeTableMetadata } from "@/types/home-table/table";
 
 export function sortByProperty(
   property: string,
@@ -14,7 +12,7 @@ export function sortByProperty(
   if (direction === "ASCENDING") directionNumber = 1;
   if (direction === "DESCENDING") directionNumber = -1;
 
-  if (property === "name" || property === "ticker") {
+  if (property === "symbol") {
     sortedCoins = coins.sort((coinA, coinB) => {
       if (coinA[property] < coinB[property]) return -1 * directionNumber;
       if (coinA[property] > coinB[property]) return 1 * directionNumber;
@@ -44,4 +42,13 @@ export function defineSortDirection(
     sortDirection = "DESCENDING";
 
   return sortDirection;
+}
+
+export function formatNumber(number: number) {
+  if (Math.abs(number) >= 0.01 && number % 1 === 0) return number;
+  if (Math.abs(number) >= 0.01 && number % 1 !== 0)
+    return parseFloat(number.toFixed(3));
+  if (Math.abs(number) < 0.01 && Math.abs(number) >= 0.00001)
+    return parseFloat(number.toFixed(6));
+  if (Math.abs(number) < 0.00001) return parseFloat(number.toFixed(8));
 }

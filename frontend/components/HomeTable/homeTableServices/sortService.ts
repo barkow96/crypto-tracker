@@ -10,21 +10,26 @@ const sortService: SortService = (
   setCoins,
   coins
 ) => {
+  console.log("Soooort!", property);
   const sortDirection: SortOptions = defineSortDirection(
     tableMetadata,
     property
   );
 
-  setTableMetadata((prevState) => ({
-    ...prevState,
-    [property]: {
-      isActive: prevState[property].isActive,
-      header: prevState[property].header,
-      custom: prevState[property].custom,
-      category: prevState[property].category,
-      sorting: sortDirection,
-    },
-  }));
+  const tableMetadataUpdated = { ...tableMetadata };
+  for (const key in tableMetadataUpdated) {
+    if (key !== property)
+      tableMetadataUpdated[key] = {
+        ...tableMetadataUpdated[key],
+        sorting: "NO",
+      };
+    else if (key === property)
+      tableMetadataUpdated[key] = {
+        ...tableMetadataUpdated[key],
+        sorting: sortDirection,
+      };
+  }
+  setTableMetadata(tableMetadataUpdated);
 
   const sortedCoins: HomeTableItemdata[] = sortByProperty(
     property,

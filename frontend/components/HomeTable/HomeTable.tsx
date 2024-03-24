@@ -1,20 +1,21 @@
 import { Box, Table, Thead, Tbody, Tr } from "@chakra-ui/react";
 import HomeTableSettings from "./HomeTableSettings";
 import HomeTableItem from "./HomeTableItem";
-import { exampleCoins } from "@/dummy-data/home-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFilteredCoins } from "@/hooks/useFilteredCoins";
 import { PAGINATION_INITIAL_PAGE, ROWS_NUMBER } from "@/constants/constants";
 import Pagination from "./Pagination";
-import { TABLE_INITIAL_CONFIG } from "@/constants/table-initial";
+import { TABLE_INITIAL_CONFIG } from "@/constants/table";
 import searchCoinService from "./homeTableServices/searchCoinService";
 import selectRowsService from "./homeTableServices/selectRowsService";
 import { usePages } from "@/hooks/usePages";
 import { SearchedCoin } from "@/types/home-table/table";
 import HomeTableHeaders from "./HomeTableHeaders";
+import { HomeTableProps } from "@/types/home-table/item";
+import applySortingService from "./homeTableServices/applySortingService";
 
-const HomeTable: React.FC = () => {
-  const [coins, setCoins] = useState(exampleCoins);
+const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
+  const [coins, setCoins] = useState(data);
   const [searchedCoin, setSearchedCoin] = useState<SearchedCoin>(null);
   const { filteredCoins, setFilteredCoins } = useFilteredCoins(
     coins,
@@ -26,6 +27,10 @@ const HomeTable: React.FC = () => {
     PAGINATION_INITIAL_PAGE,
     Math.ceil(filteredCoins.length / rowsQuantity)
   );
+
+  useEffect(() => {
+    applySortingService(tableMetadata, data, setCoins);
+  }, [data]);
 
   return (
     <Box>
@@ -39,6 +44,7 @@ const HomeTable: React.FC = () => {
           selectRowsService(event, setRowsQuantity, setCurrentPage);
         }}
       />
+
       <Box overflowX="auto">
         <Table>
           <Thead>

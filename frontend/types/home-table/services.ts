@@ -34,3 +34,9 @@ export type ClickMetricService = (
   metric: Metric,
   setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>
 ) => void;
+
+export type ApplySortingService = (
+  tableMetadata: HomeTableMetadata,
+  coins: HomeTableItemdata[],
+  setCoins: React.Dispatch<React.SetStateAction<HomeTableItemdata[]>>
+) => void;
