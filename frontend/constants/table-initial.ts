@@ -1,4 +1,4 @@
-import { HomeTableMetadata } from "@/types/home-table";
+import { HomeTableMetadata } from "@/types/home-table/table";
 
 export const TABLE_INITIAL_CONFIG: HomeTableMetadata = {
   rank: { isActive: true, header: "#", sorting: "ASCENDING", category: null },
