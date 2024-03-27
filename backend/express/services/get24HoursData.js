@@ -28,7 +28,11 @@ async function get24HoursData(symbol) {
     lastId: coinData.lastId,
     count: coinData.count,
   };
-  return coinReadableData;
+  return {
+    symbol: coinReadableData,
+    priceChange24H: priceChange,
+    volume24H: volume,
+  };
 }
 
 module.exports = { get24HoursData };

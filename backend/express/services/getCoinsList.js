@@ -2,7 +2,7 @@ const axios = require("axios");
 const {
   searchedReferencePairs,
   stableCoinsReferences,
-} = require("../data/coinReferences");
+} = require("../data/coin-references");
 
 async function getCoinsList() {
   // Fetch data from external API
@@ -16,6 +16,8 @@ async function getCoinsList() {
     .map((coin) => ({
       symbol: coin.symbol,
       price: parseFloat(coin.lastPrice),
+      priceChange24H: parseFloat(coin.priceChangePercent),
+      volume24H: parseFloat(coin.volume),
     }));
 
   // Complete available prices of reference pairs
@@ -47,7 +49,6 @@ async function getCoinsList() {
         return {
           ...coin,
           symbol: coin.symbol.replace(bestFitReferenceCoin, ""),
-          price: coin.price,
           reference: bestFitReferenceCoin,
         };
 
@@ -101,6 +102,7 @@ async function getCoinsList() {
       }
     });
   });
+  coinsList.sort((coinA, coinB) => coinB.volume - coinA.volume);
 
   return coinsList;
 }
