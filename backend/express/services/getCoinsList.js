@@ -1,65 +1,55 @@
 const axios = require("axios");
+const {
+  searchedReferencePairs,
+  stableCoinsReferences,
+} = require("../data/coinReferences");
 
 async function getCoinsList() {
+  // Fetch data from external API
   const API_URL = "https://api.binance.com/api/v3/ticker/24hr";
   const response = await axios.get(API_URL);
   const coinsData = response.data;
 
+  // Perform initial filtering of received data
   const mappedCoins = coinsData
     .filter((coin) => parseFloat(coin.lastPrice) !== 0)
     .map((coin) => ({
       symbol: coin.symbol,
       price: parseFloat(coin.lastPrice),
-      volume: parseFloat(coin.volume),
     }));
 
-  const searchedReferencePairs = [
-    { pair: "BTCUSDT", price: null, of: "BTC", to: "USDT" },
-    { pair: "ETHUSDT", price: null, of: "ETH", to: "USDT" },
-    { pair: "BNBUSDT", price: null, of: "BNB", to: "USDT" },
-    { pair: "FDUSDUSDT", price: null, of: "FDUSD", to: "USDT" },
-    { pair: "TRXUSDT", price: null, of: "TRX", to: "USDT" },
-    { pair: "XRPUSDT", price: null, of: "XRP", to: "USDT" },
-    { pair: "EURUSDT", price: null, of: "EUR", to: "USD" },
-    { pair: "USDTTRY", price: null, of: "TRY", to: "USDT", reversedPair: true },
-    { pair: "USDTZAR", price: null, of: "ZAR", to: "USDT", reversedPair: true },
-    { pair: "USDTDAI", price: null, of: "DAI", to: "USDT", reversedPair: true },
-    {
-      pair: "USDTBIDR",
-      price: null,
-      of: "BIDR",
-      to: "USDT",
-      reversedPair: true,
-    },
-  ];
-
-  const stableCoinsReferences = ["USDT", "FDUSD", "USD", "USDC", "TUSD"];
-
+  // Complete available prices of reference pairs
   searchedReferencePairs.forEach((reference) => {
-    reference.price = mappedCoins.find(
+    const foundPair = mappedCoins.find(
       (coin) => coin.symbol === reference.pair
-    ).price;
+    );
+    const referencePairPrice = foundPair ? foundPair.price : null;
+    reference.price = referencePairPrice;
   });
 
+  // Create array with data in relation to USD
   const coinsToUsd = mappedCoins
     .map((coin) => {
       let referenceToStable = false;
-      let coinObject;
+      let bestFitReferenceCoin = "";
 
       stableCoinsReferences.forEach((referenceCoin) => {
-        if (coin.symbol.endsWith(referenceCoin)) {
+        if (
+          coin.symbol.endsWith(referenceCoin) &&
+          referenceCoin.length > bestFitReferenceCoin.length
+        ) {
           referenceToStable = true;
-          coinObject = {
-            ...coin,
-            symbol: coin.symbol.replace(referenceCoin, ""),
-            price: coin.price,
-            volume: coin.volume,
-            reference: referenceCoin,
-          };
+          bestFitReferenceCoin = referenceCoin;
         }
       });
 
-      if (referenceToStable) return coinObject;
+      if (referenceToStable)
+        return {
+          ...coin,
+          symbol: coin.symbol.replace(bestFitReferenceCoin, ""),
+          price: coin.price,
+          reference: bestFitReferenceCoin,
+        };
 
       let newPrice = "NEW_PRICE";
       let newName = "NEW_NAME";
@@ -81,18 +71,38 @@ async function getCoinsList() {
         };
       return {
         ...coin,
-        price: newPrice,
-        volume: coin.volume,
         symbol: newName,
+        price: newPrice,
         reference: newReference,
       };
     })
     .filter((coin) => coin.symbol);
 
-  const singleCoin = coinsToUsd.filter((coin) => coin.symbol === "INJ");
+  // Create array with unique coins
+  const uniqueCoinsSet = new Set(coinsToUsd.map((coin) => coin.symbol));
+  const uniqueCoinsList = Array.from(uniqueCoinsSet);
 
-  return coinsToUsd;
-  // return singleCoin;
+  // Create array with with selected data for unique coins
+  const coinsList = [];
+  uniqueCoinsList.forEach((uniqueCoin) => {
+    const uniqueCoinMultipleData = coinsToUsd.filter(
+      (coin) => coin.symbol === uniqueCoin
+    );
+
+    let firstFit = true;
+    stableCoinsReferences.forEach((stableCoin) => {
+      const uniqueCoinData = uniqueCoinMultipleData.find(
+        (data) => data.reference === stableCoin
+      );
+
+      if (firstFit && uniqueCoinData) {
+        coinsList.push(uniqueCoinData);
+        firstFit = false;
+      }
+    });
+  });
+
+  return coinsList;
 }
 
 module.exports = { getCoinsList };
