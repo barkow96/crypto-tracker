@@ -3,6 +3,18 @@ const {
   searchedReferencePairs,
   stableCoinsReferences,
 } = require("../data/coin-references");
+const {
+  filterDataInitially,
+} = require("../mappers/v3-ticker-24hr-endpoint/raw-data-initial-filter");
+const {
+  fillPricesOfReferencePairs,
+} = require("../mappers/v3-ticker-24hr-endpoint/reference-pairs-with-prices");
+const {
+  standarizeCoinsPricesToUsdt,
+} = require("../mappers/v3-ticker-24hr-endpoint/standarize-coins-prices");
+const {
+  filterUniquePairs,
+} = require("../mappers/v3-ticker-24hr-endpoint/final-data-unique-pairs-filter");
 
 async function getCoinsList() {
   // Fetch data from external API
@@ -11,98 +23,23 @@ async function getCoinsList() {
   const coinsData = response.data;
 
   // Perform initial filtering of received data
-  const mappedCoins = coinsData
-    .filter((coin) => parseFloat(coin.lastPrice) !== 0)
-    .map((coin) => ({
-      symbol: coin.symbol,
-      price: parseFloat(coin.lastPrice),
-      priceChange24H: parseFloat(coin.priceChangePercent),
-      volume24H: parseFloat(coin.volume),
-    }));
+  const mappedCoins = filterDataInitially(coinsData);
 
-  // Complete available prices of reference pairs
-  searchedReferencePairs.forEach((reference) => {
-    const foundPair = mappedCoins.find(
-      (coin) => coin.symbol === reference.pair
-    );
-    const referencePairPrice = foundPair ? foundPair.price : null;
-    reference.price = referencePairPrice;
-  });
+  // Fill in available prices of reference pairs
+  const referencePairsWithPrices = fillPricesOfReferencePairs(
+    searchedReferencePairs,
+    mappedCoins
+  );
 
   // Create array with data in relation to USD
-  const coinsToUsd = mappedCoins
-    .map((coin) => {
-      let referenceToStable = false;
-      let bestFitReferenceCoin = "";
-
-      stableCoinsReferences.forEach((referenceCoin) => {
-        if (
-          coin.symbol.endsWith(referenceCoin) &&
-          referenceCoin.length > bestFitReferenceCoin.length
-        ) {
-          referenceToStable = true;
-          bestFitReferenceCoin = referenceCoin;
-        }
-      });
-
-      if (referenceToStable)
-        return {
-          ...coin,
-          symbol: coin.symbol.replace(bestFitReferenceCoin, ""),
-          reference: bestFitReferenceCoin,
-        };
-
-      let newPrice = "NEW_PRICE";
-      let newName = "NEW_NAME";
-      let newReference = "NEW_REFERENCE";
-
-      searchedReferencePairs.forEach((reference) => {
-        if (coin.symbol.endsWith(reference.of)) {
-          newName = coin.symbol.replace(reference.of, "");
-          newReference = reference.of;
-          if (!reference.reversedPair) newPrice = coin.price * reference.price;
-          else if (reference.reversedPair)
-            newPrice = coin.price / reference.price;
-        }
-      });
-
-      if (newPrice === "NEW_PRICE")
-        return {
-          symbol: null,
-        };
-      return {
-        ...coin,
-        symbol: newName,
-        price: newPrice,
-        reference: newReference,
-      };
-    })
-    .filter((coin) => coin.symbol);
-
-  // Create array with unique coins
-  const uniqueCoinsSet = new Set(coinsToUsd.map((coin) => coin.symbol));
-  const uniqueCoinsList = Array.from(uniqueCoinsSet);
+  const coinsToUsd = standarizeCoinsPricesToUsdt(
+    mappedCoins,
+    stableCoinsReferences,
+    referencePairsWithPrices
+  );
 
   // Create array with with selected data for unique coins
-  const coinsList = [];
-  uniqueCoinsList.forEach((uniqueCoin) => {
-    const uniqueCoinMultipleData = coinsToUsd.filter(
-      (coin) => coin.symbol === uniqueCoin
-    );
-
-    let firstFit = true;
-    stableCoinsReferences.forEach((stableCoin) => {
-      const uniqueCoinData = uniqueCoinMultipleData.find(
-        (data) => data.reference === stableCoin
-      );
-
-      if (firstFit && uniqueCoinData) {
-        coinsList.push(uniqueCoinData);
-        firstFit = false;
-      }
-    });
-  });
-  coinsList.sort((coinA, coinB) => coinB.volume - coinA.volume);
+  const coinsList = filterUniquePairs(coinsToUsd, stableCoinsReferences);
 
   return coinsList;
 }
