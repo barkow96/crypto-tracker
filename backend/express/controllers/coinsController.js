@@ -11,10 +11,9 @@ const getCoins = async (req, res) => {
   try {
     coinsList = await getCoinsList();
   } catch (error) {
-    console.error(ERROR_MESSAGE, error);
     res.status(500).json({
       message: ERROR_MESSAGE,
-      error: error ? error : "Error data missing",
+      error: error ? error : "Error message missing",
     });
   }
 
@@ -22,8 +21,9 @@ const getCoins = async (req, res) => {
     DATA_RECORDS_PER_REQUEST * part,
     DATA_RECORDS_PER_REQUEST * (part + 1)
   );
+  const dataParts = Math.ceil(coinsList.length / DATA_RECORDS_PER_REQUEST);
 
-  res.status(200).json(partialCoinsList);
+  res.status(200).json({ data: partialCoinsList, metaData: { dataParts } });
 };
 
 module.exports = { getCoins };

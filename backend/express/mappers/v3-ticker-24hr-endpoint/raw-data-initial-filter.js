@@ -20,6 +20,8 @@ function filterDataInitially(coinsData) {
       price: parseFloat(coin.lastPrice),
       priceChange24H: parseFloat(coin.priceChangePercent),
       volume24H: parseFloat(coin.volume),
+      lowPrice24H: parseFloat(coin.lowPrice),
+      highPrice24H: parseFloat(coin.highPrice),
     }));
 
   return filteredData;
