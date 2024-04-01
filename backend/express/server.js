@@ -1,8 +1,10 @@
 const express = require("express");
+const appRouter = require("./routes/routes");
 
 const app = express();
 
-const appRouter = require("./routes/routes");
 app.use("/", appRouter);
 
-app.listen(3001);
+app.listen(3001, () => {
+  console.log("Backend running on port 3001");
+});

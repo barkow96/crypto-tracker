@@ -2,7 +2,7 @@ import { Box, Table, Thead, Tbody, Tr } from "@chakra-ui/react";
 import HomeTableSettings from "./HomeTableSettings";
 import HomeTableItem from "./HomeTableItem";
 import { exampleCoins } from "@/dummy-data/home-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFilteredCoins } from "@/hooks/useFilteredCoins";
 import { PAGINATION_INITIAL_PAGE, ROWS_NUMBER } from "@/constants/constants";
 import Pagination from "./Pagination";
@@ -26,6 +26,18 @@ const HomeTable: React.FC = () => {
     PAGINATION_INITIAL_PAGE,
     Math.ceil(filteredCoins.length / rowsQuantity)
   );
+
+  useEffect(() => {
+    console.log("Requesting data from backend...");
+    async function fetcher() {
+      const response = await fetch("/api/coins/0");
+      const data = await response.json();
+      console.log("Data returned from backend: ", data);
+      return data;
+    }
+
+    fetcher();
+  }, []);
 
   return (
     <Box>
