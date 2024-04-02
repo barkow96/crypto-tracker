@@ -7,7 +7,7 @@ const { getCoins } = require("../controllers/coinsController");
 
 // Define supported routes
 const routes = [
-  { path: "/coins/:part", method: "get", middleware: [], handler: getCoins },
+  { path: "/coins", method: "get", middleware: [], handler: getCoins },
   { path: "/coin/:name", method: "get", middleware: [], handler: getCoin },
 ];
 

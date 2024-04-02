@@ -36,8 +36,12 @@ function filterUniquePairs(coins, stableCoinsReferences) {
     });
   });
   coinsList.sort((coinA, coinB) => coinB.volume24H - coinA.volume24H);
+  const coinsListWithRanks = coinsList.map((coin, index) => ({
+    rank: index + 1,
+    ...coin,
+  }));
 
-  return coinsList;
+  return coinsListWithRanks;
 }
 
 module.exports = { filterUniquePairs };

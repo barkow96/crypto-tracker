@@ -1,7 +1,6 @@
 import { Box, Table, Thead, Tbody, Tr } from "@chakra-ui/react";
 import HomeTableSettings from "./HomeTableSettings";
 import HomeTableItem from "./HomeTableItem";
-import { exampleCoins } from "@/dummy-data/home-table";
 import { useEffect, useState } from "react";
 import { useFilteredCoins } from "@/hooks/useFilteredCoins";
 import { PAGINATION_INITIAL_PAGE, ROWS_NUMBER } from "@/constants/constants";
@@ -12,9 +11,10 @@ import selectRowsService from "./homeTableServices/selectRowsService";
 import { usePages } from "@/hooks/usePages";
 import { SearchedCoin } from "@/types/home-table/table";
 import HomeTableHeaders from "./HomeTableHeaders";
+import { HomeTableProps } from "@/types/home-table/item";
 
-const HomeTable: React.FC = () => {
-  const [coins, setCoins] = useState(exampleCoins);
+const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
+  const [coins, setCoins] = useState(data);
   const [searchedCoin, setSearchedCoin] = useState<SearchedCoin>(null);
   const { filteredCoins, setFilteredCoins } = useFilteredCoins(
     coins,
@@ -28,16 +28,8 @@ const HomeTable: React.FC = () => {
   );
 
   useEffect(() => {
-    console.log("Requesting data from backend...");
-    async function fetcher() {
-      const response = await fetch("/api/coins/0");
-      const data = await response.json();
-      console.log("Data returned from backend: ", data);
-      return data;
-    }
-
-    fetcher();
-  }, []);
+    setCoins(data);
+  }, [data]);
 
   return (
     <Box>
@@ -51,6 +43,7 @@ const HomeTable: React.FC = () => {
           selectRowsService(event, setRowsQuantity, setCurrentPage);
         }}
       />
+
       <Box overflowX="auto">
         <Table>
           <Thead>

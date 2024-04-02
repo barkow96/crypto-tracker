@@ -1,8 +1,6 @@
-import {
-  HomeTableItemdata,
-  HomeTableMetadata,
-  SortOptions,
-} from "./../types/home-table";
+import { HomeTableItemdata } from "@/types/home-table/item";
+import { SortOptions } from "@/types/home-table/settings";
+import { HomeTableMetadata } from "@/types/home-table/table";
 
 export function sortByProperty(
   property: string,

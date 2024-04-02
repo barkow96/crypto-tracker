@@ -9,7 +9,8 @@ const HomeTableItem: React.FC<HomeTableItemProps> = (props) => {
 
   const tableColumns: ReactNode[] = Object.entries(data).map(
     ([dataKey, dataValue]) => {
-      if (!settings[dataKey].isActive) return null;
+      if (settings[dataKey].isBetaVersion || !settings[dataKey].isActive)
+        return null;
 
       const key = `${dataKey}-${dataValue}`;
       const customTdProps: CustomTdProps = { value: dataValue };

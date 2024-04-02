@@ -8,6 +8,7 @@ export type HomeTableMetadata = {
     sorting: SortOptions;
     category: MetricsCategory;
     custom?: { prefix?: string; sufix?: string };
+    isBetaVersion?: boolean;
   };
 };
 
@@ -24,4 +25,9 @@ export type HomeTableHeadersProps = {
   setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>;
   setCoins: React.Dispatch<React.SetStateAction<HomeTableItemdata[]>>;
   coins: HomeTableItemdata[];
+};
+
+export type HomeViewFallbackProps = {
+  isDataLoaded: boolean;
+  error: string | null | undefined;
 };

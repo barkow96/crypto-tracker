@@ -4,19 +4,24 @@ import { HomeTableMetadata } from "./table";
 export type HomeTableItemdata = {
   [key: string]: any;
   rank: number;
-  name: string;
-  ticker: string;
+  symbol: string;
   price: number;
-  marketCap: number;
-  change1H: number;
-  change24H: number;
-  change7D: number;
-  change30D: number;
-  change90D: number;
-  changeYTD: number;
+  priceChange24H: number;
   volume24H: number;
-  volume7D: number;
-  volume30D: number;
+  lowPrice24H: number;
+  highPrice24H: number;
+  reference: string;
+};
+
+export type HomeTableItems = {
+  data?: HomeTableItemdata[];
+  metaData?: { dataParts: number };
+  error?: string | null;
+};
+
+export type HomeTableProps = {
+  data: HomeTableItemdata[];
+  metaData: { dataParts: number };
 };
 
 export type HomeTableItemProps = { data: HomeTableItemdata } & {
