@@ -11,13 +11,9 @@ const HomeView: React.FC<HomeTableItems> = ({ data, metaData, error }) => {
           Check the current prices, volumes and all you ever need...
         </Heading>
 
-        {error ||
-          (!data && (
-            <HomeViewFallback
-              isDataLoaded={data ? true : false}
-              error={error}
-            />
-          ))}
+        {(error || !data) && (
+          <HomeViewFallback isDataLoaded={data ? true : false} error={error} />
+        )}
         {data && metaData && <HomeTable data={data} metaData={metaData} />}
       </Box>
     </main>

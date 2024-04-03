@@ -7,12 +7,16 @@ const HomeViewFallback: React.FC<HomeViewFallbackProps> = ({
 }) => {
   if (error)
     return (
-      <Text>
-        Unfortunatelly an error occured during fetching data from server. :(
+      <Text as="p" mt="15px" fontSize="20px">
+        {error}
       </Text>
     );
   else if (!isDataLoaded)
-    return <Text>Loading the data from server. Please wait...</Text>;
+    return (
+      <Text as="p" mt="15px" fontSize="20px">
+        Loading the data from server. Please wait...
+      </Text>
+    );
 };
 
 export default HomeViewFallback;

@@ -43,3 +43,12 @@ export function defineSortDirection(
 
   return sortDirection;
 }
+
+export function formatNumber(number: number) {
+  if (Math.abs(number) >= 0.01 && number % 1 === 0) return number;
+  if (Math.abs(number) >= 0.01 && number % 1 !== 0)
+    return parseFloat(number.toFixed(3));
+  if (Math.abs(number) < 0.01 && Math.abs(number) >= 0.00001)
+    return parseFloat(number.toFixed(6));
+  if (Math.abs(number) < 0.00001) return parseFloat(number.toFixed(8));
+}

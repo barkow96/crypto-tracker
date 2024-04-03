@@ -14,6 +14,7 @@ import HomeTableHeaders from "./HomeTableHeaders";
 import { HomeTableProps } from "@/types/home-table/item";
 
 const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
+  console.log("Dane: ", data);
   const [coins, setCoins] = useState(data);
   const [searchedCoin, setSearchedCoin] = useState<SearchedCoin>(null);
   const { filteredCoins, setFilteredCoins } = useFilteredCoins(

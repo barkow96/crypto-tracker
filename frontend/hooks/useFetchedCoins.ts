@@ -12,8 +12,7 @@ export function useFetchedCoins(interval: number) {
         const data = await fetchHomePageData();
         setModel(data);
       } catch (error) {
-        setError("Data updating was unsuccessful...");
-        console.log("Data updating was unsuccessful...");
+        setError("Fetching home page data from backend was unsuccessful...");
       }
     }
 
