@@ -1,5 +1,5 @@
 import { colors } from "@/constants/colors";
-import { METRICS_CATEGORIES } from "@/constants/table-initial";
+import { METRICS_CATEGORIES } from "@/constants/table";
 
 import {
   Box,

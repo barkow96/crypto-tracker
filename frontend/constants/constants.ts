@@ -5,4 +5,4 @@ export const ROWS_NUMBER = {
   MIN: 2,
 };
 export const PAGINATION_INITIAL_PAGE = 1;
-export const HOME_PAGE_REFRESH_INTERVAL = 2000;
+export const HOME_PAGE_REFRESH_INTERVAL = 10000;

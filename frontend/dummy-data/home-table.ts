@@ -1,3 +1,4 @@
+// This dummy data is obsolote and not in use anymore
 import { HomeTableItemdata } from "@/types/home-table/item";
 
 export const exampleCoins: HomeTableItemdata[] = [

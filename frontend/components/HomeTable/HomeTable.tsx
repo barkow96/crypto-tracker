@@ -5,16 +5,16 @@ import { useEffect, useState } from "react";
 import { useFilteredCoins } from "@/hooks/useFilteredCoins";
 import { PAGINATION_INITIAL_PAGE, ROWS_NUMBER } from "@/constants/constants";
 import Pagination from "./Pagination";
-import { TABLE_INITIAL_CONFIG } from "@/constants/table-initial";
+import { TABLE_INITIAL_CONFIG } from "@/constants/table";
 import searchCoinService from "./homeTableServices/searchCoinService";
 import selectRowsService from "./homeTableServices/selectRowsService";
 import { usePages } from "@/hooks/usePages";
 import { SearchedCoin } from "@/types/home-table/table";
 import HomeTableHeaders from "./HomeTableHeaders";
 import { HomeTableProps } from "@/types/home-table/item";
+import applySortingService from "./homeTableServices/applySortingService";
 
 const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
-  console.log("Dane: ", data);
   const [coins, setCoins] = useState(data);
   const [searchedCoin, setSearchedCoin] = useState<SearchedCoin>(null);
   const { filteredCoins, setFilteredCoins } = useFilteredCoins(
@@ -29,7 +29,7 @@ const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
   );
 
   useEffect(() => {
-    setCoins(data);
+    applySortingService(tableMetadata, data, setCoins);
   }, [data]);
 
   return (

@@ -19,6 +19,7 @@ export type Metric = {
 };
 
 export type SortOptions = "ASCENDING" | "DESCENDING" | "NO";
+
 export type MetricsCategory =
   | "price"
   | "price change"

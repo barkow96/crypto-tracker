@@ -12,7 +12,7 @@ export function sortByProperty(
   if (direction === "ASCENDING") directionNumber = 1;
   if (direction === "DESCENDING") directionNumber = -1;
 
-  if (property === "name" || property === "ticker") {
+  if (property === "symbol") {
     sortedCoins = coins.sort((coinA, coinB) => {
       if (coinA[property] < coinB[property]) return -1 * directionNumber;
       if (coinA[property] > coinB[property]) return 1 * directionNumber;

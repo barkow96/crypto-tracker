@@ -12,15 +12,24 @@ const HomeTableHeaders: React.FC<HomeTableHeadersProps> = ({
   const tableHeaders: ReactNode[] = Object.keys(tableMetadata).map((key) => {
     if (!tableMetadata[key].isActive) return null;
 
-    const cursor = !tableMetadata[key].isBetaVersion ? "pointer" : "auto";
-    const onClickHandler = !tableMetadata[key].isBetaVersion
-      ? () => {
-          sortService(key, tableMetadata, setTableMetadata, setCoins, coins);
-        }
-      : undefined;
-
     return (
-      <Th key={key} cursor={cursor} onClick={onClickHandler}>
+      <Th
+        key={key}
+        cursor={!tableMetadata[key].isBetaVersion ? "pointer" : "auto"}
+        onClick={
+          !tableMetadata[key].isBetaVersion
+            ? () => {
+                sortService(
+                  key,
+                  tableMetadata,
+                  setTableMetadata,
+                  setCoins,
+                  coins
+                );
+              }
+            : undefined
+        }
+      >
         {tableMetadata[key].header}
       </Th>
     );
