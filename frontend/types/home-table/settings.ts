@@ -15,6 +15,7 @@ export type Metric = {
   sorting: SortOptions;
   category: MetricsCategory;
   custom?: { prefix?: string; sufix?: string };
+  isBetaVersion?: boolean;
 };
 
 export type SortOptions = "ASCENDING" | "DESCENDING" | "NO";

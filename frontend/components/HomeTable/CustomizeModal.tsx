@@ -57,7 +57,10 @@ const CustomizeModal: React.FC<CustomizeModalProps> = ({
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         {overlay}
         <ModalContent>
-          <ModalHeader>Metrics Customization Panel</ModalHeader>
+          <ModalHeader>
+            <Text>Metrics Customization Panel</Text>
+            <Text fontSize="12px">β stands for BETA version</Text>
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {METRICS_CATEGORIES.map((category) => (
@@ -76,7 +79,7 @@ const CustomizeModal: React.FC<CustomizeModalProps> = ({
                             clickMetricService(metric, setTableMetadata);
                           }}
                         >
-                          {metric.header}
+                          {metric.header} {metric.isBetaVersion ? "(β)" : ""}
                         </Button>
                       );
                     else return null;
