@@ -1,4 +1,4 @@
-import { Box, Table, Thead, Tbody, Tr } from "@chakra-ui/react";
+import { Box, Table, Thead, Tbody, Tr, TableContainer } from "@chakra-ui/react";
 import HomeTableSettings from "./HomeTableSettings";
 import HomeTableItem from "./HomeTableItem";
 import { useEffect, useState } from "react";
@@ -45,7 +45,7 @@ const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
         }}
       />
 
-      <Box overflowX="auto">
+      <TableContainer>
         <Table>
           <Thead>
             <Tr>
@@ -74,7 +74,7 @@ const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
             })}
           </Tbody>
         </Table>
-      </Box>
+      </TableContainer>
       <Pagination
         totalPages={Math.ceil(filteredCoins.length / rowsQuantity)}
         currentPage={currentPage}

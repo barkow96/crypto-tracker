@@ -6,3 +6,4 @@ export const ROWS_NUMBER = {
 };
 export const PAGINATION_INITIAL_PAGE = 1;
 export const HOME_PAGE_REFRESH_INTERVAL = 10000;
+export const BETA_PLACEHOLDER = "BETA";

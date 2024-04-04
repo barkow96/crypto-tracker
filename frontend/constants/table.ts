@@ -24,7 +24,7 @@ export const TABLE_INITIAL_CONFIG: HomeTableMetadata = {
   },
   price: {
     isActive: true,
-    header: "price",
+    header: "current price",
     sorting: "NO",
     category: "price",
     custom: { prefix: "$" },

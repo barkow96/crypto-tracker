@@ -15,7 +15,7 @@ const CustomTd: React.FC<CustomTdProps> = ({ value, prefix, sufix }) => {
     textColor = colors.lightRed;
 
   return (
-    <Td color={textColor}>
+    <Td style={{ color: textColor, minWidth: "100px", maxWidth: "100px" }}>
       {prefixWithLogic}
       {!value && value !== "" && value !== 0 ? "n/a" : formattedValue}
       {sufixWithLogic}
