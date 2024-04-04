@@ -1,8 +1,13 @@
 import { Tr } from "@chakra-ui/react";
 import CustomTd from "./CustomTd";
 import { ReactNode } from "react";
-import { CustomTdProps, HomeTableItemProps } from "@/types/home-table/item";
+import { CustomTdProps, HomeTableItemdata } from "@/types/home-table/item";
 import { BETA_PLACEHOLDER } from "@/constants/constants";
+import { HomeTableMetadata } from "@/types/home-table/table";
+
+type HomeTableItemProps = { data: HomeTableItemdata } & {
+  settings: HomeTableMetadata;
+};
 
 const HomeTableItem: React.FC<HomeTableItemProps> = (props) => {
   const { settings } = props;

@@ -1,4 +1,10 @@
-import { ClickMetricService } from "@/types/home-table/services";
+import { Metric } from "@/types/home-table/settings";
+import { HomeTableMetadata } from "@/types/home-table/table";
+
+type ClickMetricService = (
+  metric: Metric,
+  setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>
+) => void;
 
 export const clickMetricService: ClickMetricService = (
   metric,

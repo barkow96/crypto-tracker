@@ -3,7 +3,12 @@ import { Box, Button, Flex, Icon } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { colors } from "@/constants/colors";
 import paginationButtonService from "./paginationServices/paginationButtonService";
-import { PaginationProps } from "@/types/home-table/table";
+
+type PaginationProps = {
+  totalPages: number;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+};
 
 const Pagination: React.FC<PaginationProps> = ({
   totalPages,

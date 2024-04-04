@@ -2,7 +2,15 @@ import { SettingsIcon } from "@chakra-ui/icons";
 import { Box, Flex, Icon, Input, Select, Text } from "@chakra-ui/react";
 import CustomizeModal from "./CustomizeModal";
 import { ROWS_NUMBER } from "@/constants/constants";
-import { HomeTableSettingsProps } from "@/types/home-table/settings";
+import { ChangeEvent } from "react";
+import { HomeTableMetadata } from "@/types/home-table/table";
+
+type HomeTableSettingsProps = {
+  tableMetadata: HomeTableMetadata;
+  setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>;
+  searchCoinHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+  selectRowsHandler: (event: ChangeEvent<HTMLSelectElement>) => void;
+};
 
 const HomeTableSettings: React.FC<HomeTableSettingsProps> = ({
   tableMetadata,

@@ -1,14 +1,20 @@
 import { PAGINATION_INITIAL_PAGE } from "@/constants/constants";
-import { SearchCoinService } from "@/types/home-table/services";
+import { SearchedCoin } from "@/types/home-table/table";
+
+type SearchCoinService = (
+  enteredText: string,
+  setSearchedCoin: React.Dispatch<React.SetStateAction<SearchedCoin>>,
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+) => void;
 
 const searchCoinService: SearchCoinService = (
-  event,
+  enteredText,
   setSearchedCoin,
   setCurrentPage
 ) => {
-  if (event.target.value == "") setSearchedCoin(null);
+  if (enteredText === "") setSearchedCoin(null);
   else {
-    setSearchedCoin(event.target.value);
+    setSearchedCoin(enteredText);
     setCurrentPage(PAGINATION_INITIAL_PAGE);
   }
 };

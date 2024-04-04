@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { HomeTableMetadata } from "./table";
 
 export type HomeTableItemdata = {
   [key: string]: any;
@@ -17,15 +16,6 @@ export type HomeTableItems = {
   data?: HomeTableItemdata[];
   metaData?: { dataParts: number };
   error?: string | null;
-};
-
-export type HomeTableProps = {
-  data: HomeTableItemdata[];
-  metaData: { dataParts: number };
-};
-
-export type HomeTableItemProps = { data: HomeTableItemdata } & {
-  settings: HomeTableMetadata;
 };
 
 export type CustomTdProps = {

@@ -1,4 +1,3 @@
-import { HomeTableItemdata } from "./item";
 import { MetricsCategory, SortOptions } from "./settings";
 
 export type HomeTableMetadata = {
@@ -12,22 +11,4 @@ export type HomeTableMetadata = {
   };
 };
 
-export type PaginationProps = {
-  totalPages: number;
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-};
-
 export type SearchedCoin = string | null;
-
-export type HomeTableHeadersProps = {
-  tableMetadata: HomeTableMetadata;
-  setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>;
-  setCoins: React.Dispatch<React.SetStateAction<HomeTableItemdata[]>>;
-  coins: HomeTableItemdata[];
-};
-
-export type HomeViewFallbackProps = {
-  isDataLoaded: boolean;
-  error: string | null | undefined;
-};

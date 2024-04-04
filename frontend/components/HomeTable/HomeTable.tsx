@@ -11,8 +11,13 @@ import selectRowsService from "./homeTableServices/selectRowsService";
 import { usePages } from "@/hooks/usePages";
 import { SearchedCoin } from "@/types/home-table/table";
 import HomeTableHeaders from "./HomeTableHeaders";
-import { HomeTableProps } from "@/types/home-table/item";
 import applySortingService from "./homeTableServices/applySortingService";
+import { HomeTableItemdata } from "@/types/home-table/item";
+
+type HomeTableProps = {
+  data: HomeTableItemdata[];
+  metaData: { dataParts: number };
+};
 
 const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
   const [coins, setCoins] = useState(data);
@@ -38,10 +43,18 @@ const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
         tableMetadata={tableMetadata}
         setTableMetadata={setTableMetadata}
         searchCoinHandler={(event) => {
-          searchCoinService(event, setSearchedCoin, setCurrentPage);
+          searchCoinService(
+            event.target.value,
+            setSearchedCoin,
+            setCurrentPage
+          );
         }}
         selectRowsHandler={(event) => {
-          selectRowsService(event, setRowsQuantity, setCurrentPage);
+          selectRowsService(
+            event.target.value,
+            setRowsQuantity,
+            setCurrentPage
+          );
         }}
       />
 

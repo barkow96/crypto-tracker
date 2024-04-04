@@ -1,6 +1,12 @@
 import { sortByProperty } from "@/libs/utils";
 import { HomeTableItemdata } from "@/types/home-table/item";
-import { ApplySortingService } from "@/types/home-table/services";
+import { HomeTableMetadata } from "@/types/home-table/table";
+
+type ApplySortingService = (
+  tableMetadata: HomeTableMetadata,
+  coins: HomeTableItemdata[],
+  setCoins: React.Dispatch<React.SetStateAction<HomeTableItemdata[]>>
+) => void;
 
 const applySortingService: ApplySortingService = (
   tableMetadata,

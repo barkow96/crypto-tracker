@@ -1,12 +1,9 @@
-import { ChangeEvent } from "react";
-import { HomeTableMetadata } from "./table";
-
-export type HomeTableSettingsProps = {
-  tableMetadata: HomeTableMetadata;
-  setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>;
-  searchCoinHandler: (event: ChangeEvent<HTMLInputElement>) => void;
-  selectRowsHandler: (event: ChangeEvent<HTMLSelectElement>) => void;
-};
+export type MetricsCategory =
+  | "price"
+  | "price change"
+  | "market cap"
+  | "volume"
+  | null;
 
 export type Metric = {
   name: string;
@@ -19,16 +16,3 @@ export type Metric = {
 };
 
 export type SortOptions = "ASCENDING" | "DESCENDING" | "NO";
-
-export type MetricsCategory =
-  | "price"
-  | "price change"
-  | "market cap"
-  | "volume"
-  | null;
-
-export type CustomizeModalProps = {
-  tableMetadata: HomeTableMetadata;
-  setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>;
-  children: React.ReactNode;
-};
