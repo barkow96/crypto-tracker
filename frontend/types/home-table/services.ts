@@ -24,7 +24,7 @@ export type SortService = (
 ) => void;
 
 export type PaginationButtonService = (
-  action: "PREVIOUS" | "NEXT",
+  action: "PREVIOUS" | "NEXT" | "FIRST" | "LAST",
   currentPage: number,
   totalPages: number,
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>

@@ -21,6 +21,14 @@ const paginationButtonService: PaginationButtonService = (
       setCurrentPage(nextRenderPage);
       break;
 
+    case "FIRST":
+      setCurrentPage(1);
+      break;
+
+    case "LAST":
+      setCurrentPage(totalPages);
+      break;
+
     default:
       break;
   }
