@@ -14,6 +14,7 @@ const getCoin = async (req, res) => {
       message: ERROR_MESSAGE,
       error: error ? error : "Error message missing",
     });
+    return;
   }
 
   res.status(200).json({ data: coinData, metaData: {} });
