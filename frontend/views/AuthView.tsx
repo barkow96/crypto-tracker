@@ -6,7 +6,7 @@ const AuthView: React.FC = () => {
     <main>
       <Box width="80%" margin="auto" marginTop="50px">
         <Heading as="h5" textAlign="center" fontSize="25px">
-          Login or signup to the world of crypto - CryptoPulse!
+          Log in or sign up to the world of crypto - CryptoPulse!
         </Heading>
         <AuthForm />
       </Box>
