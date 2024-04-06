@@ -1,14 +1,20 @@
-import { initialFormData } from "@/constants/authForm";
+import {
+  initialFormData,
+  initialSubmittedFormData,
+} from "@/constants/authForm";
 import { colors } from "@/constants/colors";
 import formDataReducer from "@/libs/formDataReducer";
 import { Button, Stack, Text } from "@chakra-ui/react";
 import { FormEvent, useReducer, useState } from "react";
 import AuthInput from "./AuthInput";
+import { useRouter } from "next/router";
+import { FormDataType, SubmittedFormDataType } from "@/types/auth";
 
 type AuthModeType = "login" | "signup";
 type AuthErrorType = string | null;
 
 export default function AuthForm() {
+  const router = useRouter();
   const [formData, dispatch] = useReducer(formDataReducer, initialFormData);
   const [authMode, setAuthMode] = useState<AuthModeType>("login");
   const [authError, setAuthError] = useState<AuthErrorType>(null);
@@ -26,9 +32,28 @@ export default function AuthForm() {
     else setAuthMode("login");
   }
 
-  function submitHandler(event: FormEvent<HTMLFormElement>) {
+  async function submitHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("Form submitted!");
+
+    const submittedFormData: SubmittedFormDataType = initialSubmittedFormData;
+    for (const key in formData) submittedFormData[key] = formData[key].value;
+    console.log("Submitted form data: ", submittedFormData);
+
+    switch (authMode) {
+      case "signup":
+        const signupResponse = await fetch("/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(submittedFormData),
+        });
+
+        if (signupResponse.ok) router.replace("/");
+        else {
+          const signupData = await signupResponse.json();
+          setAuthError(signupData.message);
+        }
+        break;
+    }
   }
 
   return (
