@@ -1,10 +1,12 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const router = express.Router();
 
 // Import handlers for the routes
 const { getCoin } = require("../controllers/coinController");
 const { getCoins } = require("../controllers/coinsController");
 const { handleStrapiTest } = require("../controllers/strapiTestController");
+const { signUp } = require("../controllers/signUpController");
 
 // Define supported routes
 const routes = [
@@ -15,6 +17,12 @@ const routes = [
     method: "get",
     middleware: [],
     handler: handleStrapiTest,
+  },
+  {
+    path: "/auth/signup",
+    method: "post",
+    middleware: [bodyParser.json()],
+    handler: signUp,
   },
 ];
 

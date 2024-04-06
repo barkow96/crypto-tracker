@@ -13,6 +13,27 @@ export const initialFormData: FormDataType = {
   password2: initialInput,
 };
 
+export const exampleFormData: FormDataType = {
+  email: {
+    value: "test@test.com",
+    isValid: true,
+    isTouched: true,
+    validationMessage: null,
+  },
+  password1: {
+    value: "test1234",
+    isValid: true,
+    isTouched: true,
+    validationMessage: null,
+  },
+  password2: {
+    value: "test1234",
+    isValid: true,
+    isTouched: true,
+    validationMessage: null,
+  },
+};
+
 export const initialSubmittedFormData: SubmittedFormDataType = {
   email: "",
   password1: "",

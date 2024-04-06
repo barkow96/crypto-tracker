@@ -1,4 +1,5 @@
 import {
+  exampleFormData,
   initialFormData,
   initialSubmittedFormData,
 } from "@/constants/authForm";
@@ -15,7 +16,7 @@ type AuthErrorType = string | null;
 
 export default function AuthForm() {
   const router = useRouter();
-  const [formData, dispatch] = useReducer(formDataReducer, initialFormData);
+  const [formData, dispatch] = useReducer(formDataReducer, exampleFormData);
   const [authMode, setAuthMode] = useState<AuthModeType>("login");
   const [authError, setAuthError] = useState<AuthErrorType>(null);
 
@@ -47,8 +48,13 @@ export default function AuthForm() {
           body: JSON.stringify(submittedFormData),
         });
 
-        if (signupResponse.ok) router.replace("/");
-        else {
+        if (signupResponse.ok) {
+          console.log("Frontend signup - OK");
+          const signupData = await signupResponse.json();
+          console.log("Received response: ", signupData);
+          // router.replace("/");
+        } else {
+          console.log("Frontend signup - NOT OK");
           const signupData = await signupResponse.json();
           setAuthError(signupData.message);
         }
