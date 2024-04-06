@@ -384,6 +384,37 @@ export interface ApiTestTest extends Schema.CollectionType {
   };
 }
 
+export interface ApiWebsiteUserWebsiteUser extends Schema.CollectionType {
+  collectionName: 'website_users';
+  info: {
+    singularName: 'website-user';
+    pluralName: 'website-users';
+    displayName: 'WebsiteUser';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    email: Attribute.String;
+    password: Attribute.Password;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::website-user.website-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::website-user.website-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -821,6 +852,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::test.test': ApiTestTest;
+      'api::website-user.website-user': ApiWebsiteUserWebsiteUser;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
