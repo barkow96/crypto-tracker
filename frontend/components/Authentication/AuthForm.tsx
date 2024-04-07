@@ -8,17 +8,15 @@ import formDataReducer from "@/libs/formDataReducer";
 import { Button, Stack, Text } from "@chakra-ui/react";
 import { FormEvent, useReducer, useState } from "react";
 import AuthInput from "./AuthInput";
-import { useRouter } from "next/router";
-import { FormDataType, SubmittedFormDataType } from "@/types/auth";
+import { SubmittedFormDataType } from "@/types/auth";
 
 type AuthModeType = "login" | "signup";
-type AuthErrorType = string | null;
+type AuthMessageType = { isPositive: boolean; text: string } | null;
 
 export default function AuthForm() {
-  const router = useRouter();
   const [formData, dispatch] = useReducer(formDataReducer, exampleFormData);
   const [authMode, setAuthMode] = useState<AuthModeType>("login");
-  const [authError, setAuthError] = useState<AuthErrorType>(null);
+  const [authMessage, setAuthMessage] = useState<AuthMessageType>(null);
 
   const formIsValid =
     authMode === "login"
@@ -28,7 +26,7 @@ export default function AuthForm() {
         formData.password2.isValid;
 
   function toggleHandler() {
-    setAuthError(null);
+    setAuthMessage(null);
     if (authMode === "login") setAuthMode("signup");
     else setAuthMode("login");
   }
@@ -38,7 +36,6 @@ export default function AuthForm() {
 
     const submittedFormData: SubmittedFormDataType = initialSubmittedFormData;
     for (const key in formData) submittedFormData[key] = formData[key].value;
-    console.log("Submitted form data: ", submittedFormData);
 
     switch (authMode) {
       case "signup":
@@ -49,14 +46,13 @@ export default function AuthForm() {
         });
 
         if (signupResponse.ok) {
-          console.log("Frontend signup - OK");
-          const signupData = await signupResponse.json();
-          console.log("Received response: ", signupData);
-          // router.replace("/");
+          setAuthMessage({
+            isPositive: true,
+            text: "Successfully created an account!",
+          });
         } else {
-          console.log("Frontend signup - NOT OK");
           const signupData = await signupResponse.json();
-          setAuthError(signupData.message);
+          setAuthMessage({ isPositive: false, text: signupData.message });
         }
         break;
     }
@@ -120,9 +116,13 @@ export default function AuthForm() {
             ? "No account yet? Sign up!"
             : "Already registered? Log in!"}
         </Text>
-        {authError && (
-          <Text as="p" color={colors.red} fontWeight="bold">
-            {authError}
+        {authMessage && (
+          <Text
+            as="p"
+            color={authMessage.isPositive ? colors.green : colors.red}
+            fontWeight="bold"
+          >
+            {authMessage.text}
           </Text>
         )}
       </Stack>
