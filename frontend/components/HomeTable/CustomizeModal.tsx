@@ -1,6 +1,5 @@
 import { colors } from "@/constants/colors";
 import { METRICS_CATEGORIES } from "@/constants/table";
-
 import {
   Box,
   Button,
@@ -15,10 +14,16 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-
 import React, { useState } from "react";
 import clickMetricService from "./customizeModalServices/clickMetricService";
-import { CustomizeModalProps, Metric } from "@/types/home-table/settings";
+import { Metric } from "@/types/home-table/settings";
+import { HomeTableMetadata } from "@/types/home-table/table";
+
+type CustomizeModalProps = {
+  tableMetadata: HomeTableMetadata;
+  setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>;
+  children: React.ReactNode;
+};
 
 const CustomizeModal: React.FC<CustomizeModalProps> = ({
   tableMetadata,

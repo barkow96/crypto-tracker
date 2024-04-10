@@ -1,4 +1,9 @@
-import { PaginationButtonService } from "@/types/home-table/services";
+type PaginationButtonService = (
+  action: "PREVIOUS" | "NEXT" | "FIRST" | "LAST",
+  currentPage: number,
+  totalPages: number,
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+) => void;
 
 const paginationButtonService: PaginationButtonService = (
   action,
@@ -19,6 +24,14 @@ const paginationButtonService: PaginationButtonService = (
       if (currentPage === totalPages) return;
       nextRenderPage = currentPage + 1;
       setCurrentPage(nextRenderPage);
+      break;
+
+    case "FIRST":
+      setCurrentPage(1);
+      break;
+
+    case "LAST":
+      setCurrentPage(totalPages);
       break;
 
     default:

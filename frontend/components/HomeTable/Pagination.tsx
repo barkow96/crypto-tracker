@@ -3,7 +3,12 @@ import { Box, Button, Flex, Icon } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { colors } from "@/constants/colors";
 import paginationButtonService from "./paginationServices/paginationButtonService";
-import { PaginationProps } from "@/types/home-table/table";
+
+type PaginationProps = {
+  totalPages: number;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+};
 
 const Pagination: React.FC<PaginationProps> = ({
   totalPages,
@@ -11,49 +16,84 @@ const Pagination: React.FC<PaginationProps> = ({
   setCurrentPage,
 }) => {
   const paginationButtonStyles = {
-    width: "120px",
+    width: "60px",
     backgroundColor: colors.red,
     color: colors.bright,
     _hover: { backgroundColor: colors.green },
   };
+  const firstAndLastButtonStyles = { width: "10px", marginX: "1px" };
 
   return (
-    <Flex align="center" justify="center" gap="15px" marginTop="10px">
-      {currentPage > 1 && (
-        <Button
-          {...paginationButtonStyles}
-          onClick={() => {
-            paginationButtonService(
-              "PREVIOUS",
-              currentPage,
-              totalPages,
-              setCurrentPage
-            );
-          }}
-        >
-          <Icon as={ArrowLeftIcon} />
-          Previous
-        </Button>
-      )}
-      <Box>
-        Page {currentPage} of {totalPages}
+    <Flex align="center" justify="space-between" gap="15px" marginTop="10px">
+      <Box width="42.5%" textAlign="right">
+        {currentPage > 3 && (
+          <Button
+            {...paginationButtonStyles}
+            {...firstAndLastButtonStyles}
+            onClick={() => {
+              paginationButtonService(
+                "FIRST",
+                currentPage,
+                totalPages,
+                setCurrentPage
+              );
+            }}
+          >
+            <Icon as={ArrowLeftIcon} />
+          </Button>
+        )}
+        {currentPage > 1 && (
+          <Button
+            {...paginationButtonStyles}
+            onClick={() => {
+              paginationButtonService(
+                "PREVIOUS",
+                currentPage,
+                totalPages,
+                setCurrentPage
+              );
+            }}
+          >
+            Back
+          </Button>
+        )}
       </Box>
-      {currentPage < totalPages && (
-        <Button
-          {...paginationButtonStyles}
-          onClick={() => {
-            paginationButtonService(
-              "NEXT",
-              currentPage,
-              totalPages,
-              setCurrentPage
-            );
-          }}
-        >
-          Next
-          <Icon as={ArrowRightIcon} />
-        </Button>
-      )}
+      <Box width="15%" textAlign="center">
+        Page {currentPage}/{totalPages}
+      </Box>
+      <Box width="42.5%" textAlign="left">
+        {currentPage < totalPages && (
+          <Button
+            {...paginationButtonStyles}
+            onClick={() => {
+              paginationButtonService(
+                "NEXT",
+                currentPage,
+                totalPages,
+                setCurrentPage
+              );
+            }}
+          >
+            Next
+          </Button>
+        )}
+        {totalPages - currentPage > 3 && (
+          <Button
+            {...paginationButtonStyles}
+            {...firstAndLastButtonStyles}
+            onClick={() => {
+              paginationButtonService(
+                "LAST",
+                currentPage,
+                totalPages,
+                setCurrentPage
+              );
+            }}
+          >
+            <Icon as={ArrowRightIcon} />
+          </Button>
+        )}
+      </Box>
     </Flex>
   );
 };

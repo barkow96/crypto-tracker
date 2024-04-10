@@ -1,7 +1,15 @@
-import { HomeTableHeadersProps } from "@/types/home-table/table";
 import { Th } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import sortService from "./homeTableServices/sortService";
+import { HomeTableMetadata } from "@/types/home-table/table";
+import { HomeTableItemdata } from "@/types/home-table/item";
+
+type HomeTableHeadersProps = {
+  tableMetadata: HomeTableMetadata;
+  setTableMetadata: React.Dispatch<React.SetStateAction<HomeTableMetadata>>;
+  setCoins: React.Dispatch<React.SetStateAction<HomeTableItemdata[]>>;
+  coins: HomeTableItemdata[];
+};
 
 const HomeTableHeaders: React.FC<HomeTableHeadersProps> = ({
   tableMetadata,

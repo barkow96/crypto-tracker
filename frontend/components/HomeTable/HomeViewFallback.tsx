@@ -1,5 +1,9 @@
-import { HomeViewFallbackProps } from "@/types/home-table/table";
 import { Text } from "@chakra-ui/react";
+
+type HomeViewFallbackProps = {
+  isDataLoaded: boolean;
+  error: string | null | undefined;
+};
 
 const HomeViewFallback: React.FC<HomeViewFallbackProps> = ({
   isDataLoaded,

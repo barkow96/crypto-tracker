@@ -1,12 +1,17 @@
 import { PAGINATION_INITIAL_PAGE } from "@/constants/constants";
-import { SelectRowsService } from "@/types/home-table/services";
+
+type SelectRowsService = (
+  selectedRowsValue: string,
+  setRowsQuantity: React.Dispatch<React.SetStateAction<number>>,
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+) => void;
 
 const selectRowsService: SelectRowsService = (
-  event,
+  selectedRowsValue,
   setRowsQuantity,
   setCurrentPage
 ) => {
-  setRowsQuantity(parseInt(event.target.value));
+  setRowsQuantity(parseInt(selectedRowsValue));
   setCurrentPage(PAGINATION_INITIAL_PAGE);
 };
 
