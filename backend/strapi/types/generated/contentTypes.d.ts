@@ -373,7 +373,8 @@ export interface ApiTestTest extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    test: Attribute.String;
+    testText: Attribute.String;
+    testNumber: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
