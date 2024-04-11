@@ -1,4 +1,3 @@
-const axios = require("axios");
 const { getCoinsList } = require("../services/getCoinsList");
 
 const ERROR_MESSAGE = "Unsuccessful connection to data provider API";
@@ -12,6 +11,7 @@ const getCoins = async (req, res) => {
       message: ERROR_MESSAGE,
       error: error ? error : "Error message missing",
     });
+    return;
   }
 
   res.status(200).json({ data: coinsList, metaData: { dataParts: 1 } });

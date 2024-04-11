@@ -3,6 +3,7 @@
 # dependencies
 /frontend/node_modules
 /backend/express/node_modules
+/backend/strapi/node_modules
 /frontend/.pnp
 .pnp.js
 .yarn/install-state.gz
