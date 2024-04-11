@@ -1,7 +1,14 @@
-const requiredFields = ["symbol", "lastPrice", "priceChangePercent", "volume"];
-
 // Perform initial filtering of received data - get rid of 0 values and leave only the necessary data
-function filterDataInitially(coinsData) {
+export const filterDataInitially: DataProcess1_Type = (
+  coinsData: ExtEndpoint_Ticker24hr_Type
+) => {
+  const requiredFields = [
+    "symbol",
+    "lastPrice",
+    "priceChangePercent",
+    "volume",
+  ];
+
   if (
     !Array.isArray(coinsData) ||
     coinsData.length === 0 ||
@@ -25,6 +32,4 @@ function filterDataInitially(coinsData) {
     }));
 
   return filteredData;
-}
-
-module.exports = { filterDataInitially };
+};

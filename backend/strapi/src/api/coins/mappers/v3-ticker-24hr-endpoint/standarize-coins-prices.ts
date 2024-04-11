@@ -1,11 +1,11 @@
-const requiredFields = ["symbol", "price"];
-
 // Create array with data in relation to USD, with standarized coin names
-function standarizeCoinsPricesToUsdt(
+export const standarizeCoinsPricesToUsdt: DataProcess2_Type = (
   coins,
   stableCoinsReferences,
   referencePairs
-) {
+) => {
+  const requiredFields = ["symbol", "price"];
+
   if (
     !Array.isArray(coins) ||
     coins.length === 0 ||
@@ -39,9 +39,10 @@ function standarizeCoinsPricesToUsdt(
           reference: bestFitReferenceCoin,
         };
 
-      let newPrice = "NEW_PRICE";
-      let newName = "NEW_NAME";
-      let newReference = "NEW_REFERENCE";
+      let isNew = true;
+      let newPrice = -10;
+      let newName = "DEFAULT_NAME";
+      let newReference = "DEFAULT_REFERENCE";
 
       referencePairs.forEach((reference) => {
         if (coin.symbol.endsWith(reference.of)) {
@@ -50,23 +51,25 @@ function standarizeCoinsPricesToUsdt(
           if (!reference.reversedPair) newPrice = coin.price * reference.price;
           else if (reference.reversedPair)
             newPrice = coin.price / reference.price;
+          else isNew = false;
         }
       });
 
-      if (newPrice === "NEW_PRICE")
+      if (!isNew)
         return {
-          symbol: null,
+          ...coin,
+          symbol: "null",
+          reference: "null",
         };
-      return {
-        ...coin,
-        symbol: newName,
-        price: newPrice,
-        reference: newReference,
-      };
+      else
+        return {
+          ...coin,
+          symbol: newName,
+          price: newPrice,
+          reference: newReference,
+        };
     })
     .filter((coin) => coin.symbol);
 
   return coinsToUsd;
-}
-
-module.exports = { standarizeCoinsPricesToUsdt };
+};

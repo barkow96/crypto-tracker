@@ -1,7 +1,10 @@
-const requiredFields = ["symbol", "price"];
-
 // Fill in available prices of reference pairs
-function fillPricesOfReferencePairs(referencePairs, coins) {
+export const fillPricesOfReferencePairs: FillReferencePricesType = (
+  referencePairs,
+  coins
+) => {
+  const requiredFields = ["symbol", "price"];
+
   if (
     !Array.isArray(coins) ||
     coins.length === 0 ||
@@ -20,6 +23,4 @@ function fillPricesOfReferencePairs(referencePairs, coins) {
   });
 
   return referencePairsWithPrices;
-}
-
-module.exports = { fillPricesOfReferencePairs };
+};

@@ -1,6 +1,9 @@
-const requiredFields = ["symbol", "volume24H"];
+export const filterUniquePairs: DataProcess3_Type = (
+  coins,
+  stableCoinsReferences
+) => {
+  const requiredFields = ["symbol", "volume24H"];
 
-function filterUniquePairs(coins, stableCoinsReferences) {
   if (
     !Array.isArray(coins) ||
     coins.length === 0 ||
@@ -42,6 +45,4 @@ function filterUniquePairs(coins, stableCoinsReferences) {
   }));
 
   return coinsListWithRanks;
-}
-
-module.exports = { filterUniquePairs };
+};
