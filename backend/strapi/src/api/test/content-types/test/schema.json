@@ -11,8 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "test": {
+    "testText": {
       "type": "string"
+    },
+    "testNumber": {
+      "type": "integer"
     }
   }
 }
