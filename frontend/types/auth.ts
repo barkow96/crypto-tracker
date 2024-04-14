@@ -15,10 +15,12 @@ export type FormDataType = {
 };
 
 export type SubmittedFormDataType = {
-  [key: string]: string;
-  email: string;
-  password1: string;
-  password2: string;
+  data: {
+    [key: string]: string;
+    email: string;
+    password1: string;
+    password2: string;
+  };
 };
 
 export type ActionType =

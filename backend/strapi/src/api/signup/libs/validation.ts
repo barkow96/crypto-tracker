@@ -1,20 +1,24 @@
 const emptyMessage = "Input cannot remain empty!";
 
-const checkIfEmailCorrect = (text) => {
+type TestResultType = { test: boolean; message: string };
+type SingleInputTestType = (text: string) => TestResultType;
+type DoubleInputTestType = (text1: string, text2: string) => TestResultType;
+
+export const checkIfEmailCorrect: SingleInputTestType = (text) => {
   const test = /[^\s@]+@[^\s@]+\.[^\s@]+/.test(text);
   let message = test ? "" : "Invalid format of email address!";
   message = text.trim().length === 0 ? emptyMessage : message;
   return { test, message };
 };
 
-const checkIfPasswordCorrect = (text) => {
+export const checkIfPasswordCorrect: SingleInputTestType = (text) => {
   const test = text.trim().length >= 6;
   let message = test ? "" : "Password is too short!";
   message = text.trim().length === 0 ? emptyMessage : message;
   return { test, message };
 };
 
-const checkIfPasswordsMatch = (text1, text2) => {
+export const checkIfPasswordsMatch: DoubleInputTestType = (text1, text2) => {
   const test = text1.trim() === text2.trim();
   let message = test ? "" : "Passwords are not exactly the same!";
   message =
@@ -22,10 +26,4 @@ const checkIfPasswordsMatch = (text1, text2) => {
       ? emptyMessage
       : message;
   return { test, message };
-};
-
-module.exports = {
-  checkIfEmailCorrect,
-  checkIfPasswordCorrect,
-  checkIfPasswordsMatch,
 };

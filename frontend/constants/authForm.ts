@@ -35,7 +35,5 @@ export const exampleFormData: FormDataType = {
 };
 
 export const initialSubmittedFormData: SubmittedFormDataType = {
-  email: "",
-  password1: "",
-  password2: "",
+  data: { email: "", password1: "", password2: "" },
 };

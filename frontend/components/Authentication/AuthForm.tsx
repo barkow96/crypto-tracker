@@ -1,6 +1,5 @@
 import {
   exampleFormData,
-  initialFormData,
   initialSubmittedFormData,
 } from "@/constants/authForm";
 import { colors } from "@/constants/colors";
@@ -35,7 +34,8 @@ export default function AuthForm() {
     event.preventDefault();
 
     const submittedFormData: SubmittedFormDataType = initialSubmittedFormData;
-    for (const key in formData) submittedFormData[key] = formData[key].value;
+    for (const key in formData)
+      submittedFormData.data[key] = formData[key].value;
 
     switch (authMode) {
       case "signup":

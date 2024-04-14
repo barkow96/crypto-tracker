@@ -1,7 +1,5 @@
-import { Context } from "koa";
-
 export default {
-  getCoins: async (ctx: Context) => {
+  getCoins: async (ctx) => {
     const ERROR_MESSAGE = "Unsuccessful connection to data provider API";
 
     let coinsList: CoinsListType;

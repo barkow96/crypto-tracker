@@ -1,10 +1,20 @@
-const {
+import {
   checkIfEmailCorrect,
   checkIfPasswordCorrect,
   checkIfPasswordsMatch,
-} = require("../libs/validation");
+} from "../libs/validation";
 
-function validateCredentials(email, password1, password2) {
+type ValidateCredentialsType = (
+  email: string,
+  password1: string,
+  password2: string
+) => boolean;
+
+export const validateCredentials: ValidateCredentialsType = (
+  email,
+  password1,
+  password2
+) => {
   if (
     !email ||
     !checkIfEmailCorrect(email).test ||
@@ -15,6 +25,4 @@ function validateCredentials(email, password1, password2) {
   )
     return false;
   else return true;
-}
-
-module.exports = { validateCredentials };
+};
