@@ -16,12 +16,14 @@ export const insertNewUser: InsertNewUserType = async (email, password) => {
   const authenticatedRole = allRoles.find(
     (role) => role.name === "Authenticated"
   );
+
   const newUser = {
     username: email,
     email: email,
     password: password,
     confirmed: true,
     role: [authenticatedRole.id],
+    provider: "local",
   };
 
   //INSERTING NEWS USER INTO USERS COLLECTION

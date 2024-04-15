@@ -4,8 +4,8 @@ const nextConfig = {
   rewrites: async () => {
     return [
       {
-        source: "/api/:path*",
-        destination: process.env.BACKEND_URL,
+        source: "/api/strapi/:path*",
+        destination: "http://localhost:1337/api/:path*",
       },
     ];
   },

@@ -8,11 +8,14 @@ import { Button, Stack, Text } from "@chakra-ui/react";
 import { FormEvent, useReducer, useState } from "react";
 import AuthInput from "./AuthInput";
 import { SubmittedFormDataType } from "@/types/auth";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 type AuthModeType = "login" | "signup";
 type AuthMessageType = { isPositive: boolean; text: string } | null;
 
 export default function AuthForm() {
+  const router = useRouter();
   const [formData, dispatch] = useReducer(formDataReducer, exampleFormData);
   const [authMode, setAuthMode] = useState<AuthModeType>("login");
   const [authMessage, setAuthMessage] = useState<AuthMessageType>(null);
@@ -39,7 +42,7 @@ export default function AuthForm() {
 
     switch (authMode) {
       case "signup":
-        const signupResponse = await fetch("/api/auth/signup", {
+        const signupResponse = await fetch("/api/strapi/auth/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(submittedFormData),
@@ -54,6 +57,25 @@ export default function AuthForm() {
           const signupData = await signupResponse.json();
           setAuthMessage({ isPositive: false, text: signupData.message });
         }
+        break;
+      case "login":
+        const loginResponse = await signIn("credentials", {
+          redirect: false,
+          email: submittedFormData.data.email,
+          password: submittedFormData.data.password1,
+        });
+
+        if (loginResponse && loginResponse.ok) {
+          router.replace("/");
+          setAuthMessage({ isPositive: true, text: "Succesfully logged in" });
+        } else
+          setAuthMessage({
+            isPositive: false,
+            text:
+              loginResponse && loginResponse.error
+                ? loginResponse.error
+                : "Something went wrong",
+          });
         break;
     }
   }
