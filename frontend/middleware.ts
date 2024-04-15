@@ -21,7 +21,7 @@ export default withAuth(
     }
     if (pathName.startsWith("/watchlist") && !token) {
       const newUrl = createUrlWithMessage(
-        "You cannot see Portfolio until you log in!"
+        "You cannot see Watchlist until you log in!"
       );
       return NextResponse.rewrite(newUrl);
     }

@@ -3,7 +3,7 @@ import Head from "next/head";
 
 export default function AuthPage() {
   return (
-    <div>
+    <>
       <Head>
         <title>CryptoPulse: auth</title>
         <meta
@@ -12,6 +12,6 @@ export default function AuthPage() {
         />
       </Head>
       <AuthView />
-    </div>
+    </>
   );
 }
