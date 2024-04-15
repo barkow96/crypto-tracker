@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 export default NextAuth({
   session: { strategy: "jwt", maxAge: 10 * 60 },
   secret: "fZ7Lww9ffvh/6mXmZqhEC4Xp5qaUrpL/yrHfU2GgcAw=",
+  site: "http://localhost:3000",
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -26,6 +27,14 @@ export default NextAuth({
           throw new Error("An error occured, you cannot log in!");
         if (responseData.user)
           return { email: responseData.user, jwt: responseData.jwt };
+
+        return null;
+      },
+      pages: {
+        signIn: "/auth",
+        signOut: "/",
+        error: "/",
+        accessDenied: "/access-denied",
       },
     }),
   ],

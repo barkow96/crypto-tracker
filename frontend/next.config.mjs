@@ -9,6 +9,10 @@ const nextConfig = {
       },
     ];
   },
+  env: {
+    NEXTAUTH_SECRET: "fZ7Lww9ffvh/6mXmZqhEC4Xp5qaUrpL/yrHfU2GgcAw=",
+    NEXTAUTH_URL: "http://localhost:3000",
+  },
 };
 
 export default nextConfig;
