@@ -43,7 +43,7 @@ const NavbarLinksSmall: React.FC<NavbarLinksProps> = ({ links }) => {
               signOut({ callbackUrl: "/", redirect: true });
             }}
           >
-            sign out
+            log out
           </MenuItem>
         )}
       </MenuList>
