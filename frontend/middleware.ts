@@ -25,8 +25,11 @@ export default withAuth(
       );
       return NextResponse.rewrite(newUrl);
     }
+    if (pathName.startsWith("/auth") && token) {
+      return NextResponse.rewrite(new URL("/", url));
+    }
   },
   { callbacks: { authorized: () => true } }
 );
 
-export const config = { matcher: ["/portfolio", "/watchlist"] };
+export const config = { matcher: ["/portfolio", "/watchlist", "/auth"] };
