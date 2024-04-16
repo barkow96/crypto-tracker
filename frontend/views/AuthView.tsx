@@ -1,15 +1,12 @@
 import AuthForm from "@/components/Authentication/AuthForm";
-import { Box, Heading } from "@chakra-ui/react";
+import PageContentLayout from "@/containers/PageContentLayout";
 
 const AuthView: React.FC = () => {
   return (
     <main>
-      <Box width="80%" margin="auto" marginTop="50px">
-        <Heading as="h5" textAlign="center" fontSize="25px">
-          Log in or sign up to the world of crypto - CryptoPulse!
-        </Heading>
+      <PageContentLayout heading="Log in or sign up to the world of crypto - CryptoPulse!">
         <AuthForm />
-      </Box>
+      </PageContentLayout>
     </main>
   );
 };
