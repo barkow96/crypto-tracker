@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -5,13 +8,9 @@ const nextConfig = {
     return [
       {
         source: "/api/strapi/:path*",
-        destination: "http://localhost:1337/api/:path*",
+        destination: process.env.BACKEND_URL,
       },
     ];
-  },
-  env: {
-    NEXTAUTH_SECRET: "fZ7Lww9ffvh/6mXmZqhEC4Xp5qaUrpL/yrHfU2GgcAw=",
-    NEXTAUTH_URL: "http://localhost:3000",
   },
 };
 

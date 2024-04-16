@@ -1,10 +1,12 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import dotenv from "dotenv";
+dotenv.config();
 
 export default NextAuth({
   session: { strategy: "jwt", maxAge: 10 * 60 },
-  secret: "fZ7Lww9ffvh/6mXmZqhEC4Xp5qaUrpL/yrHfU2GgcAw=",
-  site: "http://localhost:3000",
+  secret: process.env.NEXTAUTH_SECRET,
+  site: process.env.NEXTHAUTH_URL,
   providers: [
     CredentialsProvider({
       name: "Credentials",
