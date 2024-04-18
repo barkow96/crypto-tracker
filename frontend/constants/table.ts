@@ -43,20 +43,6 @@ export const TABLE_INITIAL_CONFIG: HomeTableMetadata = {
     category: "price",
     custom: { prefix: "$" },
   },
-  lowPrice24H: {
-    isActive: false,
-    header: "low price 24h",
-    sorting: "NO",
-    category: "price",
-    custom: { prefix: "$" },
-  },
-  highPrice24H: {
-    isActive: false,
-    header: "high price 24h",
-    sorting: "NO",
-    category: "price",
-    custom: { prefix: "$" },
-  },
   marketCap: {
     isActive: false,
     header: "market cap",

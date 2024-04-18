@@ -1,23 +1,37 @@
+export type ChakraIcon = "StarIcon" | "MoonIcon" | "SunIcon";
+
 export type Portfolio = {
   id: number;
   name: string;
   value: number;
-  icon: "StarIcon" | "MoonIcon" | "SunIcon";
+  icon: ChakraIcon;
   isActive: boolean;
-};
-
-export type PortfolioProps = {
-  item: Portfolio;
-  portfolios: Portfolio[];
-  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[]>>;
-  selectPortfolioHandler: SelectPortfolioService;
 };
 
 export type SelectPortfolioService = (
   selectedPortolioId: number,
-  portfolioList: Portfolio[],
   setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>
 ) => void;
+
+export type AddPortfolioService = (
+  newPortfolioName: string,
+  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>
+) => void;
+
+export type EditPortfolioService = (
+  selectedPortolioId: number,
+  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>,
+  newPortfolioName?: string,
+  newPortfolioIcon?: ChakraIcon
+) => void;
+
+export type PortfolioProps = {
+  item: Portfolio;
+  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[]>>;
+  selectPortfolioHandler: SelectPortfolioService;
+  addPortfolioHandler: AddPortfolioService;
+  editPortfolioHandler: EditPortfolioService;
+};
 
 export type ChoosePortfolioPanelProps = {
   portfolios: Portfolio[];
