@@ -1,4 +1,7 @@
-import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
+import {
+  NewPortfolio,
+  Portfolio,
+} from "@/types/portfolio-panel/choose-portfolio-panel";
 
 export const initialPortfolioList: Portfolio[] = [
   {
@@ -30,3 +33,8 @@ export const initialPortfolioList: Portfolio[] = [
     isActive: false,
   },
 ];
+
+export const newPortfolioInitial: NewPortfolio = {
+  data: { name: "My New Porfolio", icon: "StarIcon" },
+  metaData: { isShown: false },
+};

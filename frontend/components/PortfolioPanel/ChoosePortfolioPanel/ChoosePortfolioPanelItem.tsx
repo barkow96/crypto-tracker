@@ -15,7 +15,6 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
   item,
   setPortfolios,
   selectPortfolioHandler,
-  addPortfolioHandler,
   editPortfolioHandler,
 }) => {
   const [isEditting, setIsEditting] = useState(false);
@@ -28,7 +27,7 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
     fontWeight: "bold",
   };
 
-  function toggleEditingHandler() {
+  function toggleEdittingHandler() {
     if (isEditting) setIsEditting(false);
     else {
       setIsEditting(true);
@@ -97,7 +96,7 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
 
           <Text flex="0">
             {!isEditting && (
-              <EditIcon cursor="pointer" onClick={toggleEditingHandler} />
+              <EditIcon cursor="pointer" onClick={toggleEdittingHandler} />
             )}
             {isEditting && (
               <CheckIcon cursor="pointer" onClick={submitEditHandler} />

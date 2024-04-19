@@ -5,7 +5,9 @@ import PortfolioTable from "./PortfolioTable";
 import { useState } from "react";
 import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
 import { initialPortfolioList } from "@/dummy-data/portfolio-panel";
-import selectPortfolioService from "./ChoosePortfolioPanel/SelectPortfolioService";
+import selectPortfolioService from "./ChoosePortfolioPanel/services/selectPortfolioService";
+import addPortfolioService from "./ChoosePortfolioPanel/services/addPortfolioService";
+import editPortfolioService from "./ChoosePortfolioPanel/services/editPortfolioService";
 
 const PortfolioPanel: React.FC = () => {
   const isLargeScreen = useBreakpointValue({ base: false, lg: true });
@@ -19,6 +21,8 @@ const PortfolioPanel: React.FC = () => {
           portfolios={portfolioList}
           setPortfolios={setPortfolioList}
           selectPortfolioHandler={selectPortfolioService}
+          addPortfolioHandler={addPortfolioService}
+          editPortfolioHandler={editPortfolioService}
         />
       </Box>
       <Box width={isLargeScreen ? "75%" : "100%"}>

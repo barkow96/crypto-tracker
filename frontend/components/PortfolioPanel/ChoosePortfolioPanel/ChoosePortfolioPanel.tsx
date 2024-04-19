@@ -3,15 +3,23 @@ import { ChoosePortfolioPanelProps } from "@/types/portfolio-panel/choose-portfo
 import ChoosePortfolioPanelItem from "./ChoosePortfolioPanelItem";
 import { colors } from "@/constants/colors";
 import { AddIcon } from "@chakra-ui/icons";
-import addPortfolioService from "./services/addPortfolioService";
-import editPortfolioService from "./services/editPortfolioService";
+import { useState } from "react";
+import { newPortfolioInitial } from "@/dummy-data/portfolio-panel";
 
 const ChoosePortfolioPanel: React.FC<ChoosePortfolioPanelProps> = ({
   portfolios,
   setPortfolios,
   selectPortfolioHandler,
+  addPortfolioHandler,
+  editPortfolioHandler,
 }) => {
-  console.log("Nowe portfolia!: ", portfolios);
+  const [newPortfolio, setNewPortfolio] = useState(newPortfolioInitial);
+  function showNewPortfolioInput() {
+    setNewPortfolio((prevPortfolio) => {
+      return { data: { ...prevPortfolio.data }, metaData: { isShown: true } };
+    });
+  }
+
   return (
     <Box>
       <Text
@@ -33,19 +41,21 @@ const ChoosePortfolioPanel: React.FC<ChoosePortfolioPanelProps> = ({
           item={portfolio}
           setPortfolios={setPortfolios}
           selectPortfolioHandler={selectPortfolioHandler}
-          addPortfolioHandler={addPortfolioService}
-          editPortfolioHandler={editPortfolioService}
+          editPortfolioHandler={editPortfolioHandler}
         />
       ))}
-      <Box
-        color={colors.red}
-        fontWeight="bold"
-        cursor="pointer"
-        _hover={{ transform: "scale(1.02)", transition: "0.3" }}
-      >
-        <AddIcon sx={{ marginRight: "15px" }} />
-        Add new portfolio
-      </Box>
+      {!newPortfolio.metaData.isShown && (
+        <Box
+          onClick={showNewPortfolioInput}
+          color={colors.red}
+          fontWeight="bold"
+          cursor="pointer"
+          _hover={{ transform: "scale(1.02)", transition: "0.3" }}
+        >
+          <AddIcon sx={{ marginRight: "15px" }} />
+          Add new portfolio
+        </Box>
+      )}
     </Box>
   );
 };

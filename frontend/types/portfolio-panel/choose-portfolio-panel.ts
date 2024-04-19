@@ -8,6 +8,11 @@ export type Portfolio = {
   isActive: boolean;
 };
 
+export type NewPortfolio = {
+  data: { name: string; icon: ChakraIcon };
+  metaData: { isShown: boolean };
+};
+
 export type SelectPortfolioService = (
   selectedPortolioId: number,
   setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>
@@ -29,7 +34,6 @@ export type PortfolioProps = {
   item: Portfolio;
   setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[]>>;
   selectPortfolioHandler: SelectPortfolioService;
-  addPortfolioHandler: AddPortfolioService;
   editPortfolioHandler: EditPortfolioService;
 };
 
@@ -37,4 +41,6 @@ export type ChoosePortfolioPanelProps = {
   portfolios: Portfolio[];
   setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[]>>;
   selectPortfolioHandler: SelectPortfolioService;
+  addPortfolioHandler: AddPortfolioService;
+  editPortfolioHandler: EditPortfolioService;
 };
