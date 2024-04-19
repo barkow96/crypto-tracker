@@ -1,15 +1,14 @@
 import { Box, Flex, HStack, Input, Text } from "@chakra-ui/react";
 import { Icon, EditIcon, CheckIcon } from "@chakra-ui/icons";
 import {
-  ChakraIcon,
+  ChangedIcon,
+  ChangedName,
   PortfolioProps,
 } from "@/types/portfolio-panel/choose-portfolio-panel";
 import { colors } from "@/constants/colors";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PORTFOLIO_FOCUS_DELAY, PORTFOLIO_ICONS } from "@/constants/portfolio";
-
-type ChangedName = string | null;
-type ChangedIcon = ChakraIcon | null;
+import IconsDropdown from "./IconsDropdown";
 
 const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
   item,
@@ -21,21 +20,10 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
   const [changedName, setChangedName] = useState<ChangedName>(null);
   const [changedIcon, setChangedIcon] = useState<ChangedIcon>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const activePortfolioStyles = {
-    backgroundColor: colors.bright,
-    borderRadius: "5px",
-    fontWeight: "bold",
-  };
 
-  function toggleEdittingHandler() {
-    if (isEditting) setIsEditting(false);
-    else {
-      setIsEditting(true);
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, PORTFOLIO_FOCUS_DELAY);
-    }
-  }
+  useEffect(() => {
+    submitEditHandler();
+  }, [changedIcon]);
 
   function submitEditHandler() {
     if (changedName && changedIcon)
@@ -50,30 +38,54 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
     setChangedIcon(null);
   }
 
+  function toggleEdittingHandler() {
+    if (isEditting) setIsEditting(false);
+    else {
+      setIsEditting(true);
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, PORTFOLIO_FOCUS_DELAY);
+    }
+  }
+
+  const iconProps = {
+    as: PORTFOLIO_ICONS.find((icon) => icon.name === item.icon)?.component,
+    onClick: !item.isActive
+      ? () => {
+          selectPortfolioHandler(item.id, setPortfolios);
+        }
+      : undefined,
+    boxSize: "25",
+    cursor: "pointer",
+    color: colors.green,
+  };
+
+  const activePortfolioStyles = {
+    backgroundColor: colors.bright,
+    borderRadius: "5px",
+    fontWeight: "bold",
+  };
+
   return (
     <Flex
+      align="center"
       width="100%"
+      gap="25px"
       marginBottom="10px"
       padding="5px"
       sx={item.isActive ? activePortfolioStyles : {}}
     >
-      <Box width="20%">
-        <Icon
-          as={PORTFOLIO_ICONS.find((icon) => icon.displayName === item.icon)}
-          boxSize="25"
-          marginLeft="15px"
-          marginRight="15px"
-          cursor="pointer"
-          color={colors.red}
-          _hover={{ transform: "scale(1.75)", transition: "0.3s" }}
-          onClick={
-            !item.isActive
-              ? () => {
-                  selectPortfolioHandler(item.id, setPortfolios);
-                }
-              : undefined
-          }
-        />
+      <Box width="20%" display="flex" justifyContent="center">
+        {isEditting ? (
+          <IconsDropdown
+            setChangedIcon={setChangedIcon}
+            currentIcon={item.icon}
+          >
+            <Icon {...iconProps} />
+          </IconsDropdown>
+        ) : (
+          <Icon {...iconProps} />
+        )}
       </Box>
       <Box width="80%">
         <HStack>
@@ -86,6 +98,7 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
             ref={inputRef}
             flex="1"
             border="none"
+            px="0"
             sx={{
               "&:disabled": {
                 opacity: "1",
@@ -95,11 +108,10 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
           />
 
           <Text flex="0">
-            {!isEditting && (
-              <EditIcon cursor="pointer" onClick={toggleEdittingHandler} />
-            )}
-            {isEditting && (
+            {isEditting ? (
               <CheckIcon cursor="pointer" onClick={submitEditHandler} />
+            ) : (
+              <EditIcon cursor="pointer" onClick={toggleEdittingHandler} />
             )}
           </Text>
         </HStack>

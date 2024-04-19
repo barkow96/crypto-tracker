@@ -1,3 +1,5 @@
+import { ComponentWithAs, IconProps } from "@chakra-ui/react";
+
 export type ChakraIcon = "StarIcon" | "MoonIcon" | "SunIcon";
 
 export type Portfolio = {
@@ -13,13 +15,20 @@ export type NewPortfolio = {
   metaData: { isShown: boolean };
 };
 
+export type PortfolioIcons = {
+  component: ComponentWithAs<"svg", IconProps>;
+  name: ChakraIcon;
+}[];
+
+export type ChangedName = string | null;
+export type ChangedIcon = ChakraIcon | null;
+
 export type SelectPortfolioService = (
   selectedPortolioId: number,
   setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>
 ) => void;
 
 export type AddPortfolioService = (
-  newPortfolioName: string,
   setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>
 ) => void;
 
