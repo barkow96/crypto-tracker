@@ -8,11 +8,25 @@ export type Portfolio = {
   value: number;
   icon: ChakraIcon;
   isActive: boolean;
+  coins: string[];
 };
 
-export type NewPortfolio = {
-  data: { name: string; icon: ChakraIcon };
-  metaData: { isShown: boolean };
+export type PortfolioCoin = {
+  symbol: string;
+  quantity: number;
+  avgBuyPrice: number;
+  price: number;
+  profit: number;
+  transactions: number[];
+};
+
+export type PortfolioTransaction = {
+  id: number;
+  date: string;
+  type: string;
+  price: number;
+  quantity: number;
+  coin: string;
 };
 
 export type PortfolioIcons = {
