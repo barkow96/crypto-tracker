@@ -16,6 +16,7 @@ const addPortfolioService: AddPortfolioService = (setPortfolioList) => {
       value: 0,
       icon: NEW_PORTFOLIO_DEFAULT_ICON,
       isActive: false,
+      coins: [],
     };
     return [...prevPortfolioList, newPortfolio];
   });

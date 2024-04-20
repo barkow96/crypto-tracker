@@ -13,7 +13,7 @@ export function usePortfolioCoins(
   useEffect(() => {
     const coinsData: PortfolioCoin[] = [];
 
-    portfolio?.coins.forEach((portfolioCoin) => {
+    portfolio?.coins?.forEach((portfolioCoin) => {
       const data = coinsList.find((coin) => coin.symbol === portfolioCoin);
       if (data) coinsData.push(data);
     });
@@ -21,5 +21,5 @@ export function usePortfolioCoins(
     if (coinsData) setPortfolioCoins(coinsData);
   }, [portfolio, coinsList]);
 
-  return { portfolioCoins };
+  return { portfolioCoins, setPortfolioCoins };
 }

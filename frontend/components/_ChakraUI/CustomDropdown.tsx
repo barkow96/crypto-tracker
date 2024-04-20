@@ -5,7 +5,11 @@ import {
 } from "@/types/portfolio-panel/choose-portfolio-panel";
 import { Menu, MenuList, MenuItem } from "@chakra-ui/react";
 
-type CoinActions = { name: string; handler: () => void }[];
+export type CoinActions = {
+  name: string;
+  handler: () => void;
+  handlerArgs?: { numberOf: number; args: any[] };
+}[];
 
 type DropdownItems = PortfolioIcons | CoinActions;
 
