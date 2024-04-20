@@ -1,5 +1,5 @@
 import { HOME_PAGE_REFRESH_INTERVAL } from "@/constants/constants";
-import { useFetchedCoins } from "@/hooks/useFetchedCoins";
+import { useFetchedCoins } from "@/hooks/home-table/useFetchedCoins";
 import HomeView from "@/views/HomeView";
 import Head from "next/head";
 

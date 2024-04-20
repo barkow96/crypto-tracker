@@ -1,6 +1,6 @@
 import CustomTd from "@/components/_ChakraUI/CustomTd";
 import { initialCoinsList } from "@/dummy-data/portfolio-panel";
-import { usePortfolioCoins } from "@/hooks/usePortfolioCoins";
+import { usePortfolioCoins } from "@/hooks/portfolio-panel/usePortfolioCoins";
 import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
 import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 

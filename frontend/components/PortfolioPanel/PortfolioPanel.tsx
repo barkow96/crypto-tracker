@@ -8,7 +8,7 @@ import { initialPortfolioList } from "@/dummy-data/portfolio-panel";
 import selectPortfolioService from "./ChoosePortfolioPanel/services/selectPortfolioService";
 import addPortfolioService from "./ChoosePortfolioPanel/services/addPortfolioService";
 import editPortfolioService from "./ChoosePortfolioPanel/services/editPortfolioService";
-import { useActivePortfolio } from "@/hooks/useActivePortfolio";
+import { useActivePortfolio } from "@/hooks/portfolio-panel/useActivePortfolio";
 
 const PortfolioPanel: React.FC = () => {
   const isLargeScreen = useBreakpointValue({ base: false, lg: true });
