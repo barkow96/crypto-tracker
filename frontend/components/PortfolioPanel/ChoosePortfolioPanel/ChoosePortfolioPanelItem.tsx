@@ -8,7 +8,7 @@ import {
 import { colors } from "@/constants/colors";
 import { useEffect, useRef, useState } from "react";
 import { PORTFOLIO_FOCUS_DELAY, PORTFOLIO_ICONS } from "@/constants/portfolio";
-import IconsDropdown from "./IconsDropdown";
+import CustomDropdown from "@/components/_ChakraUI/CustomDropdown";
 
 const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
   item,
@@ -77,12 +77,13 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
     >
       <Box width="20%" display="flex" justifyContent="center">
         {isEditting ? (
-          <IconsDropdown
-            setChangedIcon={setChangedIcon}
-            currentIcon={item.icon}
+          <CustomDropdown
+            items={PORTFOLIO_ICONS}
+            exclusion={item.icon}
+            allItemsHandler={setChangedIcon}
           >
             <Icon {...iconProps} />
-          </IconsDropdown>
+          </CustomDropdown>
         ) : (
           <Icon {...iconProps} />
         )}

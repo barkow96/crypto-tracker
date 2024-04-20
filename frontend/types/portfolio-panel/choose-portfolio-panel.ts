@@ -30,8 +30,8 @@ export type PortfolioTransaction = {
 };
 
 export type PortfolioIcons = {
-  component: ComponentWithAs<"svg", IconProps>;
   name: ChakraIcon;
+  component: ComponentWithAs<"svg", IconProps>;
 }[];
 
 export type ChangedName = string | null;

@@ -6,6 +6,7 @@ export const PORTFOLIO_ICONS: PortfolioIcons = [
   { component: MoonIcon, name: "MoonIcon" },
   { component: SunIcon, name: "SunIcon" },
 ];
+
 export const PORTFOLIO_FOCUS_DELAY = 200;
 export const NEW_PORTFOLIO_DEFAULT_NAME = "My New Porfolio";
 export const NEW_PORTFOLIO_DEFAULT_ICON = "StarIcon";

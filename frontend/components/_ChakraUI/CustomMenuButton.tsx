@@ -5,6 +5,7 @@ const CustomMenuButton: React.FC<{
   children: React.ReactNode;
   paddingX: number;
   paddingY: number;
+  isBorderUsed?: boolean;
   isHoverUsed?: boolean;
   isExpandedUsed?: boolean;
   isFocusUsed?: boolean;
@@ -12,6 +13,7 @@ const CustomMenuButton: React.FC<{
   children,
   paddingX,
   paddingY,
+  isBorderUsed,
   isHoverUsed,
   isExpandedUsed,
   isFocusUsed,
@@ -21,11 +23,11 @@ const CustomMenuButton: React.FC<{
       px={paddingX}
       py={paddingY}
       transition="all 0.2s"
-      borderRadius="md"
-      borderWidth="2px"
-      _hover={isHoverUsed ? { bg: colors.bright } : {}}
-      _expanded={isExpandedUsed ? { bg: colors.red } : {}}
-      _focus={isFocusUsed ? { outline: 0, boxShadow: "outline" } : {}}
+      borderRadius={isBorderUsed ? "md" : undefined}
+      borderWidth={isBorderUsed ? "2px" : undefined}
+      _hover={isHoverUsed ? { bg: colors.bright } : undefined}
+      _expanded={isExpandedUsed ? { bg: colors.red } : undefined}
+      _focus={isFocusUsed ? { outline: 0, boxShadow: "outline" } : undefined}
     >
       {children}
     </MenuButton>

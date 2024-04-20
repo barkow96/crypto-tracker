@@ -22,6 +22,7 @@ const NavbarLinksSmall: React.FC<NavbarLinksProps> = ({ links }) => {
       <CustomMenuButton
         paddingX={4}
         paddingY={2}
+        isBorderUsed
         isExpandedUsed
         isFocusUsed
         isHoverUsed
