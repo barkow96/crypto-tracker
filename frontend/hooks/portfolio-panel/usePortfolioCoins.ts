@@ -1,7 +1,5 @@
-import {
-  Portfolio,
-  PortfolioCoin,
-} from "@/types/portfolio-panel/choose-portfolio-panel";
+import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
+import { PortfolioCoin } from "@/types/portfolio-panel/portfolio-table";
 import { useEffect, useState } from "react";
 
 export function usePortfolioCoins(

@@ -1,8 +1,8 @@
+import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
 import {
-  Portfolio,
   PortfolioCoin,
   PortfolioTransaction,
-} from "@/types/portfolio-panel/choose-portfolio-panel";
+} from "@/types/portfolio-panel/portfolio-table";
 
 export const initialPortfolioList: Portfolio[] = [
   {

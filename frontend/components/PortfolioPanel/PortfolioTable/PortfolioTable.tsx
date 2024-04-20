@@ -7,7 +7,6 @@ import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 
 const PortfolioTable: React.FC<{ portfolio?: Portfolio }> = ({ portfolio }) => {
   const { portfolioCoins } = usePortfolioCoins(portfolio, initialCoinsList);
-  console.log("Dane na temat coinsów: ", portfolioCoins);
 
   const dropdownItems = [
     { name: "View transactions", handler: () => {} },
@@ -30,14 +29,14 @@ const PortfolioTable: React.FC<{ portfolio?: Portfolio }> = ({ portfolio }) => {
         </Thead>
         <Tbody>
           {portfolioCoins?.map((coin) => (
-            <Tr>
-              <CustomTd key={coin.symbol} value={coin.symbol} />
-              <CustomTd key={coin.symbol} value={coin.quantity} />
-              <CustomTd key={coin.symbol} value={coin.avgBuyPrice} />
-              <CustomTd key={coin.symbol} value={coin.price} />
-              <CustomTd key={coin.symbol} value={coin.profit} />
+            <Tr key={coin.symbol} textAlign="center">
+              <CustomTd value={coin.symbol} />
+              <CustomTd value={coin.quantity} />
+              <CustomTd value={coin.avgBuyPrice} />
+              <CustomTd value={coin.price} />
+              <CustomTd value={coin.profit} />
               <CustomDropdown items={dropdownItems}>
-                <CustomTd key={coin.symbol} value="..." />
+                <CustomTd value="..." />
               </CustomDropdown>
             </Tr>
           ))}
