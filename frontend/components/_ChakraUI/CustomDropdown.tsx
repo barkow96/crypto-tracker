@@ -3,22 +3,23 @@ import {
   ChakraIcon,
   PortfolioIcons,
 } from "@/types/portfolio-panel/choose-portfolio-panel";
+import { CoinActions } from "@/types/portfolio-panel/portfolio-table";
 import { Menu, MenuList, MenuItem } from "@chakra-ui/react";
+import React from "react";
 
-export type CoinActions = {
-  name: string;
-  handler: () => void;
-  handlerArgs?: { numberOf: number; args: any[] };
-}[];
-
-type DropdownItems = PortfolioIcons | CoinActions;
-
-const CustomDropdown: React.FC<{
+type CustomDropdownProps = {
   children: React.ReactNode;
-  items: DropdownItems;
+  items: PortfolioIcons | CoinActions;
   exclusion?: ChakraIcon | string;
   allItemsHandler?: (value1: any) => void;
-}> = ({ children, items, exclusion, allItemsHandler }) => {
+};
+
+const CustomDropdown: React.FC<CustomDropdownProps> = ({
+  children,
+  items,
+  exclusion,
+  allItemsHandler,
+}) => {
   return (
     <Menu>
       <CustomMenuButton paddingX={2} paddingY={1}>
@@ -40,7 +41,7 @@ const CustomDropdown: React.FC<{
 
             return (
               <MenuItem key={index} onClick={itemHandler}>
-                {item.name}
+                {"JSX" in item ? item.JSX : item.name}
               </MenuItem>
             );
           })}

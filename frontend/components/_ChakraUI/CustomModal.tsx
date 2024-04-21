@@ -15,12 +15,14 @@ type CustomModalProps = {
   children: React.ReactNode;
   body: React.ReactNode;
   header: React.ReactNode;
+  unstyled?: boolean;
 };
 
 const CustomModal: React.FC<CustomModalProps> = ({
   children,
   body,
   header,
+  unstyled,
 }) => {
   const Overlay = () => (
     <ModalOverlay
@@ -34,6 +36,10 @@ const CustomModal: React.FC<CustomModalProps> = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<Overlay />);
 
+  const unstyledStyleProps = unstyled
+    ? { variant: "unstyled", marginLeft: 0, fontWeight: "normal" }
+    : undefined;
+
   return (
     <>
       <Button
@@ -42,6 +48,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
           setOverlay(<Overlay />);
           onOpen();
         }}
+        {...unstyledStyleProps}
       >
         {children}
       </Button>

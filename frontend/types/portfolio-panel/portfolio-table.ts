@@ -26,3 +26,10 @@ export type RemoveCoinService = (
     React.SetStateAction<PortfolioCoin[] | undefined>
   >
 ) => void;
+
+export type CoinActions = {
+  name: string;
+  handler: () => void;
+  handlerArgs?: { numberOf: number; args: any[] };
+  JSX?: React.ReactNode;
+}[];
