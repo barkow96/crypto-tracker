@@ -37,13 +37,19 @@ const CustomModal: React.FC<CustomModalProps> = ({
   const [overlay, setOverlay] = useState(<Overlay />);
 
   const unstyledStyleProps = unstyled
-    ? { variant: "unstyled", marginLeft: 0, fontWeight: "normal" }
+    ? {
+        variant: "unstyled",
+        marginLeft: 0,
+        fontWeight: "normal",
+      }
     : undefined;
 
   return (
     <>
       <Button
+        width="100%"
         ml="4"
+        textAlign="left"
         onClick={() => {
           setOverlay(<Overlay />);
           onOpen();

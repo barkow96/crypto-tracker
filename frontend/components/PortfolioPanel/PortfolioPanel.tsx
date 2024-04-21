@@ -30,7 +30,8 @@ const PortfolioPanel: React.FC = () => {
       <Box width={isLargeScreen ? "70%" : "100%"}>
         <PortfolioSummary />
         <PortfolioTable
-          portfolio={activePortfolio}
+          activePortfolio={activePortfolio}
+          portfolios={portfolioList}
           setPortfolioList={setPortfolioList}
         />
       </Box>

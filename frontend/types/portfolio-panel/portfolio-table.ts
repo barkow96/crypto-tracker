@@ -27,9 +27,22 @@ export type RemoveCoinService = (
   >
 ) => void;
 
+export type MoveCoinService = (
+  sourcePortfolioId: number | undefined,
+  destinationPortfolioId: number | undefined,
+  coinName: string,
+  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>
+) => void;
+
 export type CoinActions = {
   name: string;
-  handler: () => void;
+  handler?: () => void;
   handlerArgs?: { numberOf: number; args: any[] };
   JSX?: React.ReactNode;
 }[];
+
+export type ActivePortfolioProps = {
+  activePortfolio: Portfolio | undefined;
+  portfolios: Portfolio[];
+  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>;
+};
