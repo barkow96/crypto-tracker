@@ -1,6 +1,9 @@
 import CustomDropdown from "@/components/_ChakraUI/CustomDropdown";
 import CustomTd from "@/components/_ChakraUI/CustomTd";
-import { initialCoinsList } from "@/dummy-data/portfolio-panel";
+import {
+  initialCoinsList,
+  initialTransactions,
+} from "@/dummy-data/portfolio-panel";
 import { usePortfolioCoins } from "@/hooks/portfolio-panel/usePortfolioCoins";
 import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 import removeCoinService from "./services/removeCoinService";
@@ -10,6 +13,8 @@ import {
 } from "@/types/portfolio-panel/portfolio-table";
 import MoveAssetModal from "./MoveAssetModal";
 import moveCoinService from "./services/moveCoinService";
+import { usePortfolioTransactions } from "@/hooks/portfolio-panel/usePortfolioTransactions";
+import ViewTransactionsModal from "./ViewTransactionsModal";
 
 const PortfolioTable: React.FC<ActivePortfolioProps> = ({
   activePortfolio,
@@ -20,6 +25,8 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
     activePortfolio,
     initialCoinsList
   );
+  const { portfolioTransactions, setPortfolioTransactions } =
+    usePortfolioTransactions(portfolioCoins, initialTransactions);
 
   return (
     <TableContainer>
@@ -37,7 +44,19 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
         <Tbody>
           {portfolioCoins?.map((coin) => {
             const dropdownItems: CoinActions = [
-              { name: "View transactions", handler: () => {} },
+              {
+                name: "View transactions",
+                JSX: (
+                  <ViewTransactionsModal
+                    coins={portfolioCoins}
+                    transactions={portfolioTransactions}
+                    coinName={coin.symbol}
+                    portfolioName={activePortfolio?.name}
+                  >
+                    View transactions
+                  </ViewTransactionsModal>
+                ),
+              },
               {
                 name: "Move asset",
                 JSX: (
