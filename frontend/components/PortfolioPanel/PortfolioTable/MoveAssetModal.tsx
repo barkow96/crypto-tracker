@@ -7,12 +7,16 @@ import {
 import { Box, Button, Text } from "@chakra-ui/react";
 import MoveAssetModalItem from "./MoveAssetModalItem";
 import { useState } from "react";
+import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
 
 type MoveAssetModalProps = {
   children: React.ReactNode;
   handler: MoveCoinService;
   coinName: string;
-} & ActivePortfolioProps;
+  activePortfolio: Portfolio | undefined;
+  portfolios: Portfolio[];
+  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>;
+};
 
 const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
   children,

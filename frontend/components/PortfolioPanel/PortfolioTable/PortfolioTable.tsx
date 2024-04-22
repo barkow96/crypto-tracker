@@ -1,11 +1,6 @@
 import CustomDropdown from "@/components/_ChakraUI/CustomDropdown";
 import CustomTd from "@/components/_ChakraUI/CustomTd";
 import {
-  initialCoinsList,
-  initialTransactions,
-} from "@/dummy-data/portfolio-panel";
-import { usePortfolioCoins } from "@/hooks/portfolio-panel/usePortfolioCoins";
-import {
   Box,
   Flex,
   Table,
@@ -23,7 +18,6 @@ import {
 } from "@/types/portfolio-panel/portfolio-table";
 import MoveAssetModal from "./MoveAssetModal";
 import moveCoinService from "./services/moveCoinService";
-import { usePortfolioTransactions } from "@/hooks/portfolio-panel/usePortfolioTransactions";
 import ViewTransactionsModal from "./ViewTransactionsModal";
 import AddTransactionModal from "./AddTransactionModal";
 import addTransactionService from "./services/addTransactionService";
@@ -32,14 +26,11 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
   activePortfolio,
   portfolios,
   setPortfolioList,
+  portfolioCoins,
+  setPortfolioCoins,
+  portfolioTransactions,
+  setPortfolioTransactions,
 }) => {
-  const { portfolioCoins, setPortfolioCoins } = usePortfolioCoins(
-    activePortfolio,
-    initialCoinsList
-  );
-  const { portfolioTransactions, setPortfolioTransactions } =
-    usePortfolioTransactions(portfolioCoins, initialTransactions);
-
   return (
     <Flex direction="column">
       <Box marginTop="15px">

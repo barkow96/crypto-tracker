@@ -64,6 +64,14 @@ export type ActivePortfolioProps = {
   activePortfolio: Portfolio | undefined;
   portfolios: Portfolio[];
   setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>;
+  portfolioCoins: PortfolioCoin[] | undefined;
+  setPortfolioCoins: React.Dispatch<
+    React.SetStateAction<PortfolioCoin[] | undefined>
+  >;
+  portfolioTransactions: PortfolioTransaction[] | undefined;
+  setPortfolioTransactions: React.Dispatch<
+    React.SetStateAction<PortfolioTransaction[] | undefined>
+  >;
 };
 
 export type TransactionInputField =
