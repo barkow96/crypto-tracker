@@ -1,3 +1,8 @@
+import {
+  BuyOrSellInputType,
+  NumberInputType,
+  StringInputType,
+} from "../project-wide";
 import { Portfolio } from "./choose-portfolio-panel";
 
 export type PortfolioCoin = {
@@ -34,6 +39,20 @@ export type MoveCoinService = (
   setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>
 ) => void;
 
+export type AddTransactionService = (
+  date: string,
+  type: "BUY" | "SELL",
+  price: number,
+  quantity: number,
+  coin: string,
+  setPortfolioCoins: React.Dispatch<
+    React.SetStateAction<PortfolioCoin[] | undefined>
+  >,
+  setPortfolioTransactions: React.Dispatch<
+    React.SetStateAction<PortfolioTransaction[] | undefined>
+  >
+) => void;
+
 export type CoinActions = {
   name: string;
   handler?: () => void;
@@ -46,3 +65,23 @@ export type ActivePortfolioProps = {
   portfolios: Portfolio[];
   setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>;
 };
+
+export type TransactionInputField =
+  | "coinName"
+  | "type"
+  | "date"
+  | "price"
+  | "quantity";
+
+export type TransactionFormDataType = {
+  [key: string]: StringInputType | NumberInputType | BuyOrSellInputType;
+  coinName: StringInputType;
+  type: BuyOrSellInputType;
+  date: StringInputType;
+  price: NumberInputType;
+  quantity: NumberInputType;
+};
+
+export type TransactionActionType =
+  | { task: "UPDATE"; property: TransactionInputField; payload: string }
+  | { task: "VALIDATE"; property: TransactionInputField };

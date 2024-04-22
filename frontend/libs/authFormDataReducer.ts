@@ -3,11 +3,11 @@ import {
   checkIfPasswordCorrect,
   checkIfPasswordsMatch,
 } from "./validation";
-import { FormDataType, ActionType } from "@/types/auth";
+import { AuthFormDataType, AuthActionType } from "@/types/auth";
 
-export default function formDataReducer(
-  state: FormDataType,
-  action: ActionType
+export default function authFormDataReducer(
+  state: AuthFormDataType,
+  action: AuthActionType
 ) {
   const selectedProperty = action.property;
   const selectedAction = action.task;

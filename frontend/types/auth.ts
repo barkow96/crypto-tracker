@@ -1,20 +1,15 @@
-export type InputField = "email" | "password1" | "password2";
+import { InputType } from "./project-wide";
 
-export type InputType = {
-  value: string;
-  isValid: boolean;
-  isTouched: boolean;
-  validationMessage: string | null;
-};
+export type AuthInputField = "email" | "password1" | "password2";
 
-export type FormDataType = {
+export type AuthFormDataType = {
   [key: string]: InputType;
   email: InputType;
   password1: InputType;
   password2: InputType;
 };
 
-export type SubmittedFormDataType = {
+export type SubmittedAuthFormDataType = {
   data: {
     [key: string]: string;
     email: string;
@@ -23,6 +18,6 @@ export type SubmittedFormDataType = {
   };
 };
 
-export type ActionType =
-  | { task: "UPDATE"; property: InputField; payload: string }
-  | { task: "VALIDATE"; property: InputField };
+export type AuthActionType =
+  | { task: "UPDATE"; property: AuthInputField; payload: string }
+  | { task: "VALIDATE"; property: AuthInputField };

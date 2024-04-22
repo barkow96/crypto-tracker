@@ -1,19 +1,20 @@
-import { FormDataType, InputType, SubmittedFormDataType } from "@/types/auth";
+import { AuthFormDataType, SubmittedAuthFormDataType } from "@/types/auth";
+import { StringInputType } from "@/types/project-wide";
 
-export const initialInput: InputType = {
+export const initialInput: StringInputType = {
   value: "",
   isValid: false,
   isTouched: false,
   validationMessage: null,
 };
 
-export const initialFormData: FormDataType = {
+export const initialFormData: AuthFormDataType = {
   email: initialInput,
   password1: initialInput,
   password2: initialInput,
 };
 
-export const exampleFormData: FormDataType = {
+export const exampleFormData: AuthFormDataType = {
   email: {
     value: "test@test.com",
     isValid: true,
@@ -34,6 +35,6 @@ export const exampleFormData: FormDataType = {
   },
 };
 
-export const initialSubmittedFormData: SubmittedFormDataType = {
+export const initialSubmittedFormData: SubmittedAuthFormDataType = {
   data: { email: "", password1: "", password2: "" },
 };
