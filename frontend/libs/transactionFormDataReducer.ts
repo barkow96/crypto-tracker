@@ -34,7 +34,6 @@ export default function transactionFormDataReducer(
       if (selectedProperty === "coinName")
         validation = checkIfLettersAndDigitsOnly(checkedValue);
       else if (selectedProperty === "type") {
-        console.log("hehe");
         validation = checkIfTransactionTypeAllowed(checkedValue);
       } else if (selectedProperty === "date")
         validation = { test: true, message: "" };

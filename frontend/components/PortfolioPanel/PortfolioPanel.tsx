@@ -40,7 +40,7 @@ const PortfolioPanel: React.FC = () => {
         />
       </Box>
       <Box width={isLargeScreen ? "70%" : "100%"}>
-        {/* <PortfolioSummary activePortfolio={activePortfolio} /> */}
+        <PortfolioSummary portfolioCoins={portfolioCoins} />
         <PortfolioTable
           activePortfolio={activePortfolio}
           portfolios={portfolioList}
