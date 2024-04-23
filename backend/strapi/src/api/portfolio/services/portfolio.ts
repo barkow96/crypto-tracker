@@ -1,7 +1,10 @@
-/**
- * portfolio service
- */
+import { factories } from "@strapi/strapi";
+import { fetchUserActivePortfolio } from "./fetchUserActivePortfolio";
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreService('api::portfolio.portfolio');
+export default factories.createCoreService(
+  "api::portfolio.portfolio",
+  ({ strapi }) => ({
+    fetchUserActivePortfolio: async (userId) =>
+      fetchUserActivePortfolio(userId),
+  })
+);
