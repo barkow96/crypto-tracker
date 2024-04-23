@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "transactions",
+  "collectionName": "portfolio_transactions",
   "info": {
-    "singularName": "transaction",
-    "pluralName": "transactions",
-    "displayName": "Transaction"
+    "singularName": "portfolio-transaction",
+    "pluralName": "portfolio-transactions",
+    "displayName": "PortfolioTransaction"
   },
   "options": {
     "draftAndPublish": true
@@ -16,7 +16,8 @@
     },
     "type": {
       "type": "string",
-      "default": "BUY"
+      "default": "BUY",
+      "regex": "^(BUY|SELL)$"
     },
     "price": {
       "type": "float"

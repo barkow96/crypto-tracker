@@ -24,10 +24,10 @@
     "isActive": {
       "type": "boolean"
     },
-    "coins": {
+    "portfolio_coins": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::coin.coin"
+      "target": "api::portfolio-coin.portfolio-coin"
     }
   }
 }

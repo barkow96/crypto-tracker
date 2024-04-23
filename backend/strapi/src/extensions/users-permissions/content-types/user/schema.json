@@ -70,15 +70,15 @@
       "relation": "oneToMany",
       "target": "api::portfolio.portfolio"
     },
-    "coins": {
+    "portfolio_coins": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::coin.coin"
+      "target": "api::portfolio-coin.portfolio-coin"
     },
-    "transactions": {
+    "portfolio_transactions": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::transaction.transaction"
+      "target": "api::portfolio-transaction.portfolio-transaction"
     }
   }
 }

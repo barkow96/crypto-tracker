@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "coins",
+  "collectionName": "portfolio_coins",
   "info": {
-    "singularName": "coin",
-    "pluralName": "coins",
-    "displayName": "Coin",
+    "singularName": "portfolio-coin",
+    "pluralName": "portfolio-coins",
+    "displayName": "PortfolioCoin",
     "description": ""
   },
   "options": {
@@ -21,10 +21,10 @@
     "avgBuyPrice": {
       "type": "float"
     },
-    "transactions": {
+    "portfolio_transactions": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::transaction.transaction"
+      "target": "api::portfolio-transaction.portfolio-transaction"
     }
   }
 }
