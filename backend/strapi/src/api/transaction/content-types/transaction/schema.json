@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "transactions",
+  "info": {
+    "singularName": "transaction",
+    "pluralName": "transactions",
+    "displayName": "Transaction"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "type": {
+      "type": "string",
+      "default": "BUY"
+    },
+    "price": {
+      "type": "float"
+    },
+    "quantity": {
+      "type": "float"
+    }
+  }
+}

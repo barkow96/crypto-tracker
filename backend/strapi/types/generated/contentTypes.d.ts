@@ -742,7 +742,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -771,6 +770,21 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    portfolios: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::portfolio.portfolio'
+    >;
+    coins: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::coin.coin'
+    >;
+    transactions: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::transaction.transaction'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -781,6 +795,75 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'plugin::users-permissions.user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCoinCoin extends Schema.CollectionType {
+  collectionName: 'coins';
+  info: {
+    singularName: 'coin';
+    pluralName: 'coins';
+    displayName: 'Coin';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    symbol: Attribute.String;
+    quantity: Attribute.Float;
+    avgBuyPrice: Attribute.Float;
+    transactions: Attribute.Relation<
+      'api::coin.coin',
+      'oneToMany',
+      'api::transaction.transaction'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::coin.coin', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::coin.coin', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPortfolioPortfolio extends Schema.CollectionType {
+  collectionName: 'portfolios';
+  info: {
+    singularName: 'portfolio';
+    pluralName: 'portfolios';
+    displayName: 'Portfolio';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    value: Attribute.Float;
+    icon: Attribute.String;
+    isActive: Attribute.Boolean;
+    coins: Attribute.Relation<
+      'api::portfolio.portfolio',
+      'oneToMany',
+      'api::coin.coin'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::portfolio.portfolio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::portfolio.portfolio',
       'oneToOne',
       'admin::user'
     > &
@@ -811,6 +894,39 @@ export interface ApiTestTest extends Schema.CollectionType {
   };
 }
 
+export interface ApiTransactionTransaction extends Schema.CollectionType {
+  collectionName: 'transactions';
+  info: {
+    singularName: 'transaction';
+    pluralName: 'transactions';
+    displayName: 'Transaction';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    date: Attribute.Date;
+    type: Attribute.String & Attribute.DefaultTo<'BUY'>;
+    price: Attribute.Float;
+    quantity: Attribute.Float;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -829,7 +945,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::coin.coin': ApiCoinCoin;
+      'api::portfolio.portfolio': ApiPortfolioPortfolio;
       'api::test.test': ApiTestTest;
+      'api::transaction.transaction': ApiTransactionTransaction;
     }
   }
 }
