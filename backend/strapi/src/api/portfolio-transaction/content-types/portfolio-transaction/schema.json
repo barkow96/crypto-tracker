@@ -4,7 +4,8 @@
   "info": {
     "singularName": "portfolio-transaction",
     "pluralName": "portfolio-transactions",
-    "displayName": "PortfolioTransaction"
+    "displayName": "PortfolioTransaction",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

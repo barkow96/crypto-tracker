@@ -886,6 +886,7 @@ export interface ApiPortfolioTransactionPortfolioTransaction
     singularName: 'portfolio-transaction';
     pluralName: 'portfolio-transactions';
     displayName: 'PortfolioTransaction';
+    description: '';
   };
   options: {
     draftAndPublish: true;
