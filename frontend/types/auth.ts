@@ -1,12 +1,12 @@
-import { InputType } from "./project-wide";
+import { StringInputType } from "./project-wide";
 
 export type AuthInputField = "email" | "password1" | "password2";
 
 export type AuthFormDataType = {
-  [key: string]: InputType;
-  email: InputType;
-  password1: InputType;
-  password2: InputType;
+  [key: string]: StringInputType;
+  email: StringInputType;
+  password1: StringInputType;
+  password2: StringInputType;
 };
 
 export type SubmittedAuthFormDataType = {

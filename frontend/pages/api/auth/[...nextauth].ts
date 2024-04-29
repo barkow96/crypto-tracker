@@ -3,12 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import dotenv from "dotenv";
 dotenv.config();
 
-interface WebsiteUser extends User {
-  id: string;
-  email: string;
-  jwt: string;
-}
-
 export default NextAuth({
   session: { strategy: "jwt", maxAge: 10 * 60 },
   secret: process.env.NEXTAUTH_SECRET,
@@ -39,15 +33,25 @@ export default NextAuth({
         else if (!responseData.user && responseData.error)
           throw new Error("An error occured, you cannot log in!");
 
-        const user: WebsiteUser = {
+        const user: User = {
           id: responseData.user.id,
           email: responseData.user.email,
-          jwt: responseData.jwt,
+          name: responseData.jwt,
         };
-        if (responseData.user) return user;
 
-        return null;
+        return user;
       },
     }),
   ],
+  callbacks: {
+    async session({ session, token, user }) {
+      return {
+        ...session,
+        user: {
+          email: session.user.email,
+          jwt: token.name,
+        },
+      };
+    },
+  },
 });
