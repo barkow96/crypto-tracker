@@ -6,12 +6,13 @@ import {
 import { Portfolio } from "./choose-portfolio-panel";
 
 export type PortfolioCoin = {
+  id: number;
   symbol: string;
   quantity: number;
   avgBuyPrice: number;
-  price: number;
-  profit: number;
-  transactions: number[];
+  // price: number;
+  // profit: number;
+  // transactions: number[];
 };
 
 export type PortfolioTransaction = {
@@ -25,18 +26,13 @@ export type PortfolioTransaction = {
 
 export type RemoveCoinService = (
   portfolioId: number | undefined,
-  coinName: string,
-  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>,
-  setPortfolioCoins: React.Dispatch<
-    React.SetStateAction<PortfolioCoin[] | undefined>
-  >
+  coinName: string
 ) => void;
 
 export type MoveCoinService = (
   sourcePortfolioId: number | undefined,
   destinationPortfolioId: number | undefined,
-  coinName: string,
-  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>
+  coinName: string
 ) => void;
 
 export type AddTransactionService = (
@@ -44,13 +40,7 @@ export type AddTransactionService = (
   type: "BUY" | "SELL",
   price: number,
   quantity: number,
-  coin: string,
-  setPortfolioCoins: React.Dispatch<
-    React.SetStateAction<PortfolioCoin[] | undefined>
-  >,
-  setPortfolioTransactions: React.Dispatch<
-    React.SetStateAction<PortfolioTransaction[] | undefined>
-  >
+  coin: string
 ) => void;
 
 export type CoinActions = {
@@ -61,13 +51,8 @@ export type CoinActions = {
 }[];
 
 export type ActivePortfolioProps = {
-  activePortfolio: Portfolio | undefined;
-  portfolios: Portfolio[];
-  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>;
-  portfolioCoins: PortfolioCoin[] | undefined;
-  setPortfolioCoins: React.Dispatch<
-    React.SetStateAction<PortfolioCoin[] | undefined>
-  >;
+  activePortfolio: Portfolio;
+  portfolios: Portfolio[] | undefined;
   portfolioTransactions: PortfolioTransaction[] | undefined;
   setPortfolioTransactions: React.Dispatch<
     React.SetStateAction<PortfolioTransaction[] | undefined>

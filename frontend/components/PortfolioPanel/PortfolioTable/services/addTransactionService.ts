@@ -5,9 +5,7 @@ const addTransactionService: AddTransactionService = (
   type,
   price,
   quantity,
-  coin,
-  setPortfolioCoins,
-  setPortfolioTransactions
+  coin
 ) => {
   console.log("Add Transaction Service!");
   console.log("Data: ", date, type, price, quantity, coin);

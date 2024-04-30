@@ -22,19 +22,11 @@ import AddTransactionModalInput from "./AddTransactionModalInput";
 type AddTransactionModalProps = {
   children: React.ReactNode;
   handler: AddTransactionService;
-  setPortfolioCoins: React.Dispatch<
-    React.SetStateAction<PortfolioCoin[] | undefined>
-  >;
-  setPortfolioTransactions: React.Dispatch<
-    React.SetStateAction<PortfolioTransaction[] | undefined>
-  >;
 };
 
 const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
   children,
   handler,
-  setPortfolioCoins,
-  setPortfolioTransactions,
 }) => {
   const [formData, dispatch] = useReducer(
     transactionFormDataReducer,
@@ -60,9 +52,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
         formData.type.value,
         parseFloat(formData.price.value),
         parseFloat(formData.quantity.value),
-        formData.coinName.value,
-        setPortfolioCoins,
-        setPortfolioTransactions
+        formData.coinName.value
       );
     }
   }

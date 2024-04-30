@@ -25,20 +25,13 @@ import addTransactionService from "./services/addTransactionService";
 const PortfolioTable: React.FC<ActivePortfolioProps> = ({
   activePortfolio,
   portfolios,
-  setPortfolioList,
-  portfolioCoins,
-  setPortfolioCoins,
   portfolioTransactions,
   setPortfolioTransactions,
 }) => {
   return (
     <Flex direction="column">
       <Box marginTop="15px">
-        <AddTransactionModal
-          handler={addTransactionService}
-          setPortfolioCoins={setPortfolioCoins}
-          setPortfolioTransactions={setPortfolioTransactions}
-        >
+        <AddTransactionModal handler={addTransactionService}>
           {activePortfolio ? (
             <Text>Add new transaction to: {activePortfolio.name}</Text>
           ) : (
@@ -47,7 +40,7 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
         </AddTransactionModal>
       </Box>
 
-      {portfolioCoins && portfolioCoins.length > 0 && (
+      {activePortfolio !== undefined && activePortfolio.coins && (
         <TableContainer>
           <Table>
             <Thead>
@@ -61,13 +54,13 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
               </Tr>
             </Thead>
             <Tbody>
-              {portfolioCoins?.map((coin) => {
+              {activePortfolio.coins.map((coin) => {
                 const dropdownItems: CoinActions = [
                   {
                     name: "View transactions",
                     JSX: (
                       <ViewTransactionsModal
-                        coins={portfolioCoins}
+                        coins={activePortfolio.coins}
                         transactions={portfolioTransactions}
                         coinName={coin.symbol}
                         portfolioName={activePortfolio?.name}
@@ -82,7 +75,6 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                       <MoveAssetModal
                         activePortfolio={activePortfolio}
                         portfolios={portfolios}
-                        setPortfolioList={setPortfolioList}
                         handler={moveCoinService}
                         coinName={coin.symbol}
                       >
@@ -93,12 +85,7 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                   {
                     name: "Remove",
                     handler: () => {
-                      removeCoinService(
-                        activePortfolio?.id,
-                        coin.symbol,
-                        setPortfolioList,
-                        setPortfolioCoins
-                      );
+                      removeCoinService(activePortfolio?.id, coin.symbol);
                     },
                   },
                 ];
@@ -107,8 +94,8 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                     <CustomTd value={coin.symbol} />
                     <CustomTd value={coin.quantity} />
                     <CustomTd value={coin.avgBuyPrice} />
-                    <CustomTd value={coin.price} />
-                    <CustomTd value={coin.profit} />
+                    <CustomTd value={"BETA"} />
+                    <CustomTd value={"BETA"} />
                     <CustomDropdown items={dropdownItems}>
                       <CustomTd value="..." />
                     </CustomDropdown>

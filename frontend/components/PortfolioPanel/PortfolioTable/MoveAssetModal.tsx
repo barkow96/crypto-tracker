@@ -1,9 +1,6 @@
 import CustomModal from "@/components/_ChakraUI/CustomModal";
 import { colors } from "@/constants/colors";
-import {
-  ActivePortfolioProps,
-  MoveCoinService,
-} from "@/types/portfolio-panel/portfolio-table";
+import { MoveCoinService } from "@/types/portfolio-panel/portfolio-table";
 import { Box, Button, Text } from "@chakra-ui/react";
 import MoveAssetModalItem from "./MoveAssetModalItem";
 import { useState } from "react";
@@ -14,15 +11,13 @@ type MoveAssetModalProps = {
   handler: MoveCoinService;
   coinName: string;
   activePortfolio: Portfolio | undefined;
-  portfolios: Portfolio[];
-  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>;
+  portfolios: Portfolio[] | undefined;
 };
 
 const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
   children,
   activePortfolio,
   portfolios,
-  setPortfolioList,
   handler,
   coinName,
 }) => {
@@ -42,18 +37,19 @@ const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
         <Text textAlign="center" fontWeight="bold">
           to
         </Text>
-        {portfolios
-          .filter((portfolio) => portfolio.id !== activePortfolio?.id)
-          .map((portfolio) => (
-            <Box
-              key={portfolio.id}
-              onClick={() => {
-                setDestinationPortfolioId(portfolio.id);
-              }}
-            >
-              <MoveAssetModalItem portfolio={portfolio} clickable />
-            </Box>
-          ))}
+        {portfolios &&
+          portfolios
+            .filter((portfolio) => portfolio.id !== activePortfolio?.id)
+            .map((portfolio) => (
+              <Box
+                key={portfolio.id}
+                onClick={() => {
+                  setDestinationPortfolioId(portfolio.id);
+                }}
+              >
+                <MoveAssetModalItem portfolio={portfolio} clickable />
+              </Box>
+            ))}
       </Box>
       <Box marginTop="40px">
         {destinationPortfolioId && (
@@ -81,12 +77,7 @@ const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
               : undefined
           }
           onClick={() => {
-            handler(
-              activePortfolio?.id,
-              destinationPortfolioId,
-              coinName,
-              setPortfolioList
-            );
+            handler(activePortfolio?.id, destinationPortfolioId, coinName);
           }}
         >
           Confirm movement

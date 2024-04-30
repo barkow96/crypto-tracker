@@ -9,14 +9,14 @@ export default factories.createCoreController(
       const userId = ctx.state.user.id;
 
       try {
-        const { userPortfolios, userCoins } = await strapi
+        const userPortfolios = await strapi
           .service("api::portfolio.portfolio")
-          .fetchUserActivePortfolio(userId);
+          .fetchUserPortfolios(userId);
 
-        if (userPortfolios && userPortfolios.length >= 0 && userCoins) {
+        if (userPortfolios && userPortfolios.length >= 0) {
           ctx.response.status = 200;
           ctx.body = {
-            data: { portfolios: userPortfolios, portfolioCoins: userCoins },
+            data: { portfolios: userPortfolios },
             metaData: {},
           };
         } else {

@@ -8,7 +8,12 @@ export type Portfolio = {
   value: number;
   icon: ChakraIcon;
   isActive: boolean;
-  coins: string[];
+  coins?: {
+    id: number;
+    avgBuyPrice: number;
+    quantity: number;
+    symbol: string;
+  }[];
 };
 
 export type PortfolioIcons = {
@@ -44,8 +49,17 @@ export type PortfolioProps = {
 
 export type ChoosePortfolioPanelProps = {
   portfolios: Portfolio[];
-  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[]>>;
+  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
   selectPortfolioHandler: SelectPortfolioService;
   addPortfolioHandler: AddPortfolioService;
   editPortfolioHandler: EditPortfolioService;
 };
+
+export type PortfolioItems = {
+  data?: {
+    portfolios: Portfolio[];
+  };
+  metaData?: {};
+};
+
+export type PortfolioViewProps = PortfolioItems & { error?: string | null };
