@@ -1,4 +1,4 @@
-import fetchHomePageData from "@/services/fetchHomePageData";
+import STRAPI_fetchHomePageData from "@/services/home-table/fetchHomePageData";
 import { HomeTableItems } from "@/types/home-table/item";
 import { useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ export function useFetchedCoins(interval: number) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await fetchHomePageData();
+        const data = await STRAPI_fetchHomePageData();
         setModel(data);
       } catch (error) {
         setError("Fetching home page data from backend was unsuccessful...");
@@ -21,7 +21,7 @@ export function useFetchedCoins(interval: number) {
     const intervalId = setInterval(fetchData, interval);
 
     return () => clearInterval(intervalId);
-  }, [fetchHomePageData, interval]);
+  }, [STRAPI_fetchHomePageData, interval]);
 
   return { model, error };
 }

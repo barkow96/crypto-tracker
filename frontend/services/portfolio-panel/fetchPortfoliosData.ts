@@ -1,11 +1,14 @@
 export default async function fetchPortfoliosData(
   jwt: string | null | undefined
 ) {
-  if (typeof jwt === undefined) return null;
+  if (typeof jwt === undefined || typeof jwt === null) return null;
 
   const response = await fetch("/api/strapi/portfolios", {
     method: "GET",
-    headers: { Authorization: `Bearer ${jwt}` },
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+      "Content-type": "application/json",
+    },
   });
   const data = await response.json();
 

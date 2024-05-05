@@ -21,28 +21,32 @@ export type PortfolioIcons = {
   component: ComponentWithAs<"svg", IconProps>;
 }[];
 
-export type ChangedName = string | null;
-export type ChangedIcon = ChakraIcon | null;
-
 export type SelectPortfolioService = (
   selectedPortolioId: number,
-  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>
+  setPortfolioList: React.Dispatch<
+    React.SetStateAction<Portfolio[] | undefined>
+  >
 ) => void;
 
 export type AddPortfolioService = (
-  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>
+  setPortfolioList: React.Dispatch<
+    React.SetStateAction<Portfolio[] | undefined>
+  >
 ) => void;
 
 export type EditPortfolioService = (
+  jwt: string | null | undefined,
   selectedPortolioId: number,
-  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>,
+  setPortfolioList: React.Dispatch<
+    React.SetStateAction<Portfolio[] | undefined>
+  >,
   newPortfolioName?: string,
   newPortfolioIcon?: ChakraIcon
 ) => void;
 
 export type PortfolioProps = {
   item: Portfolio;
-  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[]>>;
+  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
   selectPortfolioHandler: SelectPortfolioService;
   editPortfolioHandler: EditPortfolioService;
 };

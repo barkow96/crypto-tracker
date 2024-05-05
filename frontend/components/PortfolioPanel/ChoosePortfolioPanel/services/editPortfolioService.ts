@@ -1,6 +1,8 @@
+import STRAPI_updatePortfolio from "@/services/portfolio-panel/updatePortfolio";
 import { EditPortfolioService } from "@/types/portfolio-panel/choose-portfolio-panel";
 
-const editPortfolioService: EditPortfolioService = (
+const editPortfolioService: EditPortfolioService = async (
+  jwt,
   selectedPortolioId,
   setPortfolioList,
   newPortfolioName,
@@ -8,8 +10,17 @@ const editPortfolioService: EditPortfolioService = (
 ) => {
   if (!newPortfolioName && !newPortfolioIcon) return;
 
+  const response = await STRAPI_updatePortfolio(
+    jwt,
+    selectedPortolioId,
+    newPortfolioName,
+    newPortfolioIcon
+  );
+
+  if (!response.metaData.ok) return;
+
   setPortfolioList((prevPortfolioList) => {
-    const newPortfolioList = prevPortfolioList.map((portfolio) => {
+    const newPortfolioList = prevPortfolioList?.map((portfolio) => {
       if (portfolio.id === selectedPortolioId) {
         if (newPortfolioName && newPortfolioIcon)
           return {
@@ -31,7 +42,8 @@ const editPortfolioService: EditPortfolioService = (
       } else return portfolio;
     });
 
-    return newPortfolioList;
+    if (newPortfolioList) return newPortfolioList;
+    return prevPortfolioList;
   });
 };
 

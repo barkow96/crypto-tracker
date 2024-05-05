@@ -1,5 +1,5 @@
 import { PortfolioItems } from "./../../types/portfolio-panel/choose-portfolio-panel";
-import fetchPortfoliosData from "@/services/fetchPortfoliosData";
+import STRAPI_fetchPortfoliosData from "@/services/portfolio-panel/fetchPortfoliosData";
 import { useEffect, useState } from "react";
 
 export function useFetchedPortfolios(jwt: string | null | undefined) {
@@ -9,7 +9,7 @@ export function useFetchedPortfolios(jwt: string | null | undefined) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await fetchPortfoliosData(jwt);
+        const data = await STRAPI_fetchPortfoliosData(jwt);
 
         setModel(data);
       } catch (error) {
@@ -18,7 +18,7 @@ export function useFetchedPortfolios(jwt: string | null | undefined) {
     }
 
     if (typeof jwt === "string") fetchData();
-  }, [fetchPortfoliosData, jwt]);
+  }, [STRAPI_fetchPortfoliosData, jwt]);
 
   return { model, error };
 }

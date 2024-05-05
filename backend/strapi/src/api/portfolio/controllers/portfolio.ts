@@ -17,20 +17,23 @@ export default factories.createCoreController(
           ctx.response.status = 200;
           ctx.body = {
             data: { portfolios: userPortfolios },
-            metaData: {},
+            metaData: { ok: true },
           };
         } else {
           ctx.response.status = 400;
           ctx.body = {
             data: { portfolios: [] },
-            metaData: { message: "You have no portfolios yet." },
+            metaData: { ok: false, message: "You have no portfolios yet." },
           };
         }
       } catch (err) {
         ctx.response.status = 500;
         ctx.body = {
-          message: ERROR_MESSAGE,
-          error: err ? err : "Error message missing",
+          metaData: {
+            ok: false,
+            message: ERROR_MESSAGE,
+            error: err ? err : "Error message missing",
+          },
         };
       }
     },
@@ -57,6 +60,7 @@ export default factories.createCoreController(
         ctx.response.status = 400;
         ctx.body = {
           metaData: {
+            ok: false,
             message:
               "Update is not allowed. Please check your portfolios first.",
           },
@@ -72,6 +76,7 @@ export default factories.createCoreController(
         ctx.response.status = 403;
         ctx.body = {
           metaData: {
+            ok: false,
             message: "You are not allowed to update the content.",
           },
         };
@@ -86,6 +91,7 @@ export default factories.createCoreController(
         ctx.response.status = 400;
         ctx.body = {
           metaData: {
+            ok: false,
             message: "Provided data is invalid or incomplete.",
           },
         };
@@ -110,13 +116,16 @@ export default factories.createCoreController(
         ctx.response.status = 200;
         ctx.body = {
           data: { updatedPortfolio },
-          metaData: {},
+          metaData: { ok: true },
         };
       } catch (err) {
         ctx.response.status = 500;
         ctx.body = {
-          message: ERROR_MESSAGE,
-          error: err ? err : "Error message missing",
+          metaData: {
+            ok: false,
+            message: ERROR_MESSAGE,
+            error: err ? err : "Error message missing",
+          },
         };
       }
     },
@@ -136,6 +145,7 @@ export default factories.createCoreController(
         ctx.response.status = 400;
         ctx.body = {
           metaData: {
+            ok: false,
             message: "Such user does not exist.",
           },
         };
@@ -173,13 +183,16 @@ export default factories.createCoreController(
         ctx.response.status = 200;
         ctx.body = {
           data: { createdPortfolio },
-          metaData: {},
+          metaData: { ok: true },
         };
       } catch (err) {
         ctx.response.status = 500;
         ctx.body = {
-          message: ERROR_MESSAGE,
-          error: err ? err : "Error message missing",
+          metaData: {
+            ok: false,
+            message: ERROR_MESSAGE,
+            error: err ? err : "Error message missing",
+          },
         };
       }
     },

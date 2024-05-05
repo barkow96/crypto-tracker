@@ -5,13 +5,14 @@ const selectPortfolioService: SelectPortfolioService = (
   setPortfolioList
 ) => {
   setPortfolioList((prevPortfolioList) => {
-    const newPortfolioList = prevPortfolioList.map((portfolio) => {
+    const newPortfolioList = prevPortfolioList?.map((portfolio) => {
       if (portfolio.id === selectedPortolioId)
         return { ...portfolio, isActive: true };
       else return { ...portfolio, isActive: false };
     });
 
-    return newPortfolioList;
+    if (newPortfolioList) return newPortfolioList;
+    return prevPortfolioList;
   });
 };
 
