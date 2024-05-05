@@ -1,24 +1,32 @@
-import {
-  NEW_PORTFOLIO_DEFAULT_NAME,
-  NEW_PORTFOLIO_DEFAULT_ICON,
-} from "@/constants/portfolio";
-import {
-  AddPortfolioService,
-  Portfolio,
-} from "@/types/portfolio-panel/choose-portfolio-panel";
+import STRAPI_addPortfolio from "@/services/portfolio-panel/addPortfolio";
+import { AddPortfolioService } from "@/types/portfolio-panel/choose-portfolio-panel";
 
-const addPortfolioService: AddPortfolioService = (setPortfolioList) => {
+const addPortfolioService: AddPortfolioService = async (
+  jwt,
+  setPortfolioList
+) => {
+  const responseData = await STRAPI_addPortfolio(jwt);
+
+  if (!responseData.metaData.ok) return;
+
   setPortfolioList((prevPortfolioList) => {
-    const lastPortfolioId = prevPortfolioList[prevPortfolioList.length - 1].id;
-    const newPortfolio: Portfolio = {
-      id: lastPortfolioId + 1,
-      name: NEW_PORTFOLIO_DEFAULT_NAME,
-      value: 0,
-      icon: NEW_PORTFOLIO_DEFAULT_ICON,
-      isActive: false,
-      coins: [],
-    };
-    return [...prevPortfolioList, newPortfolio];
+    if (prevPortfolioList === undefined) return prevPortfolioList;
+
+    const lastPortfolioId = prevPortfolioList
+      ? prevPortfolioList[prevPortfolioList.length - 1].id
+      : null;
+    if (lastPortfolioId === null) return prevPortfolioList;
+    else
+      return [
+        ...prevPortfolioList,
+        {
+          id: responseData.data.createdPortfolio.id,
+          name: responseData.data.createdPortfolio.name,
+          icon: responseData.data.createdPortfolio.icon,
+          isActive: responseData.data.createdPortfolio.isActive,
+          coins: [],
+        },
+      ];
   });
 };
 

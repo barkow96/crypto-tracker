@@ -815,7 +815,6 @@ export interface ApiPortfolioPortfolio extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String;
-    value: Attribute.Float;
     icon: Attribute.String;
     isActive: Attribute.Boolean;
     portfolio_coins: Attribute.Relation<

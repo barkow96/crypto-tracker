@@ -10,14 +10,14 @@ const editPortfolioService: EditPortfolioService = async (
 ) => {
   if (!newPortfolioName && !newPortfolioIcon) return;
 
-  const response = await STRAPI_updatePortfolio(
+  const responseData = await STRAPI_updatePortfolio(
     jwt,
     selectedPortolioId,
     newPortfolioName,
     newPortfolioIcon
   );
 
-  if (!response.metaData.ok) return;
+  if (!responseData.metaData.ok) return;
 
   setPortfolioList((prevPortfolioList) => {
     const newPortfolioList = prevPortfolioList?.map((portfolio) => {

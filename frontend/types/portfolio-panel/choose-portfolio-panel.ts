@@ -5,7 +5,6 @@ export type ChakraIcon = "StarIcon" | "MoonIcon" | "SunIcon";
 export type Portfolio = {
   id: number;
   name: string;
-  value: number;
   icon: ChakraIcon;
   isActive: boolean;
   coins?: {
@@ -29,6 +28,7 @@ export type SelectPortfolioService = (
 ) => void;
 
 export type AddPortfolioService = (
+  jwt: string | null | undefined,
   setPortfolioList: React.Dispatch<
     React.SetStateAction<Portfolio[] | undefined>
   >
@@ -55,7 +55,6 @@ export type ChoosePortfolioPanelProps = {
   portfolios: Portfolio[];
   setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
   selectPortfolioHandler: SelectPortfolioService;
-  addPortfolioHandler: AddPortfolioService;
   editPortfolioHandler: EditPortfolioService;
 };
 

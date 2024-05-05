@@ -10,9 +10,6 @@ import { PORTFOLIO_FOCUS_DELAY, PORTFOLIO_ICONS } from "@/constants/portfolio";
 import CustomDropdown from "@/components/_ChakraUI/CustomDropdown";
 import { useSession } from "next-auth/react";
 
-export type ChangedName = string | null;
-export type ChangedIcon = ChakraIcon | null;
-
 const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
   item,
   setPortfolios,
@@ -70,7 +67,6 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
   const activePortfolioStyles = {
     backgroundColor: colors.bright,
     borderRadius: "5px",
-    fontWeight: "bold",
   };
 
   return (
@@ -80,7 +76,7 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
       gap="25px"
       marginBottom="10px"
       padding="5px"
-      sx={item.isActive ? activePortfolioStyles : {}}
+      sx={item.isActive ? activePortfolioStyles : undefined}
     >
       <Box width="20%" display="flex" justifyContent="center">
         {isEditting ? (
@@ -111,6 +107,7 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
               "&:disabled": {
                 opacity: "1",
                 cursor: "auto",
+                fontWeight: item.isActive ? "bold" : "normal",
               },
             }}
           />
@@ -123,8 +120,6 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
             )}
           </Text>
         </HStack>
-
-        <Text fontStyle="italic">${item.value}</Text>
       </Box>
     </Flex>
   );

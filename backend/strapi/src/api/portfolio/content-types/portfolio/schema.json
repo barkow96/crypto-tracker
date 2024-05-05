@@ -15,9 +15,6 @@
     "name": {
       "type": "string"
     },
-    "value": {
-      "type": "float"
-    },
     "icon": {
       "type": "string"
     },
