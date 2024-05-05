@@ -21,6 +21,7 @@ export type PortfolioIcons = {
 }[];
 
 export type SelectPortfolioService = (
+  jwt: string | null | undefined,
   selectedPortolioId: number,
   setPortfolioList: React.Dispatch<
     React.SetStateAction<Portfolio[] | undefined>

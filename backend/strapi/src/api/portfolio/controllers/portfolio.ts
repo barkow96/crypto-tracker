@@ -39,8 +39,10 @@ export default factories.createCoreController(
     },
 
     async update(ctx) {
-      type UpdateRequest = { data?: { newName?: string; newIcon?: string } };
-      type UpdatedData = { name?: string; icon?: string };
+      type UpdateRequest = {
+        data?: { newName?: string; newIcon?: string; newIsActive?: boolean };
+      };
+      type UpdatedData = { name?: string; icon?: string; isActive?: boolean };
 
       const requestBody: UpdateRequest = ctx.request.body;
       const portfolioId = ctx.params.id;
@@ -86,7 +88,9 @@ export default factories.createCoreController(
       //CHECKING IF PROVIDED DATA IS IN CORRECT FORMAT
       const requestDataIsInvalid =
         !("data" in requestBody) ||
-        (!("newName" in requestBody.data) && !("newIcon" in requestBody.data));
+        (!("newName" in requestBody.data) &&
+          !("newIcon" in requestBody.data) &&
+          !("newIsActive" in requestBody.data));
       if (requestDataIsInvalid) {
         ctx.response.status = 400;
         ctx.body = {
@@ -104,6 +108,19 @@ export default factories.createCoreController(
         updatedData.name = requestBody.data.newName;
       if ("newIcon" in requestBody.data)
         updatedData.icon = requestBody.data.newIcon;
+      if ("newIsActive" in requestBody.data) {
+        updatedData.isActive = requestBody.data.newIsActive;
+
+        userData.portfolios.forEach((portfolio) => {
+          strapi.entityService.update(
+            "api::portfolio.portfolio",
+            portfolio.id,
+            {
+              data: { isActive: false },
+            }
+          );
+        });
+      }
 
       //UPDATING THE PORTFOLIO
       try {

@@ -56,7 +56,7 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
     as: PORTFOLIO_ICONS.find((icon) => icon.name === item.icon)?.component,
     onClick: !item.isActive
       ? () => {
-          selectPortfolioHandler(item.id, setPortfolios);
+          selectPortfolioHandler(sessionData?.user.jwt, item.id, setPortfolios);
         }
       : undefined,
     boxSize: "25",
