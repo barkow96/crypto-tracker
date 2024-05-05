@@ -120,5 +120,68 @@ export default factories.createCoreController(
         };
       }
     },
+
+    async create(ctx) {
+      const userId = ctx.state.user.id;
+
+      //CHECKING IF USER EXISTS
+      const userData = await strapi.entityService.findOne(
+        "plugin::users-permissions.user",
+        userId,
+        {
+          populate: ["portfolios"],
+        }
+      );
+      if (!userData) {
+        ctx.response.status = 400;
+        ctx.body = {
+          metaData: {
+            message: "Such user does not exist.",
+          },
+        };
+        return;
+      }
+
+      //CREATING NEW PORTFOLIO
+      const createdPortfolio = await strapi.entityService.create(
+        "api::portfolio.portfolio",
+        {
+          data: {
+            name: "My new portfolio",
+            icon: "StarIcon",
+            value: 0,
+            isActive: false,
+            publishedAt: new Date().toISOString(),
+          },
+        }
+      );
+
+      //ADDING PORTFOLIO TO THE USER (RELATION FIELD)
+      try {
+        const portfolioIds = userData.portfolios.map(
+          (portfolio) => portfolio.id
+        );
+        const updatedUser = await strapi.entityService.update(
+          "plugin::users-permissions.user",
+          userId,
+          {
+            data: {
+              portfolios: { connect: [...portfolioIds, createdPortfolio.id] },
+            },
+          }
+        );
+        ctx.response.status = 200;
+        ctx.body = {
+          data: { createdPortfolio },
+          metaData: {},
+        };
+      } catch (err) {
+        ctx.response.status = 500;
+        ctx.body = {
+          message: ERROR_MESSAGE,
+          error: err ? err : "Error message missing",
+        };
+      }
+    },
   })
 );
