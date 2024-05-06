@@ -1,7 +1,9 @@
-/**
- * portfolio-coin service
- */
+import { factories } from "@strapi/strapi";
+import { findUserCoinsIds } from "./findUserCoinsIds";
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreService('api::portfolio-coin.portfolio-coin');
+export default factories.createCoreService(
+  "api::portfolio-coin.portfolio-coin",
+  () => ({
+    findUserCoinsIds: (userData) => findUserCoinsIds(userData),
+  })
+);

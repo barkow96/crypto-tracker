@@ -1,6 +1,6 @@
 import { factories } from "@strapi/strapi";
 
-const ERROR_MESSAGE = "Unsuccessful fetching of portfolios data";
+const ERROR_MESSAGE = "STRAPI Portfolio API - something went wrong";
 
 export default factories.createCoreController(
   "api::portfolio.portfolio",
