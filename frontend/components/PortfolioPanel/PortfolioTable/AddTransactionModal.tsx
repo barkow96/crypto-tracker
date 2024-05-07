@@ -2,11 +2,7 @@ import CustomModal from "@/components/_ChakraUI/CustomModal";
 import { colors } from "@/constants/colors";
 import { initialFormData } from "@/constants/transactionForm";
 import transactionFormDataReducer from "@/libs/transactionFormDataReducer";
-import {
-  AddTransactionService,
-  PortfolioCoin,
-  PortfolioTransaction,
-} from "@/types/portfolio-panel/portfolio-table";
+import { AddTransactionService } from "@/types/portfolio-panel/portfolio-table";
 import {
   Box,
   Button,

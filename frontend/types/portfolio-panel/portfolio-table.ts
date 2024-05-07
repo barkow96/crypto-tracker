@@ -24,21 +24,6 @@ export type PortfolioTransaction = {
   coin: string;
 };
 
-export type RemoveCoinService = (
-  portfolioId: number | undefined,
-  coinName: string
-) => void;
-
-export type MoveCoinService = (
-  jwt: string | null | undefined,
-  sourcePortfolioId: number | undefined,
-  destinationPortfolioId: number | undefined,
-  coin: PortfolioCoin,
-  setPortfolioList: React.Dispatch<
-    React.SetStateAction<Portfolio[] | undefined>
-  >
-) => void;
-
 export type AddTransactionService = (
   date: string,
   type: "BUY" | "SELL",

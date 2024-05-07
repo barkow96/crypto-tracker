@@ -1,14 +1,12 @@
 import CustomModal from "@/components/_ChakraUI/CustomModal";
 import { colors } from "@/constants/colors";
-import {
-  MoveCoinService,
-  PortfolioCoin,
-} from "@/types/portfolio-panel/portfolio-table";
+import { PortfolioCoin } from "@/types/portfolio-panel/portfolio-table";
 import { Box, Button, Text } from "@chakra-ui/react";
 import MoveAssetModalItem from "./MoveAssetModalItem";
 import { useState } from "react";
 import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
 import { useSession } from "next-auth/react";
+import { MoveCoinService } from "./services/moveCoinService";
 
 type MoveAssetModalProps = {
   children: React.ReactNode;

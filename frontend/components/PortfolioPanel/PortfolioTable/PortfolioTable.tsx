@@ -21,6 +21,7 @@ import moveCoinService from "./services/moveCoinService";
 import ViewTransactionsModal from "./ViewTransactionsModal";
 import AddTransactionModal from "./AddTransactionModal";
 import addTransactionService from "./services/addTransactionService";
+import { useSession } from "next-auth/react";
 
 const PortfolioTable: React.FC<ActivePortfolioProps> = ({
   activePortfolio,
@@ -29,6 +30,8 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
   portfolioTransactions,
   setPortfolioTransactions,
 }) => {
+  const { data: sessionData, status: sessionStatus } = useSession();
+
   return (
     <Flex direction="column">
       <Box marginTop="15px">
@@ -87,7 +90,12 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                   {
                     name: "Remove",
                     handler: () => {
-                      removeCoinService(activePortfolio?.id, coin.symbol);
+                      removeCoinService(
+                        sessionData?.user.jwt,
+                        coin,
+                        activePortfolio?.id,
+                        setPortfolios
+                      );
                     },
                   },
                 ];

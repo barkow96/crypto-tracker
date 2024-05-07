@@ -1,5 +1,12 @@
 import STRAPI_addPortfolio from "@/services/portfolio-panel/addPortfolio";
-import { AddPortfolioService } from "@/types/portfolio-panel/choose-portfolio-panel";
+import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
+
+export type AddPortfolioService = (
+  jwt: string | null | undefined,
+  setPortfolioList: React.Dispatch<
+    React.SetStateAction<Portfolio[] | undefined>
+  >
+) => void;
 
 const addPortfolioService: AddPortfolioService = async (
   jwt,

@@ -1,5 +1,16 @@
 import STRAPI_moveCoin from "@/services/portfolio-panel/moveCoin";
-import { MoveCoinService } from "@/types/portfolio-panel/portfolio-table";
+import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
+import { PortfolioCoin } from "@/types/portfolio-panel/portfolio-table";
+
+export type MoveCoinService = (
+  jwt: string | null | undefined,
+  sourcePortfolioId: number | undefined,
+  destinationPortfolioId: number | undefined,
+  coin: PortfolioCoin,
+  setPortfolioList: React.Dispatch<
+    React.SetStateAction<Portfolio[] | undefined>
+  >
+) => void;
 
 const moveCoinService: MoveCoinService = async (
   jwt,
@@ -21,6 +32,7 @@ const moveCoinService: MoveCoinService = async (
 
   setPortfolioList((prevPortfolioList) => {
     if (prevPortfolioList === undefined) return prevPortfolioList;
+
     return prevPortfolioList.map((portfolio) => {
       switch (portfolio.id) {
         case sourcePortfolioId:

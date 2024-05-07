@@ -1,5 +1,18 @@
 import STRAPI_updatePortfolio from "@/services/portfolio-panel/updatePortfolio";
-import { EditPortfolioService } from "@/types/portfolio-panel/choose-portfolio-panel";
+import {
+  ChakraIcon,
+  Portfolio,
+} from "@/types/portfolio-panel/choose-portfolio-panel";
+
+export type EditPortfolioService = (
+  jwt: string | null | undefined,
+  selectedPortolioId: number,
+  setPortfolioList: React.Dispatch<
+    React.SetStateAction<Portfolio[] | undefined>
+  >,
+  newPortfolioName?: string,
+  newPortfolioIcon?: ChakraIcon
+) => void;
 
 const editPortfolioService: EditPortfolioService = async (
   jwt,
