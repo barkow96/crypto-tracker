@@ -1,26 +1,33 @@
 import CustomModal from "@/components/_ChakraUI/CustomModal";
 import { colors } from "@/constants/colors";
-import { MoveCoinService } from "@/types/portfolio-panel/portfolio-table";
+import {
+  MoveCoinService,
+  PortfolioCoin,
+} from "@/types/portfolio-panel/portfolio-table";
 import { Box, Button, Text } from "@chakra-ui/react";
 import MoveAssetModalItem from "./MoveAssetModalItem";
 import { useState } from "react";
 import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
+import { useSession } from "next-auth/react";
 
 type MoveAssetModalProps = {
   children: React.ReactNode;
   handler: MoveCoinService;
-  coinName: string;
+  coin: PortfolioCoin;
   activePortfolio: Portfolio | undefined;
   portfolios: Portfolio[] | undefined;
+  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
 };
 
 const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
   children,
+  handler,
+  coin,
   activePortfolio,
   portfolios,
-  handler,
-  coinName,
+  setPortfolios,
 }) => {
+  const { data: sessionData, status: sessionStatus } = useSession();
   const [destinationPortfolioId, setDestinationPortfolioId] = useState<
     number | undefined
   >(undefined);
@@ -29,7 +36,7 @@ const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
     <Box>
       <Box>
         <Text textAlign="center" fontWeight="bold">
-          Move <span style={{ color: colors.red }}>{coinName}</span> from
+          Move <span style={{ color: colors.red }}>{coin.symbol}</span> from
         </Text>
         <MoveAssetModalItem portfolio={activePortfolio} />
       </Box>
@@ -77,7 +84,13 @@ const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
               : undefined
           }
           onClick={() => {
-            handler(activePortfolio?.id, destinationPortfolioId, coinName);
+            handler(
+              sessionData?.user.jwt,
+              activePortfolio?.id,
+              destinationPortfolioId,
+              coin,
+              setPortfolios
+            );
           }}
         >
           Confirm movement

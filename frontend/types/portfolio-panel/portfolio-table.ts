@@ -30,9 +30,13 @@ export type RemoveCoinService = (
 ) => void;
 
 export type MoveCoinService = (
+  jwt: string | null | undefined,
   sourcePortfolioId: number | undefined,
   destinationPortfolioId: number | undefined,
-  coinName: string
+  coin: PortfolioCoin,
+  setPortfolioList: React.Dispatch<
+    React.SetStateAction<Portfolio[] | undefined>
+  >
 ) => void;
 
 export type AddTransactionService = (
@@ -53,6 +57,7 @@ export type CoinActions = {
 export type ActivePortfolioProps = {
   activePortfolio: Portfolio;
   portfolios: Portfolio[] | undefined;
+  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
   portfolioTransactions: PortfolioTransaction[] | undefined;
   setPortfolioTransactions: React.Dispatch<
     React.SetStateAction<PortfolioTransaction[] | undefined>

@@ -1,4 +1,5 @@
 import { ComponentWithAs, IconProps } from "@chakra-ui/react";
+import { PortfolioCoin } from "./portfolio-table";
 
 export type ChakraIcon = "StarIcon" | "MoonIcon" | "SunIcon";
 
@@ -7,12 +8,7 @@ export type Portfolio = {
   name: string;
   icon: ChakraIcon;
   isActive: boolean;
-  coins?: {
-    id: number;
-    avgBuyPrice: number;
-    quantity: number;
-    symbol: string;
-  }[];
+  coins: PortfolioCoin[];
 };
 
 export type PortfolioIcons = {

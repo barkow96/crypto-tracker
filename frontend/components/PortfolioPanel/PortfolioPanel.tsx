@@ -68,6 +68,7 @@ const PortfolioPanel: React.FC<PortfolioItems> = ({ data, metaData }) => {
         <PortfolioTable
           activePortfolio={activePortfolio}
           portfolios={portfolioList}
+          setPortfolios={setPortfolioList}
           portfolioTransactions={portfolioTransactions}
           setPortfolioTransactions={setPortfolioTransactions}
         />

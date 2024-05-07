@@ -19,13 +19,12 @@ const MoveAssetModalItem: React.FC<{
       cursor={clickable ? "pointer" : "auto"}
       _hover={clickable ? { backgroundColor: colors.bright } : undefined}
     >
-      <Flex gap="25px" marginTop="15px">
+      <Flex gap="25px" marginTop="15px" padding="5px">
         <Box>
           <Icon {...iconProps} />
         </Box>
         <Box>
           <Box>{portfolio?.name}</Box>
-          <Box fontWeight="bold">${portfolio?.value}</Box>
         </Box>
       </Flex>
     </Box>

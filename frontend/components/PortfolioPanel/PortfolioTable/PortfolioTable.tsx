@@ -25,6 +25,7 @@ import addTransactionService from "./services/addTransactionService";
 const PortfolioTable: React.FC<ActivePortfolioProps> = ({
   activePortfolio,
   portfolios,
+  setPortfolios,
   portfolioTransactions,
   setPortfolioTransactions,
 }) => {
@@ -73,10 +74,11 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                     name: "Move asset",
                     JSX: (
                       <MoveAssetModal
+                        handler={moveCoinService}
+                        coin={coin}
                         activePortfolio={activePortfolio}
                         portfolios={portfolios}
-                        handler={moveCoinService}
-                        coinName={coin.symbol}
+                        setPortfolios={setPortfolios}
                       >
                         Move asset
                       </MoveAssetModal>
