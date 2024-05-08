@@ -36,19 +36,23 @@ const moveCoinService: MoveCoinService = async (
     return prevPortfolioList.map((portfolio) => {
       switch (portfolio.id) {
         case sourcePortfolioId:
-          const portfolioCoins = portfolio.coins;
+          const portfolioCoins = portfolio.portfolio_coins;
           const index = portfolioCoins.findIndex(
             (portfolioCoin) => portfolioCoin.symbol === coin.symbol
           );
           if (index === -1) return portfolio;
           else {
             portfolioCoins.splice(index, 1);
-            return { ...portfolio, coins: portfolioCoins };
+            return { ...portfolio, portfolio_coins: portfolioCoins };
           }
 
         case destinationPortfolioId:
-          if (portfolio.coins === undefined) return portfolio;
-          else return { ...portfolio, coins: [...portfolio.coins, coin] };
+          if (portfolio.portfolio_coins === undefined) return portfolio;
+          else
+            return {
+              ...portfolio,
+              portfolio_coins: [...portfolio.portfolio_coins, coin],
+            };
 
         default:
           return portfolio;

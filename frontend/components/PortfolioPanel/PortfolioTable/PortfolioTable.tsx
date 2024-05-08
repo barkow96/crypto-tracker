@@ -27,8 +27,6 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
   activePortfolio,
   portfolios,
   setPortfolios,
-  portfolioTransactions,
-  setPortfolioTransactions,
 }) => {
   const { data: sessionData, status: sessionStatus } = useSession();
 
@@ -44,7 +42,7 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
         </AddTransactionModal>
       </Box>
 
-      {activePortfolio !== undefined && activePortfolio.coins && (
+      {activePortfolio !== undefined && activePortfolio.portfolio_coins && (
         <TableContainer>
           <Table>
             <Thead>
@@ -58,15 +56,13 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
               </Tr>
             </Thead>
             <Tbody>
-              {activePortfolio.coins.map((coin) => {
+              {activePortfolio.portfolio_coins.map((coin) => {
                 const dropdownItems: CoinActions = [
                   {
                     name: "View transactions",
                     JSX: (
                       <ViewTransactionsModal
-                        coins={activePortfolio.coins}
-                        transactions={portfolioTransactions}
-                        coinName={coin.symbol}
+                        coin={coin}
                         portfolioName={activePortfolio?.name}
                       >
                         View transactions

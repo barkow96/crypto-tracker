@@ -7,12 +7,10 @@ import {
   Portfolio,
   PortfolioItems,
 } from "@/types/portfolio-panel/choose-portfolio-panel";
-import { initialTransactions } from "@/dummy-data/portfolio-panel";
 import selectPortfolioService from "./ChoosePortfolioPanel/services/selectPortfolioService";
 import addPortfolioService from "./ChoosePortfolioPanel/services/addPortfolioService";
 import editPortfolioService from "./ChoosePortfolioPanel/services/editPortfolioService";
 import { useActivePortfolio } from "@/hooks/portfolio-panel/useActivePortfolio";
-import { usePortfolioTransactions } from "@/hooks/portfolio-panel/usePortfolioTransactions";
 import { colors } from "@/constants/colors";
 import { AddIcon } from "@chakra-ui/icons";
 import { useSession } from "next-auth/react";
@@ -20,13 +18,11 @@ import { useSession } from "next-auth/react";
 const PortfolioPanel: React.FC<PortfolioItems> = ({ data, metaData }) => {
   const { data: sessionData, status: sessionStatus } = useSession();
   const isLargeScreen = useBreakpointValue({ base: false, lg: true });
+
   const [portfolioList, setPortfolioList] = useState<Portfolio[] | undefined>(
     data?.portfolios
   );
   const { activePortfolio } = useActivePortfolio(portfolioList);
-  const [portfolioCoins, setPortfolioCoins] = useState(activePortfolio?.coins);
-  const { portfolioTransactions, setPortfolioTransactions } =
-    usePortfolioTransactions(portfolioCoins, initialTransactions);
 
   const addPortfolioButton = (
     <Box
@@ -64,13 +60,11 @@ const PortfolioPanel: React.FC<PortfolioItems> = ({ data, metaData }) => {
         {addPortfolioButton}
       </Box>
       <Box width={isLargeScreen ? "70%" : "100%"}>
-        <PortfolioSummary portfolioCoins={activePortfolio.coins} />
+        <PortfolioSummary portfolioCoins={activePortfolio.portfolio_coins} />
         <PortfolioTable
           activePortfolio={activePortfolio}
           portfolios={portfolioList}
           setPortfolios={setPortfolioList}
-          portfolioTransactions={portfolioTransactions}
-          setPortfolioTransactions={setPortfolioTransactions}
         />
       </Box>
     </Flex>

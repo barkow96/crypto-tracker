@@ -10,7 +10,7 @@ export type Portfolio = {
   name: string;
   icon: ChakraIcon;
   isActive: boolean;
-  coins: PortfolioCoin[];
+  portfolio_coins: PortfolioCoin[];
 };
 
 export type PortfolioIcons = {

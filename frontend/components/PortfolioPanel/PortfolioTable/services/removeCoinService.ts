@@ -27,14 +27,14 @@ const removeCoinService: RemoveCoinService = async (
     return prevPortfolioList.map((portfolio) => {
       if (portfolio.id !== portfolioId) return portfolio;
       else {
-        const portfolioCoins = portfolio.coins;
+        const portfolioCoins = portfolio.portfolio_coins;
         const index = portfolioCoins.findIndex(
           (portfolioCoin) => portfolioCoin.id === coin.id
         );
         if (index === -1) return portfolio;
         else {
           portfolioCoins.splice(index, 1);
-          return { ...portfolio, coins: portfolioCoins };
+          return { ...portfolio, portfolio_coins: portfolioCoins };
         }
       }
     });

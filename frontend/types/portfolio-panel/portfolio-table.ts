@@ -10,9 +10,7 @@ export type PortfolioCoin = {
   symbol: string;
   quantity: number;
   avgBuyPrice: number;
-  // price: number;
-  // profit: number;
-  // transactions: number[];
+  portfolio_transactions: PortfolioTransaction[];
 };
 
 export type PortfolioTransaction = {
@@ -21,7 +19,7 @@ export type PortfolioTransaction = {
   type: string;
   price: number;
   quantity: number;
-  coin: string;
+  // coin: string;
 };
 
 export type AddTransactionService = (
@@ -43,10 +41,10 @@ export type ActivePortfolioProps = {
   activePortfolio: Portfolio;
   portfolios: Portfolio[] | undefined;
   setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
-  portfolioTransactions: PortfolioTransaction[] | undefined;
-  setPortfolioTransactions: React.Dispatch<
-    React.SetStateAction<PortfolioTransaction[] | undefined>
-  >;
+  // portfolioTransactions: PortfolioTransaction[] | undefined;
+  // setPortfolioTransactions: React.Dispatch<
+  //   React.SetStateAction<PortfolioTransaction[] | undefined>
+  // >;
 };
 
 export type TransactionInputField =

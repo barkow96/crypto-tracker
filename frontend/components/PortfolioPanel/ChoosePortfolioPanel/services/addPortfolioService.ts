@@ -31,7 +31,7 @@ const addPortfolioService: AddPortfolioService = async (
           name: responseData.data.createdPortfolio.name,
           icon: responseData.data.createdPortfolio.icon,
           isActive: responseData.data.createdPortfolio.isActive,
-          coins: [],
+          portfolio_coins: [],
         },
       ];
   });

@@ -47,7 +47,7 @@ export const fetchUserPortfolios: FetchUserPortfoliosType = async (userId) => {
         portfolioCoinsIds
       );
 
-      return { ...portfolio, coins: portfolioCoinsWithTransactions };
+      return { ...portfolio, portfolio_coins: portfolioCoinsWithTransactions };
     })
   );
 
