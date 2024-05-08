@@ -69,16 +69,6 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::portfolio.portfolio"
-    },
-    "portfolio_coins": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::portfolio-coin.portfolio-coin"
-    },
-    "portfolio_transactions": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::portfolio-transaction.portfolio-transaction"
     }
   }
 }

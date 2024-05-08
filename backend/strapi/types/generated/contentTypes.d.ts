@@ -775,16 +775,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::portfolio.portfolio'
     >;
-    portfolio_coins: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::portfolio-coin.portfolio-coin'
-    >;
-    portfolio_transactions: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::portfolio-transaction.portfolio-transaction'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
