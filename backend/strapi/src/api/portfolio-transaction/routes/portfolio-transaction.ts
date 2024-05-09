@@ -1,7 +1,5 @@
-/**
- * portfolio-transaction router
- */
+import { factories } from "@strapi/strapi";
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreRouter('api::portfolio-transaction.portfolio-transaction');
+export default factories.createCoreRouter(
+  "api::portfolio-transaction.portfolio-transaction"
+);

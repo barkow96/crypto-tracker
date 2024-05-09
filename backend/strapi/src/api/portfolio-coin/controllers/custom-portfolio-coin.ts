@@ -15,7 +15,7 @@ export default {
       }
     );
     const userDataIsMissing =
-      !userData || !userData.portfolios || userData.portfolios.length === 2;
+      !userData || !userData.portfolios || userData.portfolios.length < 2;
     if (userDataIsMissing) {
       ctx.response.status = 400;
       ctx.body = {
