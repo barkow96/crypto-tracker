@@ -17,9 +17,3 @@ export type HomeTableItems = {
   metaData?: { dataParts: number };
   error?: string | null;
 };
-
-export type CustomTdProps = {
-  value: number | string | ReactNode;
-  prefix?: string;
-  sufix?: string;
-};

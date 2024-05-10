@@ -101,11 +101,11 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                 ];
                 return (
                   <Tr key={coin.symbol} textAlign="center">
-                    <CustomTd value={coin.symbol} />
-                    <CustomTd value={coin.quantity} />
-                    <CustomTd value={coin.avgBuyPrice} />
-                    <CustomTd value={"BETA"} />
-                    <CustomTd value={"BETA"} />
+                    <CustomTd unstyled value={coin.symbol} />
+                    <CustomTd unstyled value={coin.quantity} />
+                    <CustomTd unstyled value={coin.avgBuyPrice} prefix="$" />
+                    <CustomTd unstyled value={"BETA"} />
+                    <CustomTd unstyled value={"BETA"} />
                     <CustomDropdown items={dropdownItems}>
                       <CustomTd value="..." />
                     </CustomDropdown>

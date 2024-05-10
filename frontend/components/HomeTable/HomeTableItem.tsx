@@ -1,7 +1,7 @@
 import { Tr } from "@chakra-ui/react";
-import CustomTd from "../_ChakraUI/CustomTd";
+import CustomTd, { CustomTdProps } from "../_ChakraUI/CustomTd";
 import { ReactNode } from "react";
-import { CustomTdProps, HomeTableItemdata } from "@/types/home-table/item";
+import { HomeTableItemdata } from "@/types/home-table/item";
 import { BETA_PLACEHOLDER } from "@/constants/constants";
 import { HomeTableMetadata } from "@/types/home-table/table";
 
