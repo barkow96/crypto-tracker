@@ -34,7 +34,7 @@ const addTransactionService: AddTransactionService = async (
     quantity
   );
 
-  if (!responseData.metaData.ok) return;
+  if (!responseData || !responseData.metaData.ok) return;
 
   const isCoinAndTransactionNewlyCreated =
     ("createdTransaction" && "createdCoin") in responseData.data;

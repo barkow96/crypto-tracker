@@ -28,7 +28,7 @@ const moveCoinService: MoveCoinService = async (
     coin.id
   );
 
-  if (!responseData.metaData.ok) return;
+  if (!responseData || !responseData.metaData.ok) return;
 
   setPortfolioList((prevPortfolioList) => {
     if (prevPortfolioList === undefined) return prevPortfolioList;

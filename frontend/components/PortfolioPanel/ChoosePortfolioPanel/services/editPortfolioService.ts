@@ -30,7 +30,7 @@ const editPortfolioService: EditPortfolioService = async (
     newPortfolioIcon
   );
 
-  if (!responseData.metaData.ok) return;
+  if (!responseData || !responseData.metaData.ok) return;
 
   setPortfolioList((prevPortfolioList) => {
     const newPortfolioList = prevPortfolioList?.map((portfolio) => {

@@ -22,7 +22,7 @@ const selectPortfolioService: SelectPortfolioService = async (
     true
   );
 
-  if (!responseData.metaData.ok) return;
+  if (!responseData || !responseData.metaData.ok) return;
 
   setPortfolioList((prevPortfolioList) => {
     const newPortfolioList = prevPortfolioList?.map((portfolio) => {

@@ -19,7 +19,7 @@ const removeCoinService: RemoveCoinService = async (
 ) => {
   const responseData = await STRAPI_removeCoin(jwt, coin.id);
 
-  if (!responseData.metaData.ok) return;
+  if (!responseData || !responseData.metaData.ok) return;
 
   setPortfolioList((prevPortfolioList) => {
     if (prevPortfolioList === undefined) return prevPortfolioList;

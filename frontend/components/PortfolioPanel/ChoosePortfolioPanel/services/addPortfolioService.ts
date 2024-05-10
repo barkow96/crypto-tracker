@@ -14,7 +14,7 @@ const addPortfolioService: AddPortfolioService = async (
 ) => {
   const responseData = await STRAPI_addPortfolio(jwt);
 
-  if (!responseData.metaData.ok) return;
+  if (!responseData || !responseData.metaData.ok) return;
 
   setPortfolioList((prevPortfolioList) => {
     if (prevPortfolioList === undefined) return prevPortfolioList;
