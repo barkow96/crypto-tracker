@@ -15,7 +15,7 @@ export default factories.createCoreService(
       price,
       date,
       type
-    ) => {
+    ) =>
       createTransactionAndCreateCoin(
         portfolioId,
         coinName,
@@ -23,10 +23,8 @@ export default factories.createCoreService(
         price,
         date,
         type
-      );
-    },
-    createTransactionAndUpdateCoin: (coinId, quantity, price, date, type) => {
-      createTransactionAndUpdateCoin(coinId, quantity, price, date, type);
-    },
+      ),
+    createTransactionAndUpdateCoin: (coinId, quantity, price, date, type) =>
+      createTransactionAndUpdateCoin(coinId, quantity, price, date, type),
   })
 );

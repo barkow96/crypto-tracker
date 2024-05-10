@@ -13,6 +13,22 @@ type CreateRequest = {
   };
 };
 
+type ResponseData = {
+  createdTransaction: {
+    id: number;
+    type: "BUY" | "SELL";
+    date: string;
+    price: number;
+    quantity: number;
+  };
+  createdCoin?: {
+    id: number;
+    symbol: string;
+    quantity: number;
+    avgBuyPrice: number;
+  };
+};
+
 export default factories.createCoreController(
   "api::portfolio-transaction.portfolio-transaction",
   ({ strapi }) => ({
@@ -45,7 +61,7 @@ export default factories.createCoreController(
 
       //CHECKING IF THE PORTFOLIO BELONGS TO THE USER
       const portfolioToBeUpdated = userData.portfolios.find(
-        (portfolio) => portfolio.id === data.portfolioId
+        (portfolio) => portfolio.id.toString() === data.portfolioId.toString()
       );
       if (!portfolioToBeUpdated) {
         ctx.response.status = 403;
@@ -65,9 +81,10 @@ export default factories.createCoreController(
 
       //CREATING TRANSACTION AND CREATING / UPDATING COIN
       try {
+        let responseData: ResponseData;
         //SCENARIO 1: IF THE COIN ALREADY BELONGS TO THE PORTFOLIO - ADD TRANSACTION AND UPDATE THE COIN
         if (idOfCoinToBeUpdated) {
-          await strapi
+          responseData = await strapi
             .service("api::portfolio-transaction.portfolio-transaction")
             .createTransactionAndUpdateCoin(
               idOfCoinToBeUpdated,
@@ -79,7 +96,7 @@ export default factories.createCoreController(
         }
         //SCENARIO 2: IF THE COIN DOESN'T BELONG TO THE PORTFOLIO - ADD TRANSACTION AND ADD THE COIN
         if (!idOfCoinToBeUpdated) {
-          await strapi
+          responseData = await strapi
             .service("api::portfolio-transaction.portfolio-transaction")
             .createTransactionAndCreateCoin(
               data.portfolioId,
@@ -93,6 +110,7 @@ export default factories.createCoreController(
 
         ctx.response.status = 200;
         ctx.body = {
+          data: responseData,
           metaData: {
             ok: true,
             message: "Successfully created the transaction.",

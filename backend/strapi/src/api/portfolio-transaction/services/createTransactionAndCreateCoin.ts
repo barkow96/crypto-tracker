@@ -43,4 +43,9 @@ export const createTransactionAndCreateCoin: CreateTransactionAndCreateCoinType 
       portfolioId,
       { data: { portfolio_coins: { connect: [createdCoin.id] } } }
     );
+
+    return {
+      createdCoin,
+      createdTransaction,
+    };
   };

@@ -33,7 +33,11 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
   return (
     <Flex direction="column">
       <Box marginTop="15px">
-        <AddTransactionModal handler={addTransactionService}>
+        <AddTransactionModal
+          handler={addTransactionService}
+          portfolioId={activePortfolio.id}
+          setPortolios={setPortfolios}
+        >
           {activePortfolio ? (
             <Text>Add new transaction to: {activePortfolio.name}</Text>
           ) : (

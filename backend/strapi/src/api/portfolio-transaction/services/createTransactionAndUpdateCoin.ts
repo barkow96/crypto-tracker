@@ -53,4 +53,6 @@ export const createTransactionAndUpdateCoin: CreateTransactionAndUpdateCoinType 
         },
       }
     );
+
+    return { createdTransaction };
   };
