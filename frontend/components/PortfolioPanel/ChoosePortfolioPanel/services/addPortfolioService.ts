@@ -19,21 +19,16 @@ const addPortfolioService: AddPortfolioService = async (
   setPortfolioList((prevPortfolioList) => {
     if (prevPortfolioList === undefined) return prevPortfolioList;
 
-    const lastPortfolioId = prevPortfolioList
-      ? prevPortfolioList[prevPortfolioList.length - 1].id
-      : null;
-    if (lastPortfolioId === null) return prevPortfolioList;
-    else
-      return [
-        ...prevPortfolioList,
-        {
-          id: responseData.data.createdPortfolio.id,
-          name: responseData.data.createdPortfolio.name,
-          icon: responseData.data.createdPortfolio.icon,
-          isActive: responseData.data.createdPortfolio.isActive,
-          portfolio_coins: [],
-        },
-      ];
+    const newPortfolio = {
+      id: responseData.data.createdPortfolio.id,
+      name: responseData.data.createdPortfolio.name,
+      icon: responseData.data.createdPortfolio.icon,
+      isActive: responseData.data.createdPortfolio.isActive,
+      portfolio_coins: [],
+    };
+
+    if (prevPortfolioList.length === 0) return [newPortfolio];
+    return [...prevPortfolioList, newPortfolio];
   });
 };
 

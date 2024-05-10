@@ -177,7 +177,7 @@ export default factories.createCoreController(
             name: "My new portfolio",
             icon: "StarIcon",
             value: 0,
-            isActive: false,
+            isActive: userData.portfolios.length > 0 ? false : true,
             publishedAt: new Date().toISOString(),
           },
         }
