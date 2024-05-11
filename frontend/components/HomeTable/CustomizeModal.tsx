@@ -1,5 +1,5 @@
 import { colors } from "@/constants/colors";
-import { METRICS_CATEGORIES } from "@/constants/table";
+import { METRICS_CATEGORIES } from "@/constants/homeTable";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import clickMetricService from "./customizeModalServices/clickMetricService";
 import { Metric } from "@/types/home-table/settings";

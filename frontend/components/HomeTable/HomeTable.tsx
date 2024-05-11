@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useFilteredCoins } from "@/hooks/home-table/useFilteredCoins";
 import { PAGINATION_INITIAL_PAGE, ROWS_NUMBER } from "@/constants/constants";
 import Pagination from "./Pagination";
-import { TABLE_INITIAL_CONFIG } from "@/constants/table";
+import { TABLE_INITIAL_CONFIG } from "@/constants/homeTable";
 import searchCoinService from "./homeTableServices/searchCoinService";
 import selectRowsService from "./homeTableServices/selectRowsService";
 import { usePages } from "@/hooks/home-table/usePages";
