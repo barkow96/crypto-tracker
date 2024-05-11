@@ -7,20 +7,26 @@ import {
   checkIfPositiveNumber,
   checkIfTransactionTypeAllowed,
 } from "./validation";
+import { initialFormData } from "@/constants/transactionForm";
 
 export default function transactionFormDataReducer(
   state: TransactionFormDataType,
   action: TransactionActionType
 ) {
-  const selectedProperty = action.property;
+  const selectedProperty =
+    action.task === "UPDATE" || action.task === "VALIDATE"
+      ? action.property
+      : undefined;
   const selectedAction = action.task;
 
   switch (selectedAction) {
     case "UPDATE":
+      if (!selectedProperty) return state;
       const newValue = action.payload;
+
       return {
         ...state,
-        [selectedProperty]: {
+        [action.property]: {
           value: newValue,
           isValid: state[selectedProperty].isValid,
           isTouched: state[selectedProperty].isTouched,
@@ -28,6 +34,8 @@ export default function transactionFormDataReducer(
         },
       };
     case "VALIDATE":
+      if (!selectedProperty) return state;
+
       const checkedValue = state[selectedProperty].value;
       let validation = { test: false, message: "" };
 
@@ -49,5 +57,8 @@ export default function transactionFormDataReducer(
           isTouched: true,
         },
       };
+
+    case "RESET":
+      return initialFormData;
   }
 }

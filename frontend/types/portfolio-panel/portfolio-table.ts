@@ -52,4 +52,5 @@ export type TransactionFormDataType = {
 
 export type TransactionActionType =
   | { task: "UPDATE"; property: TransactionInputField; payload: string }
-  | { task: "VALIDATE"; property: TransactionInputField };
+  | { task: "VALIDATE"; property: TransactionInputField }
+  | { task: "RESET" };
