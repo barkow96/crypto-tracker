@@ -2,7 +2,7 @@ import { Tr } from "@chakra-ui/react";
 import CustomTd, { CustomTdProps } from "../_ChakraUI/CustomTd";
 import { ReactNode } from "react";
 import { HomeTableItemdata } from "@/types/home-table/item";
-import { BETA_PLACEHOLDER } from "@/constants/constants";
+import { constants } from "@/constants/constants";
 import { HomeTableMetadata } from "@/types/home-table/table";
 
 type HomeTableItemProps = { data: HomeTableItemdata } & {
@@ -16,7 +16,7 @@ const HomeTableItem: React.FC<HomeTableItemProps> = (props) => {
   const tableColumns: ReactNode[] = Object.keys(settings).map((key) => {
     if (!settings[key].isActive) return null;
     if (settings[key].isBetaVersion)
-      return <CustomTd key={key} value={BETA_PLACEHOLDER} />;
+      return <CustomTd key={key} value={constants.common.BETA_PLACEHOLDER} />;
 
     const customTdProps: CustomTdProps = { value: data[key] };
     if (settings[key].custom && settings[key].custom?.prefix)

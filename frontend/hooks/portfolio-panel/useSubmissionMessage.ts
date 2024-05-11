@@ -1,4 +1,4 @@
-import { DELAY_SUBMIT_TRANSACTION } from "@/constants/constants";
+import { constants } from "@/constants/constants";
 import { useEffect, useState } from "react";
 
 export function useSubmissionMessage() {
@@ -12,7 +12,7 @@ export function useSubmissionMessage() {
     if (submissionMessage)
       timer = setTimeout(() => {
         setSubmissionMessage(null);
-      }, DELAY_SUBMIT_TRANSACTION);
+      }, constants.portfolioPage.DELAY_SUBMIT_TRANSACTION);
   }, [submissionMessage]);
 
   return { submissionMessage, setSubmissionMessage };

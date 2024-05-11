@@ -22,6 +22,7 @@ import ViewTransactionsModal from "./ViewTransactionsModal";
 import AddTransactionModal from "./AddTransactionModal";
 import addTransactionService from "./services/addTransactionService";
 import { useSession } from "next-auth/react";
+import { constants } from "@/constants/constants";
 
 const PortfolioTable: React.FC<ActivePortfolioProps> = ({
   activePortfolio,
@@ -104,8 +105,14 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                     <CustomTd unstyled value={coin.symbol} />
                     <CustomTd unstyled value={coin.quantity} />
                     <CustomTd unstyled value={coin.avgBuyPrice} prefix="$" />
-                    <CustomTd unstyled value={"BETA"} />
-                    <CustomTd unstyled value={"BETA"} />
+                    <CustomTd
+                      unstyled
+                      value={constants.common.BETA_PLACEHOLDER}
+                    />
+                    <CustomTd
+                      unstyled
+                      value={constants.common.BETA_PLACEHOLDER}
+                    />
                     <CustomDropdown items={dropdownItems}>
                       <CustomTd value="..." />
                     </CustomDropdown>

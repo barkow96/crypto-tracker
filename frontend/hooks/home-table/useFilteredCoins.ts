@@ -1,4 +1,4 @@
-import { DELAY_SEARCH_FOR_COIN } from "@/constants/constants";
+import { constants } from "@/constants/constants";
 import { HomeTableItemdata } from "@/types/home-table/item";
 import { SearchedCoin } from "@/types/home-table/table";
 
@@ -22,7 +22,7 @@ export function useFilteredCoins(
         return coin.symbol.toLowerCase().includes(searchedCoin.toLowerCase());
       });
       setFilteredCoins(newCoinsList);
-    }, DELAY_SEARCH_FOR_COIN);
+    }, constants.homePage.DELAY_SEARCH_FOR_COIN);
 
     return () => clearTimeout(delay);
   }, [coins, searchedCoin]);

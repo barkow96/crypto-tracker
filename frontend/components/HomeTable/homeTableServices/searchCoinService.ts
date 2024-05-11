@@ -1,4 +1,4 @@
-import { PAGINATION_INITIAL_PAGE } from "@/constants/constants";
+import { constants } from "@/constants/constants";
 import { SearchedCoin } from "@/types/home-table/table";
 
 type SearchCoinService = (
@@ -15,7 +15,7 @@ const searchCoinService: SearchCoinService = (
   if (enteredText === "") setSearchedCoin(null);
   else {
     setSearchedCoin(enteredText);
-    setCurrentPage(PAGINATION_INITIAL_PAGE);
+    setCurrentPage(constants.homePage.PAGINATION_INITIAL_PAGE);
   }
 };
 

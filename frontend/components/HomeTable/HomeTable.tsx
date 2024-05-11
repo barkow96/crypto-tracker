@@ -3,7 +3,7 @@ import HomeTableSettings from "./HomeTableSettings";
 import HomeTableItem from "./HomeTableItem";
 import { useEffect, useState } from "react";
 import { useFilteredCoins } from "@/hooks/home-table/useFilteredCoins";
-import { PAGINATION_INITIAL_PAGE, ROWS_NUMBER } from "@/constants/constants";
+import { constants } from "@/constants/constants";
 import Pagination from "./Pagination";
 import { TABLE_INITIAL_CONFIG } from "@/constants/homeTable";
 import searchCoinService from "./homeTableServices/searchCoinService";
@@ -27,9 +27,11 @@ const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
     searchedCoin
   );
   const [tableMetadata, setTableMetadata] = useState(TABLE_INITIAL_CONFIG);
-  const [rowsQuantity, setRowsQuantity] = useState(ROWS_NUMBER.MAX);
+  const [rowsQuantity, setRowsQuantity] = useState(
+    constants.homePage.ROWS_NUMBER.MAX
+  );
   const { currentPage, setCurrentPage } = usePages(
-    PAGINATION_INITIAL_PAGE,
+    constants.homePage.PAGINATION_INITIAL_PAGE,
     Math.ceil(filteredCoins.length / rowsQuantity)
   );
 

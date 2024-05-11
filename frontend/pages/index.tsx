@@ -1,10 +1,12 @@
-import { HOME_PAGE_REFRESH_INTERVAL } from "@/constants/constants";
+import { constants } from "@/constants/constants";
 import { useFetchedCoins } from "@/hooks/home-table/useFetchedCoins";
 import HomeView from "@/views/HomeView";
 import Head from "next/head";
 
 export default function HomePage() {
-  const { model, error } = useFetchedCoins(HOME_PAGE_REFRESH_INTERVAL);
+  const { model, error } = useFetchedCoins(
+    constants.homePage.HOME_PAGE_REFRESH_INTERVAL
+  );
 
   return (
     <>

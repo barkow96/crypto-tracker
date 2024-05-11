@@ -1,7 +1,7 @@
 import { SettingsIcon } from "@chakra-ui/icons";
 import { Box, Flex, Icon, Input, Select, Text } from "@chakra-ui/react";
 import CustomizeModal from "./CustomizeModal";
-import { ROWS_NUMBER } from "@/constants/constants";
+import { constants } from "@/constants/constants";
 import { ChangeEvent } from "react";
 import { HomeTableMetadata } from "@/types/home-table/table";
 
@@ -34,9 +34,15 @@ const HomeTableSettings: React.FC<HomeTableSettingsProps> = ({
       </Box>
       <Flex gap="20px">
         <Select cursor="pointer" onChange={selectRowsHandler}>
-          <option value={ROWS_NUMBER.MAX}>{ROWS_NUMBER.MAX}</option>
-          <option value={ROWS_NUMBER.MEDIUM}>{ROWS_NUMBER.MEDIUM}</option>
-          <option value={ROWS_NUMBER.MIN}>{ROWS_NUMBER.MIN}</option>
+          <option value={constants.homePage.ROWS_NUMBER.MAX}>
+            {constants.homePage.ROWS_NUMBER.MAX}
+          </option>
+          <option value={constants.homePage.ROWS_NUMBER.MEDIUM}>
+            {constants.homePage.ROWS_NUMBER.MEDIUM}
+          </option>
+          <option value={constants.homePage.ROWS_NUMBER.MIN}>
+            {constants.homePage.ROWS_NUMBER.MIN}
+          </option>
         </Select>
 
         <Box>
