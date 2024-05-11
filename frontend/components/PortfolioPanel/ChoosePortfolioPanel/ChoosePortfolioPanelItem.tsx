@@ -6,9 +6,10 @@ import {
 } from "@/types/portfolio-panel/choose-portfolio-panel";
 import { colors } from "@/constants/colors";
 import { useEffect, useRef, useState } from "react";
-import { PORTFOLIO_FOCUS_DELAY, PORTFOLIO_ICONS } from "@/constants/portfolio";
+import { PORTFOLIO_ICONS } from "@/constants/portfolio";
 import CustomDropdown from "@/components/_ChakraUI/CustomDropdown";
 import { useSession } from "next-auth/react";
+import { constants } from "@/constants/constants";
 
 const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
   item,
@@ -48,7 +49,7 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
       setIsEditting(true);
       setTimeout(() => {
         inputRef.current?.focus();
-      }, PORTFOLIO_FOCUS_DELAY);
+      }, constants.portfolioPage.PORTFOLIO_FOCUS_DELAY);
     }
   }
 

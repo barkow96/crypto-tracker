@@ -9,6 +9,6 @@ export const constants = {
       MIN: 2,
     },
   },
-  portfolioPage: { DELAY_SUBMIT_TRANSACTION: 3000 },
+  portfolioPage: { DELAY_SUBMIT_TRANSACTION: 3000, PORTFOLIO_FOCUS_DELAY: 200 },
   common: { BETA_PLACEHOLDER: "BETA" },
 };
