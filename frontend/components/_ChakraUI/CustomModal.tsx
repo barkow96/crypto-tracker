@@ -1,5 +1,6 @@
+import { colors } from "@/constants/colors";
 import {
-  Button,
+  Box,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -38,18 +39,27 @@ const CustomModal: React.FC<CustomModalProps> = ({
 
   const unstyledStyleProps = unstyled
     ? {
-        variant: "unstyled",
+        textAlign: undefined,
+        fontWeight: undefined,
+        bg: undefined,
+        padding: 0,
         marginLeft: 0,
-        fontWeight: "normal",
+        _hover: undefined,
       }
     : undefined;
 
   return (
     <>
-      <Button
+      <Box
         width="100%"
+        textAlign="center"
+        fontWeight="bold"
+        bg={colors.bright}
+        borderRadius="md"
+        padding="5px"
         ml="4"
-        textAlign="left"
+        cursor="pointer"
+        _hover={{ bg: "gray.300" }}
         onClick={() => {
           setOverlay(<Overlay />);
           onOpen();
@@ -57,7 +67,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
         {...unstyledStyleProps}
       >
         {children}
-      </Button>
+      </Box>
 
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         {overlay}
@@ -68,7 +78,16 @@ const CustomModal: React.FC<CustomModalProps> = ({
           <ModalBody>{body}</ModalBody>
 
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
+            <Box
+              bg={colors.bright}
+              borderRadius="md"
+              padding="7px"
+              cursor="pointer"
+              _hover={{ bg: "gray.300" }}
+              onClick={onClose}
+            >
+              Close
+            </Box>
           </ModalFooter>
         </ModalContent>
       </Modal>

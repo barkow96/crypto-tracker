@@ -101,7 +101,7 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                   },
                 ];
                 return (
-                  <Tr key={coin.symbol} textAlign="center">
+                  <Tr key={coin.id} textAlign="center">
                     <CustomTd unstyled value={coin.symbol} />
                     <CustomTd unstyled value={coin.quantity} />
                     <CustomTd unstyled value={coin.avgBuyPrice} prefix="$" />
@@ -113,9 +113,13 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                       unstyled
                       value={constants.common.BETA_PLACEHOLDER}
                     />
-                    <CustomDropdown items={dropdownItems}>
-                      <CustomTd value="..." />
-                    </CustomDropdown>
+                    <CustomTd
+                      value={
+                        <CustomDropdown items={dropdownItems}>
+                          ...
+                        </CustomDropdown>
+                      }
+                    />
                   </Tr>
                 );
               })}

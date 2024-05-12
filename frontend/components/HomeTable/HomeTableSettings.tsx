@@ -50,8 +50,10 @@ const HomeTableSettings: React.FC<HomeTableSettingsProps> = ({
             tableMetadata={tableMetadata}
             setTableMetadata={setTableMetadata}
           >
-            <Icon as={SettingsIcon} mx="10px" />
-            <Text>Customize</Text>
+            <>
+              <Icon as={SettingsIcon} mx="10px" />
+              <Text>Customize</Text>
+            </>
           </CustomizeModal>
         </Box>
       </Flex>
