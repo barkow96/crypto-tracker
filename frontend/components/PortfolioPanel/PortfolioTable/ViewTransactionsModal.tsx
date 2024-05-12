@@ -56,10 +56,10 @@ const ViewTransactionsModal: React.FC<ViewTransactionsModalProps> = ({
         <Tbody>
           {coin.portfolio_transactions.map((transaction) => (
             <Tr key={transaction.id}>
-              <CustomTd value={transaction.date} />
-              <CustomTd value={transaction.type} />
-              <CustomTd value={transaction.price} />
-              <CustomTd value={transaction.quantity} />
+              <CustomTd unstyled value={transaction.date} />
+              <CustomTd unstyled value={transaction.type} />
+              <CustomTd unstyled value={transaction.price} />
+              <CustomTd unstyled value={transaction.quantity} />
             </Tr>
           ))}
         </Tbody>
