@@ -12,10 +12,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import removeCoinService from "./services/removeCoinService";
-import {
-  ActivePortfolioProps,
-  CoinActions,
-} from "@/types/portfolio-panel/portfolio-table";
+import { CoinActions } from "@/types/portfolio-panel/portfolio-table";
 import MoveAssetModal from "./MoveAssetModal";
 import moveCoinService from "./services/moveCoinService";
 import ViewTransactionsModal from "./ViewTransactionsModal";
@@ -23,8 +20,15 @@ import AddTransactionModal from "./AddTransactionModal";
 import addTransactionService from "./services/addTransactionService";
 import { useSession } from "next-auth/react";
 import { constants } from "@/constants/constants";
+import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
 
-const PortfolioTable: React.FC<ActivePortfolioProps> = ({
+type PortfolioTableProps = {
+  activePortfolio: Portfolio;
+  portfolios: Portfolio[] | undefined;
+  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
+};
+
+const PortfolioTable: React.FC<PortfolioTableProps> = ({
   activePortfolio,
   portfolios,
   setPortfolios,

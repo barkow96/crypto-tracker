@@ -1,9 +1,9 @@
 import HomeTable from "@/components/HomeTable/HomeTable";
 import CustomViewFallback from "@/components/_ChakraUI/CustomViewFallback";
 import PageContentLayout from "@/containers/PageContentLayout";
-import { HomeTableItems } from "@/types/home-table/item";
+import { HomeViewProps } from "@/types/home-table/item";
 
-const HomeView: React.FC<HomeTableItems> = ({ data, metaData, error }) => {
+const HomeView: React.FC<HomeViewProps> = ({ data, metaData, error }) => {
   return (
     <main>
       <PageContentLayout heading="Check the current prices, volumes and all you ever need...">

@@ -1,9 +1,9 @@
 import STRAPI_fetchHomePageData from "@/services/home-table/fetchHomePageData";
-import { HomeTableItems } from "@/types/home-table/item";
+import { HomeViewProps } from "@/types/home-table/item";
 import { useEffect, useState } from "react";
 
 export function useFetchedCoins(interval: number) {
-  const [model, setModel] = useState<HomeTableItems | null>(null);
+  const [model, setModel] = useState<HomeViewProps | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

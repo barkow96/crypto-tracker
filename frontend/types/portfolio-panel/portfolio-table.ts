@@ -3,15 +3,6 @@ import {
   NumberInputType,
   StringInputType,
 } from "../project-wide";
-import { Portfolio } from "./choose-portfolio-panel";
-
-export type PortfolioCoin = {
-  id: number;
-  symbol: string;
-  quantity: number;
-  avgBuyPrice: number;
-  portfolio_transactions: PortfolioTransaction[];
-};
 
 export type PortfolioTransaction = {
   id: number;
@@ -21,18 +12,20 @@ export type PortfolioTransaction = {
   quantity: number;
 };
 
+export type PortfolioCoin = {
+  id: number;
+  symbol: string;
+  quantity: number;
+  avgBuyPrice: number;
+  portfolio_transactions: PortfolioTransaction[];
+};
+
 export type CoinActions = {
   name: string;
   handler?: () => void;
   handlerArgs?: { numberOf: number; args: any[] };
   JSX?: React.ReactNode;
 }[];
-
-export type ActivePortfolioProps = {
-  activePortfolio: Portfolio;
-  portfolios: Portfolio[] | undefined;
-  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
-};
 
 export type TransactionInputField =
   | "coinName"

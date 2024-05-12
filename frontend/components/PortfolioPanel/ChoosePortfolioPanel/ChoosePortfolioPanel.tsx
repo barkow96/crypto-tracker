@@ -1,7 +1,16 @@
 import { Box, Text } from "@chakra-ui/react";
-import { ChoosePortfolioPanelProps } from "@/types/portfolio-panel/choose-portfolio-panel";
 import ChoosePortfolioPanelItem from "./ChoosePortfolioPanelItem";
 import { colors } from "@/constants/colors";
+import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
+import { SelectPortfolioService } from "./services/selectPortfolioService";
+import { EditPortfolioService } from "./services/editPortfolioService";
+
+type ChoosePortfolioPanelProps = {
+  portfolios: Portfolio[];
+  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
+  selectPortfolioHandler: SelectPortfolioService;
+  editPortfolioHandler: EditPortfolioService;
+};
 
 const ChoosePortfolioPanel: React.FC<ChoosePortfolioPanelProps> = ({
   portfolios,
