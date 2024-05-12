@@ -4,7 +4,7 @@ import {
   PortfolioIcons,
 } from "@/types/portfolio-panel/choose-portfolio-panel";
 import { CoinActions } from "@/types/portfolio-panel/portfolio-table";
-import { Menu, MenuList, MenuItem, Button } from "@chakra-ui/react";
+import { Menu, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
 
 type CustomDropdownProps = {
