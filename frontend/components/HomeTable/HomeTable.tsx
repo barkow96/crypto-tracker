@@ -12,14 +12,9 @@ import { usePages } from "@/hooks/home-table/usePages";
 import { SearchedCoin } from "@/types/home-table/table";
 import HomeTableHeaders from "./HomeTableHeaders";
 import applySortingService from "./homeTableServices/applySortingService";
-import { HomeTableItemdata } from "@/types/home-table/item";
+import { HomeTableItems } from "@/types/home-table/item";
 
-type HomeTableProps = {
-  data: HomeTableItemdata[];
-  metaData: { dataParts: number };
-};
-
-const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
+const HomeTable: React.FC<HomeTableItems> = ({ data, metaData }) => {
   const [coins, setCoins] = useState(data);
   const [searchedCoin, setSearchedCoin] = useState<SearchedCoin>(null);
   const { filteredCoins, setFilteredCoins } = useFilteredCoins(
