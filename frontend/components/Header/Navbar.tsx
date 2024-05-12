@@ -2,6 +2,7 @@ import { colors } from "@/constants/colors";
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
 import NavbarLinksSmall from "./NavbarLinksSmall";
 import NavbarLinksLarge from "./NavbarLinksLarge";
+import { constants } from "@/constants/constants";
 
 const Navbar: React.FC = () => {
   const isLargeScreen = useBreakpointValue({ base: false, lg: true });
@@ -27,16 +28,16 @@ const Navbar: React.FC = () => {
     >
       <Flex wrap="wrap" maxWidth="75%" gap="5px">
         <Box {...infoBoxStyles}>
-          Market Cap: <Box>$2.60T</Box>
+          Market Cap: <Box>{constants.common.BETA_PLACEHOLDER}</Box>
         </Box>
         <Box {...infoBoxStyles}>
-          BTC Dominance: <Box>51.9%</Box>
+          BTC Dominance: <Box>{constants.common.BETA_PLACEHOLDER}</Box>
         </Box>
         <Box {...infoBoxStyles}>
-          ETH Dominance: <Box>16.8%</Box>
+          ETH Dominance: <Box>{constants.common.BETA_PLACEHOLDER}</Box>
         </Box>
         <Box {...infoBoxStyles}>
-          Halving: <Box>33D</Box>
+          Halving: <Box>{constants.common.BETA_PLACEHOLDER}</Box>
         </Box>
       </Flex>
       {isLargeScreen && <NavbarLinksLarge links={links} />}
