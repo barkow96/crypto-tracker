@@ -12,6 +12,11 @@ export type HomeTableItemdata = {
 
 export type HomeViewProps = {
   data?: HomeTableItemdata[];
-  metaData?: { dataParts: number };
+  metaData?: {
+    ok: boolean;
+    dataParts?: number;
+    message?: string;
+    error?: string;
+  };
   error?: string | null;
 };

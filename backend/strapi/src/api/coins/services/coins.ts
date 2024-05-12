@@ -11,27 +11,27 @@ import { API_URL } from "../constants/external-api";
 
 export default () => ({
   getCoinsList: async () => {
-    // Fetch data from external API
+    // FETCHING DATA FROM EXTERNAL API
     const response = await axios.get(API_URL);
     const coinsData: ExtEndpoint_Ticker24hr_Type = response.data;
 
-    // Perform initial filtering of received data
+    // PERFORMING INITIAL FILTERING OF RECEIVED DATA
     const mappedCoins = filterDataInitially(coinsData);
 
-    // Fill in available prices of reference pairs
+    // FILLING IN AVAILABLE PRICES OF REFERENCE PAIRS
     const referencePairsWithPrices = fillPricesOfReferencePairs(
       searchedReferencePairs,
       mappedCoins
     );
 
-    // Create array with data in relation to USD
+    // CREATING ARRAY WITH DATA IN RELATION TO USD
     const coinsToUsd = standarizeCoinsPricesToUsdt(
       mappedCoins,
       stableCoinsReferences,
       referencePairsWithPrices
     );
 
-    // Create array with with selected data for unique coins
+    // CREATING ARRAY WITH SELECTED DATA FOR UNIQUE COINS
     const coinsList = filterUniquePairs(coinsToUsd, stableCoinsReferences);
 
     return coinsList;

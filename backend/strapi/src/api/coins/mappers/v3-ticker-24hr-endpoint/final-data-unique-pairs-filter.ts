@@ -15,11 +15,11 @@ export const filterUniquePairs: DataProcess3_Type = (
   )
     return null;
 
-  // Create array with unique coins
+  // CREATING ARRAY WITH UNIQUE COINS
   const uniqueCoinsSet = new Set(coins.map((coin) => coin.symbol));
   const uniqueCoinsList = Array.from(uniqueCoinsSet);
 
-  // Create array with with selected data for unique coins
+  // CREATING ARRAY WITH SELECTED DATA FOR UNIQUE COINS
   const coinsList = [];
   uniqueCoinsList.forEach((uniqueCoin) => {
     const uniqueCoinMultipleData = coins.filter(

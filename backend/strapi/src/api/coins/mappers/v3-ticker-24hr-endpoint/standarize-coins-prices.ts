@@ -1,4 +1,4 @@
-// Create array with data in relation to USD, with standarized coin names
+// CREATING ARRAY WITH DATA IN RELATION TO USD, WITH STANDARIZED COIN NAMES
 export const standarizeCoinsPricesToUsdt: DataProcess2_Type = (
   coins,
   stableCoinsReferences,

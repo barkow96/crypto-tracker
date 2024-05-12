@@ -20,7 +20,7 @@ export type PortfolioItems = {
   data?: {
     portfolios: Portfolio[];
   };
-  metaData?: {};
+  metaData?: { ok: boolean; message?: string; error?: string };
 };
 
 export type PortfolioViewProps = PortfolioItems & { error?: string | null };
