@@ -16,6 +16,8 @@ const NavbarLinksLarge: React.FC<NavbarLinksProps> = ({ links }) => {
   });
 
   const largeMenuBoxStyles = {
+    color: colors.reddish[600],
+    fontSize: "18px",
     _hover: { transform: "scale(1.1)" },
     transition: "transform 0.15s",
     cursor: "pointer",
@@ -31,7 +33,6 @@ const NavbarLinksLarge: React.FC<NavbarLinksProps> = ({ links }) => {
       {sessionData && (
         <Box
           {...largeMenuBoxStyles}
-          color={colors.red}
           onClick={() => {
             signOut({ callbackUrl: "/", redirect: true });
           }}

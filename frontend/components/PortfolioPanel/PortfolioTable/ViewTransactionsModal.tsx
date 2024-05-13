@@ -27,13 +27,13 @@ const ViewTransactionsModal: React.FC<ViewTransactionsModalProps> = ({
       <Text>View asset transactions</Text>
       <Text fontWeight="normal">
         Purchases and sales for{" "}
-        <span style={{ color: colors.red, fontWeight: "bold" }}>
+        <span style={{ color: colors.reddish[600], fontWeight: "bold" }}>
           {coin?.symbol}.{" "}
         </span>
         {portfolioName && (
           <>
             This coin belongs to{" "}
-            <span style={{ color: colors.green, fontWeight: "bold" }}>
+            <span style={{ color: colors.greenish[600], fontWeight: "bold" }}>
               {portfolioName}
             </span>{" "}
             portfolio.

@@ -19,14 +19,14 @@ const ChoosePortfolioPanel: React.FC<ChoosePortfolioPanelProps> = ({
   editPortfolioHandler,
 }) => {
   return (
-    <Box>
+    <Box borderBottom={{ width: "2px", style: "solid" }}>
       <Text
         as="h6"
         textAlign="center"
         fontSize="20px"
         fontWeight="bold"
-        backgroundColor={colors.red}
-        color={colors.yellow}
+        backgroundColor={colors.reddish[300]}
+        color={colors.darkbluish[950]}
         marginBottom="15px"
         borderRadius="5px"
         padding="2px"

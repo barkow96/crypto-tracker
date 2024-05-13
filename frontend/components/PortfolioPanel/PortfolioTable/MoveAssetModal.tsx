@@ -34,7 +34,8 @@ const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
     <Box>
       <Box>
         <Text textAlign="center" fontWeight="bold">
-          Move <span style={{ color: colors.red }}>{coin.symbol}</span> from
+          Move <span style={{ color: colors.reddish[600] }}>{coin.symbol}</span>{" "}
+          from
         </Text>
         <MoveAssetModalItem portfolio={activePortfolio} />
       </Box>
@@ -76,9 +77,13 @@ const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
           width="100%"
           marginTop="15px"
           isDisabled={destinationPortfolioId ? false : true}
+          color={colors.darkbluish[200]}
+          backgroundColor={
+            destinationPortfolioId ? colors.darkbluish[600] : undefined
+          }
           _hover={
             destinationPortfolioId
-              ? { backgroundColor: colors.green }
+              ? { backgroundColor: colors.darkbluish[700] }
               : undefined
           }
           onClick={() => {

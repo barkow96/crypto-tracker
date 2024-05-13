@@ -69,16 +69,18 @@ export default function AuthForm() {
         )}
         <Button
           type="submit"
-          colorScheme="blue"
+          isDisabled={!formIsValid}
+          color={colors.darkbluish[200]}
+          bg={colors.darkbluish[700]}
+          _hover={{ backgroundColor: colors.darkbluish[800] }}
           size="lg"
           fontSize="md"
-          isDisabled={!formIsValid}
         >
           {authMode === "login" ? "Log in" : "Sign up"}
         </Button>
         <Text
           as="p"
-          color={colors.gray}
+          color={colors.darkbluish[800]}
           fontWeight="bold"
           cursor="pointer"
           onClick={toggleHandler}
@@ -90,7 +92,11 @@ export default function AuthForm() {
         {authMessage && (
           <Text
             as="p"
-            color={authMessage.isPositive ? colors.green : colors.red}
+            color={
+              authMessage.isPositive
+                ? colors.greenish[600]
+                : colors.reddish[600]
+            }
             fontWeight="bold"
           >
             {authMessage.text}

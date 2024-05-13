@@ -30,7 +30,7 @@ const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
                 y: coin.avgBuyPrice * coin.quantity,
               }))}
               style={{
-                data: { stroke: colors.red, strokeWidth: 3 },
+                data: { stroke: colors.reddish[900], strokeWidth: 3 },
                 labels: { fontWeight: "bold" },
               }}
               theme={VictoryTheme.material}
@@ -56,7 +56,7 @@ const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
           </Box>
         </Flex>
       ) : (
-        <Text textAlign="center" color={colors.red}>
+        <Text textAlign="center" color={colors.reddish[600]}>
           No coins in this portfolio yet.
         </Text>
       )}

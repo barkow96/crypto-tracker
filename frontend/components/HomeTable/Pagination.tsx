@@ -17,9 +17,9 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const paginationButtonStyles = {
     width: "60px",
-    backgroundColor: colors.red,
-    color: colors.bright,
-    _hover: { backgroundColor: colors.green },
+    backgroundColor: colors.reddish[600],
+    color: colors.darkbluish[100],
+    _hover: { backgroundColor: colors.reddish[600] },
   };
   const firstAndLastButtonStyles = { width: "10px", marginX: "1px" };
 

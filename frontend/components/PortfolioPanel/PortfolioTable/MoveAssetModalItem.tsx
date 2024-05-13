@@ -11,13 +11,15 @@ const MoveAssetModalItem: React.FC<{
     as: PORTFOLIO_ICONS.find((icon) => icon.name === portfolio?.icon)
       ?.component,
     boxSize: "25",
-    color: colors.green,
+    color: colors.darkbluish[950],
   };
 
   return (
     <Box
       cursor={clickable ? "pointer" : "auto"}
-      _hover={clickable ? { backgroundColor: colors.bright } : undefined}
+      _hover={
+        clickable ? { backgroundColor: colors.darkbluish[300] } : undefined
+      }
     >
       <Flex gap="25px" marginTop="15px" padding="5px">
         <Box>

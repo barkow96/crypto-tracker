@@ -23,6 +23,8 @@ const HomeTableItem: React.FC<HomeTableItemProps> = (props) => {
       customTdProps.prefix = settings[key].custom?.prefix;
     if (settings[key].custom && settings[key].custom?.sufix)
       customTdProps.sufix = settings[key].custom?.sufix;
+    if (settings[key].custom && settings[key].custom?.unstyled)
+      customTdProps.unstyled = settings[key].custom?.unstyled;
 
     return <CustomTd key={key} {...customTdProps} />;
   });

@@ -1,4 +1,4 @@
-import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
+import { Menu, MenuList, MenuItem } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { NavbarLinksProps } from "@/types/navbar";
 import Link from "next/link";
@@ -31,13 +31,13 @@ const NavbarLinksSmall: React.FC<NavbarLinksProps> = ({ links }) => {
       </CustomMenuButton>
       <MenuList>
         {filteredLinks.map((link, index) => (
-          <MenuItem key={index}>
+          <MenuItem key={index} color={colors.reddish[600]}>
             <Link href={link.href}>{link.description}</Link>
           </MenuItem>
         ))}
         {sessionData && (
           <MenuItem
-            color={colors.red}
+            color={colors.reddish[600]}
             onClick={() => {
               signOut({ callbackUrl: "/", redirect: true });
             }}

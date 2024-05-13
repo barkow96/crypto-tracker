@@ -40,7 +40,11 @@ const CustomizeModal: React.FC<CustomizeModalProps> = ({
             return (
               <Button
                 key={metric.name}
-                color={metric.isActive ? colors.green : colors.black}
+                color={
+                  metric.isActive
+                    ? colors.greenish[600]
+                    : colors.darkbluish[950]
+                }
                 onClick={() => {
                   clickMetricService(metric, setTableMetadata);
                 }}

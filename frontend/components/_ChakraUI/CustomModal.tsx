@@ -41,6 +41,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
     ? {
         textAlign: undefined,
         fontWeight: undefined,
+        color: undefined,
         bg: undefined,
         padding: 0,
         marginLeft: 0,
@@ -54,12 +55,13 @@ const CustomModal: React.FC<CustomModalProps> = ({
         width="100%"
         textAlign="center"
         fontWeight="bold"
-        bg={colors.bright}
+        color={colors.darkbluish[100]}
+        bg={colors.darkbluish[600]}
         borderRadius="md"
         padding="5px"
         ml="4"
         cursor="pointer"
-        _hover={{ bg: "gray.300" }}
+        _hover={{ bg: colors.darkbluish[700] }}
         onClick={() => {
           setOverlay(<Overlay />);
           onOpen();
@@ -79,11 +81,12 @@ const CustomModal: React.FC<CustomModalProps> = ({
 
           <ModalFooter>
             <Box
-              bg={colors.bright}
+              color={colors.darkbluish[100]}
+              bg={colors.darkbluish[400]}
               borderRadius="md"
               padding="7px"
               cursor="pointer"
-              _hover={{ bg: "gray.300" }}
+              _hover={{ bg: colors.darkbluish[500] }}
               onClick={onClose}
             >
               Close

@@ -71,11 +71,11 @@ const ChoosePortfolioPanelItem: React.FC<ChoosePortfolioPanelItemProps> = ({
       : undefined,
     boxSize: "25",
     cursor: "pointer",
-    color: colors.green,
+    color: colors.darkbluish[950],
   };
 
   const activePortfolioStyles = {
-    backgroundColor: colors.bright,
+    backgroundColor: colors.darkbluish[300],
     borderRadius: "5px",
   };
 

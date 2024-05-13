@@ -22,10 +22,11 @@ const CustomTd: React.FC<CustomTdProps> = ({
   const sufixWithLogic = value && sufix ? sufix : "";
 
   let textColor;
-  if (value && typeof value === "number" && value > 0) textColor = colors.green;
+  if (value && typeof value === "number" && value > 0)
+    textColor = colors.greenish[300];
   if (value && typeof value === "number" && value < 0)
-    textColor = colors.lightRed;
-  if (unstyled) textColor = colors.black;
+    textColor = colors.reddish[300];
+  if (unstyled) textColor = colors.darkbluish[950];
 
   return (
     <Td style={{ color: textColor, minWidth: "100px", maxWidth: "100px" }}>

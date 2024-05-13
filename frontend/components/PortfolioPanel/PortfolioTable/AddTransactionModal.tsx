@@ -135,11 +135,15 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
 
         <Button
           type="submit"
+          isDisabled={!validationState}
           width="100%"
           marginTop="15px"
-          isDisabled={!validationState}
+          color={colors.darkbluish[200]}
+          backgroundColor={validationState ? colors.darkbluish[600] : undefined}
           _hover={
-            validationState ? { backgroundColor: colors.green } : undefined
+            validationState
+              ? { backgroundColor: colors.darkbluish[700] }
+              : undefined
           }
         >
           Submit transaction
@@ -147,14 +151,18 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
       </form>
 
       {formIsValid === false && (
-        <Text color={colors.red} fontWeight="bold">
+        <Text color={colors.reddish[600]} fontWeight="bold">
           Transaction data is not correct!
         </Text>
       )}
 
       {submissionMessage && (
         <Text
-          color={submissionMessage.isPositive ? colors.green : colors.red}
+          color={
+            submissionMessage.isPositive
+              ? colors.greenish[600]
+              : colors.reddish[600]
+          }
           fontWeight="bold"
         >
           {submissionMessage.text}
