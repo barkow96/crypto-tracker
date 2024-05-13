@@ -5,7 +5,14 @@ import Link from "next/link";
 const Logo: React.FC = () => {
   return (
     <Box backgroundColor={colors.darkbluish[900]}>
-      <Heading as="h1" textAlign="center" fontSize="50px" letterSpacing="5px">
+      <Heading
+        as="h1"
+        textAlign="center"
+        fontSize="50px"
+        letterSpacing="5px"
+        transition="0.3s"
+        _hover={{ transform: "scale(1.02)" }}
+      >
         <Link href="/">
           <span style={{ color: colors.darkbluish[100] }}>Crypto</span>
           <span style={{ fontStyle: "italic", color: colors.reddish[600] }}>
