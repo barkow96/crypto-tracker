@@ -742,7 +742,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -771,6 +770,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    portfolios: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::portfolio.portfolio'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -781,6 +785,117 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'plugin::users-permissions.user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPortfolioPortfolio extends Schema.CollectionType {
+  collectionName: 'portfolios';
+  info: {
+    singularName: 'portfolio';
+    pluralName: 'portfolios';
+    displayName: 'Portfolio';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    icon: Attribute.String;
+    isActive: Attribute.Boolean;
+    portfolio_coins: Attribute.Relation<
+      'api::portfolio.portfolio',
+      'oneToMany',
+      'api::portfolio-coin.portfolio-coin'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::portfolio.portfolio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::portfolio.portfolio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPortfolioCoinPortfolioCoin extends Schema.CollectionType {
+  collectionName: 'portfolio_coins';
+  info: {
+    singularName: 'portfolio-coin';
+    pluralName: 'portfolio-coins';
+    displayName: 'PortfolioCoin';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    symbol: Attribute.String;
+    quantity: Attribute.Float;
+    avgBuyPrice: Attribute.Float;
+    portfolio_transactions: Attribute.Relation<
+      'api::portfolio-coin.portfolio-coin',
+      'oneToMany',
+      'api::portfolio-transaction.portfolio-transaction'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::portfolio-coin.portfolio-coin',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::portfolio-coin.portfolio-coin',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPortfolioTransactionPortfolioTransaction
+  extends Schema.CollectionType {
+  collectionName: 'portfolio_transactions';
+  info: {
+    singularName: 'portfolio-transaction';
+    pluralName: 'portfolio-transactions';
+    displayName: 'PortfolioTransaction';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    date: Attribute.Date;
+    type: Attribute.String & Attribute.DefaultTo<'BUY'>;
+    price: Attribute.Float;
+    quantity: Attribute.Float;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::portfolio-transaction.portfolio-transaction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::portfolio-transaction.portfolio-transaction',
       'oneToOne',
       'admin::user'
     > &
@@ -829,6 +944,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::portfolio.portfolio': ApiPortfolioPortfolio;
+      'api::portfolio-coin.portfolio-coin': ApiPortfolioCoinPortfolioCoin;
+      'api::portfolio-transaction.portfolio-transaction': ApiPortfolioTransactionPortfolioTransaction;
       'api::test.test': ApiTestTest;
     }
   }

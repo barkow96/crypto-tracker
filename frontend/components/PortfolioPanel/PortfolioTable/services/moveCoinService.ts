@@ -1,30 +1,62 @@
-import { MoveCoinService } from "@/types/portfolio-panel/portfolio-table";
+import STRAPI_moveCoin from "@/services/portfolio-panel/moveCoin";
+import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
+import { PortfolioCoin } from "@/types/portfolio-panel/portfolio-table";
 
-const moveCoinService: MoveCoinService = (
+export type MoveCoinService = (
+  jwt: string | null | undefined,
+  sourcePortfolioId: number | undefined,
+  destinationPortfolioId: number | undefined,
+  coin: PortfolioCoin,
+  setPortfolioList: React.Dispatch<
+    React.SetStateAction<Portfolio[] | undefined>
+  >
+) => void;
+
+const moveCoinService: MoveCoinService = async (
+  jwt,
   sourcePortfolioId,
   destinationPortfolioId,
-  coinName,
+  coin,
   setPortfolioList
 ) => {
-  setPortfolioList((prevPortfolioList) => {
-    return prevPortfolioList.map((portfolio) => {
-      if (
-        portfolio.id !== sourcePortfolioId &&
-        portfolio.id !== destinationPortfolioId
-      )
-        return portfolio;
-      else if (portfolio.id === destinationPortfolioId)
-        return { ...portfolio, coins: [...portfolio.coins, coinName] };
-      else if (portfolio.id === sourcePortfolioId) {
-        const portfolioCoins = portfolio.coins;
+  if (!sourcePortfolioId || !destinationPortfolioId) return;
 
-        const index = portfolioCoins.indexOf(coinName);
-        if (index === -1) return portfolio;
-        else {
-          portfolioCoins.splice(index, 1);
-          return { ...portfolio, coins: portfolioCoins };
-        }
-      } else return portfolio;
+  const responseData = await STRAPI_moveCoin(
+    jwt,
+    sourcePortfolioId,
+    destinationPortfolioId,
+    coin.id
+  );
+
+  if (!responseData || !responseData.metaData.ok) return;
+
+  setPortfolioList((prevPortfolioList) => {
+    if (prevPortfolioList === undefined) return prevPortfolioList;
+
+    return prevPortfolioList.map((portfolio) => {
+      switch (portfolio.id) {
+        case sourcePortfolioId:
+          const portfolioCoins = portfolio.portfolio_coins;
+          const index = portfolioCoins.findIndex(
+            (portfolioCoin) => portfolioCoin.symbol === coin.symbol
+          );
+          if (index === -1) return portfolio;
+          else {
+            portfolioCoins.splice(index, 1);
+            return { ...portfolio, portfolio_coins: portfolioCoins };
+          }
+
+        case destinationPortfolioId:
+          if (portfolio.portfolio_coins === undefined) return portfolio;
+          else
+            return {
+              ...portfolio,
+              portfolio_coins: [...portfolio.portfolio_coins, coin],
+            };
+
+        default:
+          return portfolio;
+      }
     });
   });
 };

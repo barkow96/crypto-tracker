@@ -6,12 +6,11 @@ import {
 import { Portfolio } from "./choose-portfolio-panel";
 
 export type PortfolioCoin = {
+  id: number;
   symbol: string;
   quantity: number;
   avgBuyPrice: number;
-  price: number;
-  profit: number;
-  transactions: number[];
+  portfolio_transactions: PortfolioTransaction[];
 };
 
 export type PortfolioTransaction = {
@@ -20,38 +19,7 @@ export type PortfolioTransaction = {
   type: string;
   price: number;
   quantity: number;
-  coin: string;
 };
-
-export type RemoveCoinService = (
-  portfolioId: number | undefined,
-  coinName: string,
-  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>,
-  setPortfolioCoins: React.Dispatch<
-    React.SetStateAction<PortfolioCoin[] | undefined>
-  >
-) => void;
-
-export type MoveCoinService = (
-  sourcePortfolioId: number | undefined,
-  destinationPortfolioId: number | undefined,
-  coinName: string,
-  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>
-) => void;
-
-export type AddTransactionService = (
-  date: string,
-  type: "BUY" | "SELL",
-  price: number,
-  quantity: number,
-  coin: string,
-  setPortfolioCoins: React.Dispatch<
-    React.SetStateAction<PortfolioCoin[] | undefined>
-  >,
-  setPortfolioTransactions: React.Dispatch<
-    React.SetStateAction<PortfolioTransaction[] | undefined>
-  >
-) => void;
 
 export type CoinActions = {
   name: string;
@@ -61,17 +29,9 @@ export type CoinActions = {
 }[];
 
 export type ActivePortfolioProps = {
-  activePortfolio: Portfolio | undefined;
-  portfolios: Portfolio[];
-  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>;
-  portfolioCoins: PortfolioCoin[] | undefined;
-  setPortfolioCoins: React.Dispatch<
-    React.SetStateAction<PortfolioCoin[] | undefined>
-  >;
-  portfolioTransactions: PortfolioTransaction[] | undefined;
-  setPortfolioTransactions: React.Dispatch<
-    React.SetStateAction<PortfolioTransaction[] | undefined>
-  >;
+  activePortfolio: Portfolio;
+  portfolios: Portfolio[] | undefined;
+  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
 };
 
 export type TransactionInputField =

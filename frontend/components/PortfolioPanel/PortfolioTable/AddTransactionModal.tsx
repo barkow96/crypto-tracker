@@ -3,11 +3,6 @@ import { colors } from "@/constants/colors";
 import { initialFormData } from "@/constants/transactionForm";
 import transactionFormDataReducer from "@/libs/transactionFormDataReducer";
 import {
-  AddTransactionService,
-  PortfolioCoin,
-  PortfolioTransaction,
-} from "@/types/portfolio-panel/portfolio-table";
-import {
   Box,
   Button,
   FormControl,
@@ -18,28 +13,28 @@ import {
 } from "@chakra-ui/react";
 import { FormEvent, useReducer, useState } from "react";
 import AddTransactionModalInput from "./AddTransactionModalInput";
+import { AddTransactionService } from "./services/addTransactionService";
+import { useSession } from "next-auth/react";
+import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
 
 type AddTransactionModalProps = {
   children: React.ReactNode;
   handler: AddTransactionService;
-  setPortfolioCoins: React.Dispatch<
-    React.SetStateAction<PortfolioCoin[] | undefined>
-  >;
-  setPortfolioTransactions: React.Dispatch<
-    React.SetStateAction<PortfolioTransaction[] | undefined>
-  >;
+  portfolioId: number;
+  setPortolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
 };
 
 const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
   children,
   handler,
-  setPortfolioCoins,
-  setPortfolioTransactions,
+  portfolioId,
+  setPortolios,
 }) => {
   const [formData, dispatch] = useReducer(
     transactionFormDataReducer,
     initialFormData
   );
+  const { data: sessionData, status: sessionStatus } = useSession();
   const [formIsValid, setFormIsValid] = useState<boolean | null>(null);
 
   async function submitHandler(event: FormEvent<HTMLFormElement>) {
@@ -56,13 +51,14 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
     else {
       setFormIsValid(true);
       handler(
+        sessionData?.user.jwt,
+        portfolioId,
+        formData.coinName.value,
         formData.date.value,
         formData.type.value,
         parseFloat(formData.price.value),
         parseFloat(formData.quantity.value),
-        formData.coinName.value,
-        setPortfolioCoins,
-        setPortfolioTransactions
+        setPortolios
       );
     }
   }

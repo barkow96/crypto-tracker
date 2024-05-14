@@ -1,5 +1,0 @@
-/**
- * coin service
- */
-
-export default () => ({});

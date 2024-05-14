@@ -1,32 +1,52 @@
-import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import ChoosePortfolioPanel from "./ChoosePortfolioPanel/ChoosePortfolioPanel";
 import PortfolioSummary from "./PortfolioSummary/PortfolioSummary";
 import PortfolioTable from "./PortfolioTable/PortfolioTable";
 import { useState } from "react";
-import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
 import {
-  initialCoinsList,
-  initialPortfolioList,
-  initialTransactions,
-} from "@/dummy-data/portfolio-panel";
+  Portfolio,
+  PortfolioItems,
+} from "@/types/portfolio-panel/choose-portfolio-panel";
 import selectPortfolioService from "./ChoosePortfolioPanel/services/selectPortfolioService";
 import addPortfolioService from "./ChoosePortfolioPanel/services/addPortfolioService";
 import editPortfolioService from "./ChoosePortfolioPanel/services/editPortfolioService";
 import { useActivePortfolio } from "@/hooks/portfolio-panel/useActivePortfolio";
-import { usePortfolioCoins } from "@/hooks/portfolio-panel/usePortfolioCoins";
-import { usePortfolioTransactions } from "@/hooks/portfolio-panel/usePortfolioTransactions";
+import { colors } from "@/constants/colors";
+import { AddIcon } from "@chakra-ui/icons";
+import { useSession } from "next-auth/react";
 
-const PortfolioPanel: React.FC = () => {
+const PortfolioPanel: React.FC<PortfolioItems> = ({ data, metaData }) => {
+  const { data: sessionData, status: sessionStatus } = useSession();
   const isLargeScreen = useBreakpointValue({ base: false, lg: true });
-  const [portfolioList, setPortfolioList] =
-    useState<Portfolio[]>(initialPortfolioList);
-  const { activePortfolio } = useActivePortfolio(portfolioList);
-  const { portfolioCoins, setPortfolioCoins } = usePortfolioCoins(
-    activePortfolio,
-    initialCoinsList
+
+  const [portfolioList, setPortfolioList] = useState<Portfolio[] | undefined>(
+    data?.portfolios
   );
-  const { portfolioTransactions, setPortfolioTransactions } =
-    usePortfolioTransactions(portfolioCoins, initialTransactions);
+  const { activePortfolio } = useActivePortfolio(portfolioList);
+
+  const addPortfolioButton = (
+    <Box
+      onClick={addPortfolioService.bind(
+        null,
+        sessionData?.user.jwt,
+        setPortfolioList
+      )}
+      color={colors.red}
+      fontWeight="bold"
+      cursor="pointer"
+    >
+      <AddIcon sx={{ marginRight: "15px" }} />
+      Add new portfolio
+    </Box>
+  );
+
+  if (!portfolioList || !activePortfolio)
+    return (
+      <Box textAlign="center" marginTop="20px">
+        <Text>You have no portfolios yet.</Text>
+        {addPortfolioButton}
+      </Box>
+    );
 
   return (
     <Flex flexWrap="wrap" gap="20px" marginTop="20px">
@@ -35,20 +55,16 @@ const PortfolioPanel: React.FC = () => {
           portfolios={portfolioList}
           setPortfolios={setPortfolioList}
           selectPortfolioHandler={selectPortfolioService}
-          addPortfolioHandler={addPortfolioService}
           editPortfolioHandler={editPortfolioService}
         />
+        {addPortfolioButton}
       </Box>
       <Box width={isLargeScreen ? "70%" : "100%"}>
-        <PortfolioSummary portfolioCoins={portfolioCoins} />
+        <PortfolioSummary portfolioCoins={activePortfolio.portfolio_coins} />
         <PortfolioTable
           activePortfolio={activePortfolio}
           portfolios={portfolioList}
-          setPortfolioList={setPortfolioList}
-          portfolioCoins={portfolioCoins}
-          setPortfolioCoins={setPortfolioCoins}
-          portfolioTransactions={portfolioTransactions}
-          setPortfolioTransactions={setPortfolioTransactions}
+          setPortfolios={setPortfolioList}
         />
       </Box>
     </Flex>

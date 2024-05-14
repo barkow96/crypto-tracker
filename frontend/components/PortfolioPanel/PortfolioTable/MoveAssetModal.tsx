@@ -1,31 +1,31 @@
 import CustomModal from "@/components/_ChakraUI/CustomModal";
 import { colors } from "@/constants/colors";
-import {
-  ActivePortfolioProps,
-  MoveCoinService,
-} from "@/types/portfolio-panel/portfolio-table";
+import { PortfolioCoin } from "@/types/portfolio-panel/portfolio-table";
 import { Box, Button, Text } from "@chakra-ui/react";
 import MoveAssetModalItem from "./MoveAssetModalItem";
 import { useState } from "react";
 import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
+import { useSession } from "next-auth/react";
+import { MoveCoinService } from "./services/moveCoinService";
 
 type MoveAssetModalProps = {
   children: React.ReactNode;
   handler: MoveCoinService;
-  coinName: string;
+  coin: PortfolioCoin;
   activePortfolio: Portfolio | undefined;
-  portfolios: Portfolio[];
-  setPortfolioList: React.Dispatch<React.SetStateAction<Portfolio[]>>;
+  portfolios: Portfolio[] | undefined;
+  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
 };
 
 const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
   children,
+  handler,
+  coin,
   activePortfolio,
   portfolios,
-  setPortfolioList,
-  handler,
-  coinName,
+  setPortfolios,
 }) => {
+  const { data: sessionData, status: sessionStatus } = useSession();
   const [destinationPortfolioId, setDestinationPortfolioId] = useState<
     number | undefined
   >(undefined);
@@ -34,7 +34,7 @@ const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
     <Box>
       <Box>
         <Text textAlign="center" fontWeight="bold">
-          Move <span style={{ color: colors.red }}>{coinName}</span> from
+          Move <span style={{ color: colors.red }}>{coin.symbol}</span> from
         </Text>
         <MoveAssetModalItem portfolio={activePortfolio} />
       </Box>
@@ -42,18 +42,19 @@ const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
         <Text textAlign="center" fontWeight="bold">
           to
         </Text>
-        {portfolios
-          .filter((portfolio) => portfolio.id !== activePortfolio?.id)
-          .map((portfolio) => (
-            <Box
-              key={portfolio.id}
-              onClick={() => {
-                setDestinationPortfolioId(portfolio.id);
-              }}
-            >
-              <MoveAssetModalItem portfolio={portfolio} clickable />
-            </Box>
-          ))}
+        {portfolios &&
+          portfolios
+            .filter((portfolio) => portfolio.id !== activePortfolio?.id)
+            .map((portfolio) => (
+              <Box
+                key={portfolio.id}
+                onClick={() => {
+                  setDestinationPortfolioId(portfolio.id);
+                }}
+              >
+                <MoveAssetModalItem portfolio={portfolio} clickable />
+              </Box>
+            ))}
       </Box>
       <Box marginTop="40px">
         {destinationPortfolioId && (
@@ -82,10 +83,11 @@ const MoveAssetModal: React.FC<MoveAssetModalProps> = ({
           }
           onClick={() => {
             handler(
+              sessionData?.user.jwt,
               activePortfolio?.id,
               destinationPortfolioId,
-              coinName,
-              setPortfolioList
+              coin,
+              setPortfolios
             );
           }}
         >

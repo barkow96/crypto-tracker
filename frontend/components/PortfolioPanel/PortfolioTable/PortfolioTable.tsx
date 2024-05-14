@@ -21,23 +21,22 @@ import moveCoinService from "./services/moveCoinService";
 import ViewTransactionsModal from "./ViewTransactionsModal";
 import AddTransactionModal from "./AddTransactionModal";
 import addTransactionService from "./services/addTransactionService";
+import { useSession } from "next-auth/react";
 
 const PortfolioTable: React.FC<ActivePortfolioProps> = ({
   activePortfolio,
   portfolios,
-  setPortfolioList,
-  portfolioCoins,
-  setPortfolioCoins,
-  portfolioTransactions,
-  setPortfolioTransactions,
+  setPortfolios,
 }) => {
+  const { data: sessionData, status: sessionStatus } = useSession();
+
   return (
     <Flex direction="column">
       <Box marginTop="15px">
         <AddTransactionModal
           handler={addTransactionService}
-          setPortfolioCoins={setPortfolioCoins}
-          setPortfolioTransactions={setPortfolioTransactions}
+          portfolioId={activePortfolio.id}
+          setPortolios={setPortfolios}
         >
           {activePortfolio ? (
             <Text>Add new transaction to: {activePortfolio.name}</Text>
@@ -47,7 +46,7 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
         </AddTransactionModal>
       </Box>
 
-      {portfolioCoins && portfolioCoins.length > 0 && (
+      {activePortfolio !== undefined && activePortfolio.portfolio_coins && (
         <TableContainer>
           <Table>
             <Thead>
@@ -61,15 +60,13 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
               </Tr>
             </Thead>
             <Tbody>
-              {portfolioCoins?.map((coin) => {
+              {activePortfolio.portfolio_coins.map((coin) => {
                 const dropdownItems: CoinActions = [
                   {
                     name: "View transactions",
                     JSX: (
                       <ViewTransactionsModal
-                        coins={portfolioCoins}
-                        transactions={portfolioTransactions}
-                        coinName={coin.symbol}
+                        coin={coin}
                         portfolioName={activePortfolio?.name}
                       >
                         View transactions
@@ -80,11 +77,11 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                     name: "Move asset",
                     JSX: (
                       <MoveAssetModal
+                        handler={moveCoinService}
+                        coin={coin}
                         activePortfolio={activePortfolio}
                         portfolios={portfolios}
-                        setPortfolioList={setPortfolioList}
-                        handler={moveCoinService}
-                        coinName={coin.symbol}
+                        setPortfolios={setPortfolios}
                       >
                         Move asset
                       </MoveAssetModal>
@@ -94,10 +91,10 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                     name: "Remove",
                     handler: () => {
                       removeCoinService(
+                        sessionData?.user.jwt,
+                        coin,
                         activePortfolio?.id,
-                        coin.symbol,
-                        setPortfolioList,
-                        setPortfolioCoins
+                        setPortfolios
                       );
                     },
                   },
@@ -107,8 +104,8 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                     <CustomTd value={coin.symbol} />
                     <CustomTd value={coin.quantity} />
                     <CustomTd value={coin.avgBuyPrice} />
-                    <CustomTd value={coin.price} />
-                    <CustomTd value={coin.profit} />
+                    <CustomTd value={"BETA"} />
+                    <CustomTd value={"BETA"} />
                     <CustomDropdown items={dropdownItems}>
                       <CustomTd value="..." />
                     </CustomDropdown>

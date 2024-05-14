@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "portfolio_transactions",
+  "info": {
+    "singularName": "portfolio-transaction",
+    "pluralName": "portfolio-transactions",
+    "displayName": "PortfolioTransaction",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "type": {
+      "type": "string",
+      "default": "BUY",
+      "regex": "^(BUY|SELL)$"
+    },
+    "price": {
+      "type": "float"
+    },
+    "quantity": {
+      "type": "float"
+    }
+  }
+}

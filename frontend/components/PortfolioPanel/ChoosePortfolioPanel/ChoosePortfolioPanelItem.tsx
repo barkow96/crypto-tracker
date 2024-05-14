@@ -1,14 +1,14 @@
 import { Box, Flex, HStack, Input, Text } from "@chakra-ui/react";
 import { Icon, EditIcon, CheckIcon } from "@chakra-ui/icons";
 import {
-  ChangedIcon,
-  ChangedName,
+  ChakraIcon,
   PortfolioProps,
 } from "@/types/portfolio-panel/choose-portfolio-panel";
 import { colors } from "@/constants/colors";
 import { useEffect, useRef, useState } from "react";
 import { PORTFOLIO_FOCUS_DELAY, PORTFOLIO_ICONS } from "@/constants/portfolio";
 import CustomDropdown from "@/components/_ChakraUI/CustomDropdown";
+import { useSession } from "next-auth/react";
 
 const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
   item,
@@ -16,9 +16,12 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
   selectPortfolioHandler,
   editPortfolioHandler,
 }) => {
+  const { data: sessionData, status: sessionStatus } = useSession();
   const [isEditting, setIsEditting] = useState(false);
-  const [changedName, setChangedName] = useState<ChangedName>(null);
-  const [changedIcon, setChangedIcon] = useState<ChangedIcon>(null);
+  const [changedName, setChangedName] = useState<string | undefined>(undefined);
+  const [changedIcon, setChangedIcon] = useState<ChakraIcon | undefined>(
+    undefined
+  );
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -26,16 +29,17 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
   }, [changedIcon]);
 
   function submitEditHandler() {
-    if (changedName && changedIcon)
-      editPortfolioHandler(item.id, setPortfolios, changedName, changedIcon);
-    else if (changedName)
-      editPortfolioHandler(item.id, setPortfolios, changedName);
-    else if (changedIcon)
-      editPortfolioHandler(item.id, setPortfolios, undefined, changedIcon);
+    editPortfolioHandler(
+      sessionData?.user.jwt,
+      item.id,
+      setPortfolios,
+      changedName,
+      changedIcon
+    );
 
     setIsEditting(false);
-    setChangedName(null);
-    setChangedIcon(null);
+    setChangedName(undefined);
+    setChangedIcon(undefined);
   }
 
   function toggleEdittingHandler() {
@@ -52,7 +56,7 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
     as: PORTFOLIO_ICONS.find((icon) => icon.name === item.icon)?.component,
     onClick: !item.isActive
       ? () => {
-          selectPortfolioHandler(item.id, setPortfolios);
+          selectPortfolioHandler(sessionData?.user.jwt, item.id, setPortfolios);
         }
       : undefined,
     boxSize: "25",
@@ -63,7 +67,6 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
   const activePortfolioStyles = {
     backgroundColor: colors.bright,
     borderRadius: "5px",
-    fontWeight: "bold",
   };
 
   return (
@@ -73,7 +76,7 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
       gap="25px"
       marginBottom="10px"
       padding="5px"
-      sx={item.isActive ? activePortfolioStyles : {}}
+      sx={item.isActive ? activePortfolioStyles : undefined}
     >
       <Box width="20%" display="flex" justifyContent="center">
         {isEditting ? (
@@ -104,6 +107,7 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
               "&:disabled": {
                 opacity: "1",
                 cursor: "auto",
+                fontWeight: item.isActive ? "bold" : "normal",
               },
             }}
           />
@@ -116,8 +120,6 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
             )}
           </Text>
         </HStack>
-
-        <Text fontStyle="italic">${item.value}</Text>
       </Box>
     </Flex>
   );

@@ -1,13 +1,15 @@
 import { Text } from "@chakra-ui/react";
 
-type HomeViewFallbackProps = {
+type CustomViewFallback = {
   isDataLoaded: boolean;
   error: string | null | undefined;
+  children: React.ReactNode;
 };
 
-const HomeViewFallback: React.FC<HomeViewFallbackProps> = ({
+const CustomViewFallback: React.FC<CustomViewFallback> = ({
   isDataLoaded,
   error,
+  children,
 }) => {
   if (error)
     return (
@@ -18,9 +20,9 @@ const HomeViewFallback: React.FC<HomeViewFallbackProps> = ({
   else if (!isDataLoaded)
     return (
       <Text as="p" mt="15px" fontSize="20px">
-        Loading the data from server. Please wait...
+        {children}
       </Text>
     );
 };
 
-export default HomeViewFallback;
+export default CustomViewFallback;
