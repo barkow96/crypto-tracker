@@ -6,9 +6,9 @@ import { factories } from "@strapi/strapi";
 export default factories.createCoreService(
   "api::portfolio-transaction.portfolio-transaction",
   ({ strapi }) => ({
-    findCoinToBeUpdated: (portfolioId, coinName) =>
-      findCoinToBeUpdated(portfolioId, coinName),
-    createTransactionAndCreateCoin: (
+    findCoinToBeUpdated: async (portfolioId, coinName) =>
+      await findCoinToBeUpdated(portfolioId, coinName),
+    createTransactionAndCreateCoin: async (
       portfolioId,
       coinName,
       quantity,
@@ -16,7 +16,7 @@ export default factories.createCoreService(
       date,
       type
     ) =>
-      createTransactionAndCreateCoin(
+      await createTransactionAndCreateCoin(
         portfolioId,
         coinName,
         quantity,
@@ -24,7 +24,13 @@ export default factories.createCoreService(
         date,
         type
       ),
-    createTransactionAndUpdateCoin: (coinId, quantity, price, date, type) =>
-      createTransactionAndUpdateCoin(coinId, quantity, price, date, type),
+    createTransactionAndUpdateCoin: async (
+      coinId,
+      quantity,
+      price,
+      date,
+      type
+    ) =>
+      await createTransactionAndUpdateCoin(coinId, quantity, price, date, type),
   })
 );

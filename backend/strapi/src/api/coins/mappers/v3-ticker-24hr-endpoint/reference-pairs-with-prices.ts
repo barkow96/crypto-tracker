@@ -1,4 +1,4 @@
-// Fill in available prices of reference pairs
+// FIILING IN AVAILABLE PRICES OF REFERENCE PAIRS
 export const fillPricesOfReferencePairs: FillReferencePricesType = (
   referencePairs,
   coins

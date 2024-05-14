@@ -1,8 +1,8 @@
 import { Tr } from "@chakra-ui/react";
-import CustomTd from "../_ChakraUI/CustomTd";
+import CustomTd, { CustomTdProps } from "../_ChakraUI/CustomTd";
 import { ReactNode } from "react";
-import { CustomTdProps, HomeTableItemdata } from "@/types/home-table/item";
-import { BETA_PLACEHOLDER } from "@/constants/constants";
+import { HomeTableItemdata } from "@/types/home-table/item";
+import { constants } from "@/constants/constants";
 import { HomeTableMetadata } from "@/types/home-table/table";
 
 type HomeTableItemProps = { data: HomeTableItemdata } & {
@@ -16,13 +16,15 @@ const HomeTableItem: React.FC<HomeTableItemProps> = (props) => {
   const tableColumns: ReactNode[] = Object.keys(settings).map((key) => {
     if (!settings[key].isActive) return null;
     if (settings[key].isBetaVersion)
-      return <CustomTd key={key} value={BETA_PLACEHOLDER} />;
+      return <CustomTd key={key} value={constants.common.BETA_PLACEHOLDER} />;
 
     const customTdProps: CustomTdProps = { value: data[key] };
     if (settings[key].custom && settings[key].custom?.prefix)
       customTdProps.prefix = settings[key].custom?.prefix;
     if (settings[key].custom && settings[key].custom?.sufix)
       customTdProps.sufix = settings[key].custom?.sufix;
+    if (settings[key].custom && settings[key].custom?.unstyled)
+      customTdProps.unstyled = settings[key].custom?.unstyled;
 
     return <CustomTd key={key} {...customTdProps} />;
   });

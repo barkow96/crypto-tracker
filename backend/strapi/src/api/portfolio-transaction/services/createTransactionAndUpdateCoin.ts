@@ -41,6 +41,7 @@ export const createTransactionAndUpdateCoin: CreateTransactionAndUpdateCoinType 
       newQuantity = coinToBeUpdated.quantity - quantity;
       newAvgBuyPrice = coinToBeUpdated.avgBuyPrice;
     }
+    if (newQuantity < 0) newQuantity = 0;
 
     const updatedCoin = await strapi.entityService.update(
       "api::portfolio-coin.portfolio-coin",

@@ -1,9 +1,14 @@
-export const DELAY_SEARCH_FOR_COIN = 1000;
-export const ROWS_NUMBER = {
-  MAX: 10,
-  MEDIUM: 5,
-  MIN: 2,
+export const constants = {
+  homePage: {
+    PAGINATION_INITIAL_PAGE: 1,
+    HOME_PAGE_REFRESH_INTERVAL: 10000,
+    DELAY_SEARCH_FOR_COIN: 1000,
+    ROWS_NUMBER: {
+      MAX: 10,
+      MEDIUM: 5,
+      MIN: 2,
+    },
+  },
+  portfolioPage: { DELAY_SUBMIT_TRANSACTION: 3000, PORTFOLIO_FOCUS_DELAY: 200 },
+  common: { BETA_PLACEHOLDER: "BETA" },
 };
-export const PAGINATION_INITIAL_PAGE = 1;
-export const HOME_PAGE_REFRESH_INTERVAL = 10000;
-export const BETA_PLACEHOLDER = "BETA";

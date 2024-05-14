@@ -1,4 +1,4 @@
-// Define price relative to USD of reference pairs
+// DEFINING PRICE RELATIVE TO USD OF REFERENCE PAIRS
 export const searchedReferencePairs: ReferencePairsType = [
   { pair: "BTCUSDT", price: null, of: "BTC", to: "USDT" },
   { pair: "ETHUSDT", price: null, of: "ETH", to: "USDT" },
@@ -18,7 +18,7 @@ export const searchedReferencePairs: ReferencePairsType = [
   },
 ];
 
-// Define stable coins references
+// DEFINING STABLE COINS REFERENCES
 export const stableCoinsReferences: StableCoinReferenceType = [
   "USDT",
   "USDC",

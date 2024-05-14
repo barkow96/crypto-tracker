@@ -1,4 +1,4 @@
-import { PAGINATION_INITIAL_PAGE } from "@/constants/constants";
+import { constants } from "@/constants/constants";
 
 type SelectRowsService = (
   selectedRowsValue: string,
@@ -12,7 +12,7 @@ const selectRowsService: SelectRowsService = (
   setCurrentPage
 ) => {
   setRowsQuantity(parseInt(selectedRowsValue));
-  setCurrentPage(PAGINATION_INITIAL_PAGE);
+  setCurrentPage(constants.homePage.PAGINATION_INITIAL_PAGE);
 };
 
 export default selectRowsService;

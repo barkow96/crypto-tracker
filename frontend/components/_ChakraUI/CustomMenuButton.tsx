@@ -25,8 +25,8 @@ const CustomMenuButton: React.FC<{
       transition="all 0.2s"
       borderRadius={isBorderUsed ? "md" : undefined}
       borderWidth={isBorderUsed ? "2px" : undefined}
-      _hover={isHoverUsed ? { bg: colors.bright } : undefined}
-      _expanded={isExpandedUsed ? { bg: colors.red } : undefined}
+      _hover={isHoverUsed ? { bg: colors.darkbluish[100] } : undefined}
+      _expanded={isExpandedUsed ? { bg: colors.reddish[300] } : undefined}
       _focus={isFocusUsed ? { outline: 0, boxShadow: "outline" } : undefined}
     >
       {children}

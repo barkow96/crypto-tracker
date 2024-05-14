@@ -31,7 +31,7 @@ const PortfolioPanel: React.FC<PortfolioItems> = ({ data, metaData }) => {
         sessionData?.user.jwt,
         setPortfolioList
       )}
-      color={colors.red}
+      color={colors.reddish[900]}
       fontWeight="bold"
       cursor="pointer"
     >

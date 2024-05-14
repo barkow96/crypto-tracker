@@ -6,5 +6,3 @@ export const PORTFOLIO_ICONS: PortfolioIcons = [
   { component: MoonIcon, name: "MoonIcon" },
   { component: SunIcon, name: "SunIcon" },
 ];
-
-export const PORTFOLIO_FOCUS_DELAY = 200;

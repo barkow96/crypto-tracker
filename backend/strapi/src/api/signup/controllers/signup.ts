@@ -1,4 +1,4 @@
-const ERROR_MESSAGE = "Something went wrong with Strapi endpoint...";
+const ERROR_MESSAGE = "STRAPI Signup API - something went wrong";
 
 export default {
   signup: async (ctx) => {

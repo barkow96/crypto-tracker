@@ -11,6 +11,7 @@ export const clickMetricService: ClickMetricService = (
   setTableMetadata
 ) => {
   const newIsActive = !metric.isActive;
+
   setTableMetadata((prevState) => {
     const updatedMetric = prevState[metric.name];
     updatedMetric.isActive = newIsActive;

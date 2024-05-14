@@ -1,5 +1,6 @@
+import { colors } from "@/constants/colors";
 import {
-  Button,
+  Box,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -38,18 +39,29 @@ const CustomModal: React.FC<CustomModalProps> = ({
 
   const unstyledStyleProps = unstyled
     ? {
-        variant: "unstyled",
+        textAlign: undefined,
+        fontWeight: undefined,
+        color: undefined,
+        bg: undefined,
+        padding: 0,
         marginLeft: 0,
-        fontWeight: "normal",
+        _hover: undefined,
       }
     : undefined;
 
   return (
     <>
-      <Button
+      <Box
         width="100%"
+        textAlign="center"
+        fontWeight="bold"
+        color={colors.darkbluish[100]}
+        bg={colors.darkbluish[600]}
+        borderRadius="md"
+        padding="5px"
         ml="4"
-        textAlign="left"
+        cursor="pointer"
+        _hover={{ bg: colors.darkbluish[700] }}
         onClick={() => {
           setOverlay(<Overlay />);
           onOpen();
@@ -57,7 +69,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
         {...unstyledStyleProps}
       >
         {children}
-      </Button>
+      </Box>
 
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         {overlay}
@@ -68,7 +80,17 @@ const CustomModal: React.FC<CustomModalProps> = ({
           <ModalBody>{body}</ModalBody>
 
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
+            <Box
+              color={colors.darkbluish[100]}
+              bg={colors.darkbluish[400]}
+              borderRadius="md"
+              padding="7px"
+              cursor="pointer"
+              _hover={{ bg: colors.darkbluish[500] }}
+              onClick={onClose}
+            >
+              Close
+            </Box>
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -16,6 +16,7 @@ import AddTransactionModalInput from "./AddTransactionModalInput";
 import { AddTransactionService } from "./services/addTransactionService";
 import { useSession } from "next-auth/react";
 import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
+import { useSubmissionMessage } from "@/hooks/portfolio-panel/useSubmissionMessage";
 
 type AddTransactionModalProps = {
   children: React.ReactNode;
@@ -36,19 +37,25 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
   );
   const { data: sessionData, status: sessionStatus } = useSession();
   const [formIsValid, setFormIsValid] = useState<boolean | null>(null);
+  const { submissionMessage, setSubmissionMessage } = useSubmissionMessage();
+
+  const validationState =
+    formData.coinName.isValid &&
+    formData.type.isValid &&
+    formData.date.isValid &&
+    formData.price.isValid &&
+    formData.quantity.isValid;
 
   async function submitHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const validationState =
-      formData.coinName.isValid &&
-      formData.type.isValid &&
-      formData.date.isValid &&
-      formData.price.isValid &&
-      formData.quantity.isValid;
-
-    if (!validationState) setFormIsValid(false);
-    else {
+    if (!validationState) {
+      setFormIsValid(false);
+      setSubmissionMessage({
+        text: "Adding transaction failed.",
+        isPositive: false,
+      });
+    } else {
       setFormIsValid(true);
       handler(
         sessionData?.user.jwt,
@@ -60,6 +67,11 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
         parseFloat(formData.quantity.value),
         setPortolios
       );
+      dispatch({ task: "RESET" });
+      setSubmissionMessage({
+        text: "Transaction created successfully! You can now add another one.",
+        isPositive: true,
+      });
     }
   }
 
@@ -107,27 +119,53 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
 
           <AddTransactionModalInput
             name="price"
-            type="number"
+            type="text"
             label="PRICE"
             inputData={formData.price}
             dispatch={dispatch}
           />
           <AddTransactionModalInput
             name="quantity"
-            type="number"
+            type="text"
             label="QUANTITY"
             inputData={formData.quantity}
             dispatch={dispatch}
           />
         </Stack>
-        <Button type="submit" marginTop="15px">
+
+        <Button
+          type="submit"
+          isDisabled={!validationState}
+          width="100%"
+          marginTop="15px"
+          color={colors.darkbluish[200]}
+          backgroundColor={validationState ? colors.darkbluish[600] : undefined}
+          _hover={
+            validationState
+              ? { backgroundColor: colors.darkbluish[700] }
+              : undefined
+          }
+        >
           Submit transaction
         </Button>
       </form>
 
       {formIsValid === false && (
-        <Text color={colors.red} fontWeight="bold">
+        <Text color={colors.reddish[600]} fontWeight="bold">
           Transaction data is not correct!
+        </Text>
+      )}
+
+      {submissionMessage && (
+        <Text
+          color={
+            submissionMessage.isPositive
+              ? colors.greenish[600]
+              : colors.reddish[600]
+          }
+          fontWeight="bold"
+        >
+          {submissionMessage.text}
         </Text>
       )}
     </Box>

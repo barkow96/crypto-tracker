@@ -1,57 +1,25 @@
-# 🚀 Getting started with Strapi
+# CoinPulse - Cryptocurrencies Tracker
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+The overall application consists of frontend and backend applications. This application concerns **THE BACKEND.**
 
-### `develop`
+### Application description:
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+Responsive Web Application for desktop and mobile devices. It will deal with the recently hot topic of cryptocurrencies, namely it will be a useful tool for tracking their prices as well as maintaining your own investment portfolio. It will be possible to use the application in both offline and logged-in mode. Registration and logging in will unlock the ability to maintain one's investment portfolio and a list of cryptocurrencies watched, and this data will be sent to the backend and stored in the database.
+The application will include a separated frontend and backend part. Data on cryptocurrencies prices will be retrieved via the external Binance API, which will be queried by the backend (on behalf of the frontend via user interaction with the website). The data will be appropriately processed on the backend side and sent to the frontend in the form required by the interface for proper rendering.
 
-```
-npm run develop
-# or
-yarn develop
-```
+### Technology stack:
 
-### `start`
+- Strapi v4.23 with TypeScript
+- PostgreSQL
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
+### Main features:
 
-```
-npm run start
-# or
-yarn start
-```
+- Endpoint COINS - data pulled from the external API
+- Endpoint SIGNUP - for the purpose of validating and creating new users
+- Endpoint PORTFOLIO - for the purpose of operations on user's portfolios: find, update, create
+- Endpoint PORFOLIO-COIN - for the purpose of operations on coins: delete, move
+- Endpoint PORFOLIO-TRANSACTION - for the purpose of creating new transactions (purchase or sale of coins)
 
-### `build`
+### Work methodology:
 
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
-
-```
-npm run build
-# or
-yarn build
-```
-
-## ⚙️ Deployment
-
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
-
-## 📚 Learn more
-
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
-
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
-
-## ✨ Community
-
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
-
----
-
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+Project run on Gitlab according to the tasks dissected at the initial stage on the ISSUE BOARD.

@@ -12,18 +12,23 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import removeCoinService from "./services/removeCoinService";
-import {
-  ActivePortfolioProps,
-  CoinActions,
-} from "@/types/portfolio-panel/portfolio-table";
+import { CoinActions } from "@/types/portfolio-panel/portfolio-table";
 import MoveAssetModal from "./MoveAssetModal";
 import moveCoinService from "./services/moveCoinService";
 import ViewTransactionsModal from "./ViewTransactionsModal";
 import AddTransactionModal from "./AddTransactionModal";
 import addTransactionService from "./services/addTransactionService";
 import { useSession } from "next-auth/react";
+import { constants } from "@/constants/constants";
+import { Portfolio } from "@/types/portfolio-panel/choose-portfolio-panel";
 
-const PortfolioTable: React.FC<ActivePortfolioProps> = ({
+type PortfolioTableProps = {
+  activePortfolio: Portfolio;
+  portfolios: Portfolio[] | undefined;
+  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
+};
+
+const PortfolioTable: React.FC<PortfolioTableProps> = ({
   activePortfolio,
   portfolios,
   setPortfolios,
@@ -100,15 +105,25 @@ const PortfolioTable: React.FC<ActivePortfolioProps> = ({
                   },
                 ];
                 return (
-                  <Tr key={coin.symbol} textAlign="center">
-                    <CustomTd value={coin.symbol} />
-                    <CustomTd value={coin.quantity} />
-                    <CustomTd value={coin.avgBuyPrice} />
-                    <CustomTd value={"BETA"} />
-                    <CustomTd value={"BETA"} />
-                    <CustomDropdown items={dropdownItems}>
-                      <CustomTd value="..." />
-                    </CustomDropdown>
+                  <Tr key={coin.id} textAlign="center">
+                    <CustomTd unstyled value={coin.symbol} />
+                    <CustomTd unstyled value={coin.quantity} />
+                    <CustomTd unstyled value={coin.avgBuyPrice} prefix="$" />
+                    <CustomTd
+                      unstyled
+                      value={constants.common.BETA_PLACEHOLDER}
+                    />
+                    <CustomTd
+                      unstyled
+                      value={constants.common.BETA_PLACEHOLDER}
+                    />
+                    <CustomTd
+                      value={
+                        <CustomDropdown items={dropdownItems}>
+                          ...
+                        </CustomDropdown>
+                      }
+                    />
                   </Tr>
                 );
               })}

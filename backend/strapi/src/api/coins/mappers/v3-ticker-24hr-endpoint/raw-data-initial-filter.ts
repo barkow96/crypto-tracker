@@ -1,4 +1,4 @@
-// Perform initial filtering of received data - get rid of 0 values and leave only the necessary data
+// PERFORMING INITIAL FILTERING OF RECEIVED DATA - GETTING RID OF 0 VALUES AND LEAVING ONLY THE NECESSARY DATA
 export const filterDataInitially: DataProcess1_Type = (
   coinsData: ExtEndpoint_Ticker24hr_Type
 ) => {

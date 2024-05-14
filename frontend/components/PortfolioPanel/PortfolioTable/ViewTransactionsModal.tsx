@@ -27,13 +27,13 @@ const ViewTransactionsModal: React.FC<ViewTransactionsModalProps> = ({
       <Text>View asset transactions</Text>
       <Text fontWeight="normal">
         Purchases and sales for{" "}
-        <span style={{ color: colors.red, fontWeight: "bold" }}>
+        <span style={{ color: colors.reddish[600], fontWeight: "bold" }}>
           {coin?.symbol}.{" "}
         </span>
         {portfolioName && (
           <>
             This coin belongs to{" "}
-            <span style={{ color: colors.green, fontWeight: "bold" }}>
+            <span style={{ color: colors.greenish[600], fontWeight: "bold" }}>
               {portfolioName}
             </span>{" "}
             portfolio.
@@ -56,10 +56,10 @@ const ViewTransactionsModal: React.FC<ViewTransactionsModalProps> = ({
         <Tbody>
           {coin.portfolio_transactions.map((transaction) => (
             <Tr key={transaction.id}>
-              <CustomTd value={transaction.date} />
-              <CustomTd value={transaction.type} />
-              <CustomTd value={transaction.price} />
-              <CustomTd value={transaction.quantity} />
+              <CustomTd unstyled value={transaction.date} />
+              <CustomTd unstyled value={transaction.type} />
+              <CustomTd unstyled value={transaction.price} />
+              <CustomTd unstyled value={transaction.quantity} />
             </Tr>
           ))}
         </Tbody>

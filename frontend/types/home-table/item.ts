@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export type HomeTableItemdata = {
   [key: string]: any;
   rank: number;
@@ -13,13 +11,16 @@ export type HomeTableItemdata = {
 };
 
 export type HomeTableItems = {
-  data?: HomeTableItemdata[];
-  metaData?: { dataParts: number };
-  error?: string | null;
+  data: HomeTableItemdata[];
+  metaData?: {
+    ok: boolean;
+    dataParts?: number;
+    message?: string;
+    error?: string;
+  };
 };
 
-export type CustomTdProps = {
-  value: number | string | ReactNode;
-  prefix?: string;
-  sufix?: string;
+export type HomeViewProps = HomeTableItems & {
+  data?: HomeTableItemdata[];
+  error?: string | null;
 };

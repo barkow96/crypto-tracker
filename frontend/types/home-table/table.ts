@@ -6,7 +6,7 @@ export type HomeTableMetadata = {
     header: string;
     sorting: SortOptions;
     category: MetricsCategory;
-    custom?: { prefix?: string; sufix?: string };
+    custom?: { prefix?: string; sufix?: string; unstyled?: boolean };
     isBetaVersion?: boolean;
   };
 };

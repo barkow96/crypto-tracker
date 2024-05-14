@@ -39,8 +39,7 @@ export const checkIfTransactionTypeAllowed = (text: string) => {
 };
 
 export const checkIfPositiveNumber = (text: string) => {
-  const test =
-    !isNaN(parseFloat(text)) && !isNaN(parseInt(text)) && parseFloat(text) > 0;
+  const test = !isNaN(Number(text)) && parseFloat(text) > 0;
   let message = test ? "" : "This is not correct number provided!";
   message = text.trim().length === 0 ? emptyMessage : message;
   return { test, message };

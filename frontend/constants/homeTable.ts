@@ -6,6 +6,7 @@ export const TABLE_INITIAL_CONFIG: HomeTableMetadata = {
     header: "#",
     sorting: "ASCENDING",
     category: null,
+    custom: { unstyled: true },
   },
   fullname: {
     isActive: false,
@@ -27,21 +28,21 @@ export const TABLE_INITIAL_CONFIG: HomeTableMetadata = {
     header: "current price",
     sorting: "NO",
     category: "price",
-    custom: { prefix: "$" },
+    custom: { prefix: "$", unstyled: true },
   },
   lowPrice24H: {
     isActive: false,
     header: "low price 24h",
     sorting: "NO",
     category: "price",
-    custom: { prefix: "$" },
+    custom: { prefix: "$", unstyled: true },
   },
   highPrice24H: {
     isActive: false,
     header: "high price 24h",
     sorting: "NO",
     category: "price",
-    custom: { prefix: "$" },
+    custom: { prefix: "$", unstyled: true },
   },
   marketCap: {
     isActive: false,
@@ -103,14 +104,14 @@ export const TABLE_INITIAL_CONFIG: HomeTableMetadata = {
     header: "volume 24h",
     sorting: "NO",
     category: "volume",
-    custom: { prefix: "$" },
+    custom: { prefix: "$", unstyled: true },
   },
   volume7D: {
     isActive: false,
     header: "volume 7d",
     sorting: "NO",
     category: "volume",
-    custom: { prefix: "$" },
+    custom: { prefix: "$", unstyled: true },
     isBetaVersion: true,
   },
   volume30D: {
@@ -118,7 +119,7 @@ export const TABLE_INITIAL_CONFIG: HomeTableMetadata = {
     header: "volume 30d",
     sorting: "NO",
     category: "volume",
-    custom: { prefix: "$" },
+    custom: { prefix: "$", unstyled: true },
     isBetaVersion: true,
   },
 };

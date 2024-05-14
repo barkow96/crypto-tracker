@@ -1,18 +1,14 @@
-import {
-  exampleFormData,
-  initialSubmittedFormData,
-} from "@/constants/authForm";
+import { exampleFormData } from "@/constants/authForm";
 import { colors } from "@/constants/colors";
 import formDataReducer from "@/libs/authFormDataReducer";
 import { Button, Stack, Text } from "@chakra-ui/react";
-import { FormEvent, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import AuthInput from "./AuthInput";
-import { SubmittedAuthFormDataType } from "@/types/auth";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import authSubmitService from "./services/authSubmitService";
 
-type AuthModeType = "login" | "signup";
-type AuthMessageType = { isPositive: boolean; text: string } | null;
+export type AuthModeType = "login" | "signup";
+export type AuthMessageType = { isPositive: boolean; text: string } | null;
 
 export default function AuthForm() {
   const router = useRouter();
@@ -33,58 +29,10 @@ export default function AuthForm() {
     else setAuthMode("login");
   }
 
-  async function submitHandler(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const submittedFormData: SubmittedAuthFormDataType =
-      initialSubmittedFormData;
-    for (const key in formData)
-      submittedFormData.data[key] = formData[key].value;
-
-    switch (authMode) {
-      case "signup":
-        const signupResponse = await fetch("/api/strapi/auth/signup", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(submittedFormData),
-        });
-
-        if (signupResponse.ok) {
-          setAuthMessage({
-            isPositive: true,
-            text: "Successfully created an account!",
-          });
-        } else {
-          const signupData = await signupResponse.json();
-          setAuthMessage({ isPositive: false, text: signupData.message });
-        }
-        break;
-      case "login":
-        const loginResponse = await signIn("credentials", {
-          redirect: false,
-          email: submittedFormData.data.email,
-          password: submittedFormData.data.password1,
-        });
-
-        if (loginResponse && loginResponse.ok) {
-          router.replace("/");
-          setAuthMessage({ isPositive: true, text: "Succesfully logged in" });
-        } else
-          setAuthMessage({
-            isPositive: false,
-            text:
-              loginResponse && loginResponse.error
-                ? loginResponse.error
-                : "Something went wrong",
-          });
-        break;
-    }
-  }
-
   return (
     <form
       onSubmit={(event) => {
-        submitHandler(event);
+        authSubmitService(event, router, formData, authMode, setAuthMessage);
       }}
     >
       <Stack
@@ -121,16 +69,18 @@ export default function AuthForm() {
         )}
         <Button
           type="submit"
-          colorScheme="blue"
+          isDisabled={!formIsValid}
+          color={colors.darkbluish[200]}
+          bg={colors.darkbluish[700]}
+          _hover={{ backgroundColor: colors.darkbluish[800] }}
           size="lg"
           fontSize="md"
-          isDisabled={!formIsValid}
         >
           {authMode === "login" ? "Log in" : "Sign up"}
         </Button>
         <Text
           as="p"
-          color={colors.gray}
+          color={colors.darkbluish[800]}
           fontWeight="bold"
           cursor="pointer"
           onClick={toggleHandler}
@@ -142,7 +92,11 @@ export default function AuthForm() {
         {authMessage && (
           <Text
             as="p"
-            color={authMessage.isPositive ? colors.green : colors.red}
+            color={
+              authMessage.isPositive
+                ? colors.greenish[600]
+                : colors.reddish[600]
+            }
             fontWeight="bold"
           >
             {authMessage.text}

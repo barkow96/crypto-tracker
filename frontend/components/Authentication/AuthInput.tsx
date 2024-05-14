@@ -43,7 +43,7 @@ const AuthInput: React.FC<AuthInputType> = ({
         }}
       />
       {inputData.isTouched && !inputData.isValid && (
-        <Text color={colors.red} fontWeight="bold">
+        <Text color={colors.reddish[900]} fontWeight="bold">
           {inputData.validationMessage}
         </Text>
       )}

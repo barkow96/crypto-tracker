@@ -51,8 +51,28 @@ const addTransactionService: AddTransactionService = async (
         const updatedCoins = portfolioCoins.map((coin) => {
           if (coin.symbol !== coinName) return coin;
 
+          //CALCULATE NEW VALUES OF QUANTITY AND AVGBUYPRICE
+          let newQuantity, newAvgBuyPrice: number;
+          if (responseData.data.createdTransaction.type === "BUY") {
+            newQuantity =
+              coin.quantity + responseData.data.createdTransaction.quantity;
+            newAvgBuyPrice =
+              (coin.quantity * coin.avgBuyPrice +
+                responseData.data.createdTransaction.quantity *
+                  responseData.data.createdTransaction.price) /
+              newQuantity;
+          } else {
+            newQuantity =
+              coin.quantity - responseData.data.createdTransaction.quantity;
+            newAvgBuyPrice = coin.avgBuyPrice;
+          }
+          if (newQuantity < 0) newQuantity = 0;
+
           return {
-            ...coin,
+            id: coin.id,
+            symbol: coin.symbol,
+            quantity: newQuantity,
+            avgBuyPrice: newAvgBuyPrice,
             portfolio_transactions: [
               ...coin.portfolio_transactions,
               responseData.data.createdTransaction,

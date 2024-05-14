@@ -4,6 +4,6 @@ import { fetchUserPortfolios } from "./fetchUserPortfolios";
 export default factories.createCoreService(
   "api::portfolio.portfolio",
   ({ strapi }) => ({
-    fetchUserPortfolios: async (userId) => fetchUserPortfolios(userId),
+    fetchUserPortfolios: async (userId) => await fetchUserPortfolios(userId),
   })
 );

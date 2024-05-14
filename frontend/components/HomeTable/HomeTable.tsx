@@ -3,23 +3,18 @@ import HomeTableSettings from "./HomeTableSettings";
 import HomeTableItem from "./HomeTableItem";
 import { useEffect, useState } from "react";
 import { useFilteredCoins } from "@/hooks/home-table/useFilteredCoins";
-import { PAGINATION_INITIAL_PAGE, ROWS_NUMBER } from "@/constants/constants";
+import { constants } from "@/constants/constants";
 import Pagination from "./Pagination";
-import { TABLE_INITIAL_CONFIG } from "@/constants/table";
+import { TABLE_INITIAL_CONFIG } from "@/constants/homeTable";
 import searchCoinService from "./homeTableServices/searchCoinService";
 import selectRowsService from "./homeTableServices/selectRowsService";
 import { usePages } from "@/hooks/home-table/usePages";
 import { SearchedCoin } from "@/types/home-table/table";
 import HomeTableHeaders from "./HomeTableHeaders";
 import applySortingService from "./homeTableServices/applySortingService";
-import { HomeTableItemdata } from "@/types/home-table/item";
+import { HomeTableItems } from "@/types/home-table/item";
 
-type HomeTableProps = {
-  data: HomeTableItemdata[];
-  metaData: { dataParts: number };
-};
-
-const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
+const HomeTable: React.FC<HomeTableItems> = ({ data, metaData }) => {
   const [coins, setCoins] = useState(data);
   const [searchedCoin, setSearchedCoin] = useState<SearchedCoin>(null);
   const { filteredCoins, setFilteredCoins } = useFilteredCoins(
@@ -27,9 +22,11 @@ const HomeTable: React.FC<HomeTableProps> = ({ data, metaData }) => {
     searchedCoin
   );
   const [tableMetadata, setTableMetadata] = useState(TABLE_INITIAL_CONFIG);
-  const [rowsQuantity, setRowsQuantity] = useState(ROWS_NUMBER.MAX);
+  const [rowsQuantity, setRowsQuantity] = useState(
+    constants.homePage.ROWS_NUMBER.MAX
+  );
   const { currentPage, setCurrentPage } = usePages(
-    PAGINATION_INITIAL_PAGE,
+    constants.homePage.PAGINATION_INITIAL_PAGE,
     Math.ceil(filteredCoins.length / rowsQuantity)
   );
 

@@ -2,15 +2,25 @@ import { Box, Flex, HStack, Input, Text } from "@chakra-ui/react";
 import { Icon, EditIcon, CheckIcon } from "@chakra-ui/icons";
 import {
   ChakraIcon,
-  PortfolioProps,
+  Portfolio,
 } from "@/types/portfolio-panel/choose-portfolio-panel";
 import { colors } from "@/constants/colors";
 import { useEffect, useRef, useState } from "react";
-import { PORTFOLIO_FOCUS_DELAY, PORTFOLIO_ICONS } from "@/constants/portfolio";
+import { PORTFOLIO_ICONS } from "@/constants/portfolio";
 import CustomDropdown from "@/components/_ChakraUI/CustomDropdown";
 import { useSession } from "next-auth/react";
+import { constants } from "@/constants/constants";
+import { SelectPortfolioService } from "./services/selectPortfolioService";
+import { EditPortfolioService } from "./services/editPortfolioService";
 
-const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
+type ChoosePortfolioPanelItemProps = {
+  item: Portfolio;
+  setPortfolios: React.Dispatch<React.SetStateAction<Portfolio[] | undefined>>;
+  selectPortfolioHandler: SelectPortfolioService;
+  editPortfolioHandler: EditPortfolioService;
+};
+
+const ChoosePortfolioPanelItem: React.FC<ChoosePortfolioPanelItemProps> = ({
   item,
   setPortfolios,
   selectPortfolioHandler,
@@ -48,7 +58,7 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
       setIsEditting(true);
       setTimeout(() => {
         inputRef.current?.focus();
-      }, PORTFOLIO_FOCUS_DELAY);
+      }, constants.portfolioPage.PORTFOLIO_FOCUS_DELAY);
     }
   }
 
@@ -61,11 +71,11 @@ const ChoosePortfolioPanelItem: React.FC<PortfolioProps> = ({
       : undefined,
     boxSize: "25",
     cursor: "pointer",
-    color: colors.green,
+    color: colors.darkbluish[950],
   };
 
   const activePortfolioStyles = {
-    backgroundColor: colors.bright,
+    backgroundColor: colors.darkbluish[300],
     borderRadius: "5px",
   };
 
