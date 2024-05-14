@@ -10,17 +10,20 @@ export type HomeTableItemdata = {
   reference: string;
 };
 
-export type HomeTableItems = {
-  data: HomeTableItemdata[];
-  metaData?: {
-    ok: boolean;
-    dataParts?: number;
-    message?: string;
-    error?: string;
-  };
+type HomeTableItemsMetadata = {
+  ok: boolean;
+  dataParts?: number;
+  message?: string;
+  error?: string;
 };
 
-export type HomeViewProps = HomeTableItems & {
+export type HomeTableItems = {
+  data: HomeTableItemdata[];
+  metaData?: HomeTableItemsMetadata;
+};
+
+export type HomeViewProps = {
   data?: HomeTableItemdata[];
+  metaData?: HomeTableItemsMetadata;
   error?: string | null;
 };
