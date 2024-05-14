@@ -1,17 +1,24 @@
-import { initialFormData } from "@/constants/authForm";
+import {
+  exampleFormData,
+  initialSubmittedFormData,
+} from "@/constants/authForm";
 import { colors } from "@/constants/colors";
 import formDataReducer from "@/libs/formDataReducer";
 import { Button, Stack, Text } from "@chakra-ui/react";
 import { FormEvent, useReducer, useState } from "react";
 import AuthInput from "./AuthInput";
+import { SubmittedFormDataType } from "@/types/auth";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 type AuthModeType = "login" | "signup";
-type AuthErrorType = string | null;
+type AuthMessageType = { isPositive: boolean; text: string } | null;
 
 export default function AuthForm() {
-  const [formData, dispatch] = useReducer(formDataReducer, initialFormData);
+  const router = useRouter();
+  const [formData, dispatch] = useReducer(formDataReducer, exampleFormData);
   const [authMode, setAuthMode] = useState<AuthModeType>("login");
-  const [authError, setAuthError] = useState<AuthErrorType>(null);
+  const [authMessage, setAuthMessage] = useState<AuthMessageType>(null);
 
   const formIsValid =
     authMode === "login"
@@ -21,14 +28,56 @@ export default function AuthForm() {
         formData.password2.isValid;
 
   function toggleHandler() {
-    setAuthError(null);
+    setAuthMessage(null);
     if (authMode === "login") setAuthMode("signup");
     else setAuthMode("login");
   }
 
-  function submitHandler(event: FormEvent<HTMLFormElement>) {
+  async function submitHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("Form submitted!");
+
+    const submittedFormData: SubmittedFormDataType = initialSubmittedFormData;
+    for (const key in formData)
+      submittedFormData.data[key] = formData[key].value;
+
+    switch (authMode) {
+      case "signup":
+        const signupResponse = await fetch("/api/strapi/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(submittedFormData),
+        });
+
+        if (signupResponse.ok) {
+          setAuthMessage({
+            isPositive: true,
+            text: "Successfully created an account!",
+          });
+        } else {
+          const signupData = await signupResponse.json();
+          setAuthMessage({ isPositive: false, text: signupData.message });
+        }
+        break;
+      case "login":
+        const loginResponse = await signIn("credentials", {
+          redirect: false,
+          email: submittedFormData.data.email,
+          password: submittedFormData.data.password1,
+        });
+
+        if (loginResponse && loginResponse.ok) {
+          router.replace("/");
+          setAuthMessage({ isPositive: true, text: "Succesfully logged in" });
+        } else
+          setAuthMessage({
+            isPositive: false,
+            text:
+              loginResponse && loginResponse.error
+                ? loginResponse.error
+                : "Something went wrong",
+          });
+        break;
+    }
   }
 
   return (
@@ -89,9 +138,13 @@ export default function AuthForm() {
             ? "No account yet? Sign up!"
             : "Already registered? Log in!"}
         </Text>
-        {authError && (
-          <Text as="p" color={colors.red} fontWeight="bold">
-            {authError}
+        {authMessage && (
+          <Text
+            as="p"
+            color={authMessage.isPositive ? colors.green : colors.red}
+            fontWeight="bold"
+          >
+            {authMessage.text}
           </Text>
         )}
       </Stack>

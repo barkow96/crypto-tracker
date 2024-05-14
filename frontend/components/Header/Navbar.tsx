@@ -11,10 +11,10 @@ const Navbar: React.FC = () => {
     borderRight: `2px solid ${colors.dark}`,
   };
   const links = [
-    { href: "/auth", description: "login/signup" },
-    { href: "/portfolio", description: "portfolio" },
-    { href: "/watchlist", description: "watchlist" },
-    { href: "/tools", description: "tools" },
+    { href: "/auth", description: "login/signup", onlyForLoggedIn: false },
+    { href: "/portfolio", description: "portfolio", onlyForLoggedIn: true },
+    { href: "/watchlist", description: "watchlist", onlyForLoggedIn: true },
+    { href: "/tools", description: "tools", onlyForLoggedIn: false },
   ];
 
   return (

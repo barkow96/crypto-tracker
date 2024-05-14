@@ -1,10 +1,21 @@
-import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { NavbarLinksProps } from "@/types/navbar";
 import Link from "next/link";
 import { colors } from "@/constants/colors";
+import { signOut, useSession } from "next-auth/react";
 
 const NavbarLinksSmall: React.FC<NavbarLinksProps> = ({ links }) => {
+  const { data: sessionData, status: sessionStatus } = useSession();
+  const isSessionAvailable = sessionData ? true : false;
+
+  const filteredLinks = links.filter((link) => {
+    if (isSessionAvailable && link.onlyForLoggedIn) return true;
+    else if (isSessionAvailable && !link.onlyForLoggedIn) return false;
+    else if (!isSessionAvailable && link.onlyForLoggedIn) return false;
+    else if (!isSessionAvailable && !link.onlyForLoggedIn) return true;
+  });
+
   return (
     <Menu>
       <MenuButton
@@ -20,11 +31,21 @@ const NavbarLinksSmall: React.FC<NavbarLinksProps> = ({ links }) => {
         <HamburgerIcon />
       </MenuButton>
       <MenuList>
-        {links.map((link, index) => (
+        {filteredLinks.map((link, index) => (
           <MenuItem key={index}>
             <Link href={link.href}>{link.description}</Link>
           </MenuItem>
         ))}
+        {sessionData && (
+          <MenuItem
+            color={colors.red}
+            onClick={() => {
+              signOut({ callbackUrl: "/", redirect: true });
+            }}
+          >
+            log out
+          </MenuItem>
+        )}
       </MenuList>
     </Menu>
   );

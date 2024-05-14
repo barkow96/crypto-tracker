@@ -1,2 +1,6 @@
-export type LinkType = { href: string; description: string };
+export type LinkType = {
+  href: string;
+  description: string;
+  onlyForLoggedIn: boolean;
+};
 export type NavbarLinksProps = { links: LinkType[] };

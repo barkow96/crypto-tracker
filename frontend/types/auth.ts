@@ -8,9 +8,19 @@ export type InputType = {
 };
 
 export type FormDataType = {
+  [key: string]: InputType;
   email: InputType;
   password1: InputType;
   password2: InputType;
+};
+
+export type SubmittedFormDataType = {
+  data: {
+    [key: string]: string;
+    email: string;
+    password1: string;
+    password2: string;
+  };
 };
 
 export type ActionType =

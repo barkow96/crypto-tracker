@@ -14,7 +14,6 @@ export default function formDataReducer(
 
   switch (selectedAction) {
     case "UPDATE":
-      console.log("UPDATE");
       const newValue = action.payload;
       return {
         ...state,
@@ -26,7 +25,6 @@ export default function formDataReducer(
         },
       };
     case "VALIDATE":
-      console.log("VALIDATE");
       const checkedValue = state[selectedProperty].value;
       let validation = { test: false, message: "" };
 
