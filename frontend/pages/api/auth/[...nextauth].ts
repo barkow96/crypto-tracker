@@ -10,7 +10,7 @@ interface WebsiteUser extends User {
 }
 
 export default NextAuth({
-  session: { strategy: "jwt", maxAge: 3 },
+  session: { strategy: "jwt", maxAge: 10 * 60 },
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({

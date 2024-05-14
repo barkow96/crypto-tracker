@@ -3,12 +3,12 @@ import {
   initialSubmittedFormData,
 } from "@/constants/authForm";
 import { colors } from "@/constants/colors";
-import formDataReducer from "@/libs/formDataReducer";
+import formDataReducer from "@/libs/authFormDataReducer";
 import { Button, Stack, Text } from "@chakra-ui/react";
 import { FormEvent, useReducer, useState } from "react";
 import AuthInput from "./AuthInput";
-import { SubmittedFormDataType } from "@/types/auth";
-import { signIn, useSession } from "next-auth/react";
+import { SubmittedAuthFormDataType } from "@/types/auth";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
 type AuthModeType = "login" | "signup";
@@ -36,7 +36,8 @@ export default function AuthForm() {
   async function submitHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const submittedFormData: SubmittedFormDataType = initialSubmittedFormData;
+    const submittedFormData: SubmittedAuthFormDataType =
+      initialSubmittedFormData;
     for (const key in formData)
       submittedFormData.data[key] = formData[key].value;
 

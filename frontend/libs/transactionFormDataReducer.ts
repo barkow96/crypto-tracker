@@ -1,13 +1,16 @@
 import {
-  checkIfEmailCorrect,
-  checkIfPasswordCorrect,
-  checkIfPasswordsMatch,
+  TransactionActionType,
+  TransactionFormDataType,
+} from "@/types/portfolio-panel/portfolio-table";
+import {
+  checkIfLettersAndDigitsOnly,
+  checkIfPositiveNumber,
+  checkIfTransactionTypeAllowed,
 } from "./validation";
-import { FormDataType, ActionType } from "@/types/auth";
 
-export default function formDataReducer(
-  state: FormDataType,
-  action: ActionType
+export default function transactionFormDataReducer(
+  state: TransactionFormDataType,
+  action: TransactionActionType
 ) {
   const selectedProperty = action.property;
   const selectedAction = action.task;
@@ -28,15 +31,14 @@ export default function formDataReducer(
       const checkedValue = state[selectedProperty].value;
       let validation = { test: false, message: "" };
 
-      if (selectedProperty === "email")
-        validation = checkIfEmailCorrect(checkedValue);
-      else if (selectedProperty === "password1")
-        validation = checkIfPasswordCorrect(checkedValue);
-      else if (selectedProperty === "password2")
-        validation = checkIfPasswordsMatch(
-          state.password1.value,
-          state.password2.value
-        );
+      if (selectedProperty === "coinName")
+        validation = checkIfLettersAndDigitsOnly(checkedValue);
+      else if (selectedProperty === "type") {
+        validation = checkIfTransactionTypeAllowed(checkedValue);
+      } else if (selectedProperty === "date")
+        validation = { test: true, message: "" };
+      else if (selectedProperty === "price" || selectedProperty === "quantity")
+        validation = checkIfPositiveNumber(checkedValue);
 
       return {
         ...state,

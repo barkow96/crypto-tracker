@@ -4,6 +4,7 @@ import { NavbarLinksProps } from "@/types/navbar";
 import Link from "next/link";
 import { colors } from "@/constants/colors";
 import { signOut, useSession } from "next-auth/react";
+import CustomMenuButton from "../_ChakraUI/CustomMenuButton";
 
 const NavbarLinksSmall: React.FC<NavbarLinksProps> = ({ links }) => {
   const { data: sessionData, status: sessionStatus } = useSession();
@@ -18,18 +19,16 @@ const NavbarLinksSmall: React.FC<NavbarLinksProps> = ({ links }) => {
 
   return (
     <Menu>
-      <MenuButton
-        px={4}
-        py={2}
-        transition="all 0.2s"
-        borderRadius="md"
-        borderWidth="2px"
-        _hover={{ bg: colors.bright }}
-        _expanded={{ bg: colors.red }}
-        _focus={{ outline: 0, boxShadow: "outline" }}
+      <CustomMenuButton
+        paddingX={4}
+        paddingY={2}
+        isBorderUsed
+        isExpandedUsed
+        isFocusUsed
+        isHoverUsed
       >
         <HamburgerIcon />
-      </MenuButton>
+      </CustomMenuButton>
       <MenuList>
         {filteredLinks.map((link, index) => (
           <MenuItem key={index}>

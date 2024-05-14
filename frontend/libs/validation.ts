@@ -23,3 +23,25 @@ export const checkIfPasswordsMatch = (text1: string, text2: string) => {
       : message;
   return { test, message };
 };
+
+export const checkIfLettersAndDigitsOnly = (text: string) => {
+  const test = /^[a-zA-Z0-9]*$/.test(text) && text.length > 0;
+  let message = test ? "" : "Field can contain only letters and digits!.";
+  message = text.trim().length === 0 ? emptyMessage : message;
+  return { test, message };
+};
+
+export const checkIfTransactionTypeAllowed = (text: string) => {
+  const test = text === "BUY" || text === "SELL" ? true : false;
+  let message = test ? "" : "Allowed transaction types are BUY and SELL!";
+  message = text.trim().length === 0 ? emptyMessage : message;
+  return { test, message };
+};
+
+export const checkIfPositiveNumber = (text: string) => {
+  const test =
+    !isNaN(parseFloat(text)) && !isNaN(parseInt(text)) && parseFloat(text) > 0;
+  let message = test ? "" : "This is not correct number provided!";
+  message = text.trim().length === 0 ? emptyMessage : message;
+  return { test, message };
+};
